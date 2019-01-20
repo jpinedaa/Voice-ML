@@ -21,7 +21,7 @@ x = GlobalAveragePooling2D()(x)
 # let's add a fully-connected layer
 x = Dense(1024, activation='relu')(x)
 
-predictions = Dense(5, activation='softmax')(x)
+predictions = Dense(6, activation='softmax')(x)
 
 # this is the model we will train
 
@@ -48,7 +48,7 @@ le = preprocessing.LabelEncoder()
 le.fit(labels)
 labels = le.transform(labels)
 #print(labels.shape)
-labels = to_categorical(labels, 5)
+labels = to_categorical(labels, 6)
 #print(labels.shape)
 
 x_train, x_test, y_train, y_test = train_test_split(data, labels, test_size= 0.20)

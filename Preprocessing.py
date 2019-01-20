@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import os
 import time
 
-rootdir = "D:/documents/audio dataset/vox1_dev_wav/wav"
+rootdir = "/workspace/audio dataset/wav"
 
 curr_id = "first"
 
@@ -18,17 +18,18 @@ first_count = 0
 count =0
 start_time = 0
 elapsed_time = 0
-no_samples = 500
+#no_samples = 500
 for subdir, dirs, files in os.walk(rootdir):
-    if no_samples < 1:
-        break
+    print(subdir)
+ #   if no_samples < 1:
+ #       break
     if first_count == 0:
         first_count = dirs.__len__()
-    if subdir.__len__() > 44:
-        if subdir.__len__() < 52:
+    if subdir.__len__() > 29:
+        if subdir.__len__() < 38:
             if count!=0:
                 elapsed_time = time.time() - start_time
-            curr_id = subdir[44:52]
+            curr_id = subdir[29:38]
            # print(curr_id)
             count = count + 1
             start_time = time.time()
@@ -61,7 +62,7 @@ for subdir, dirs, files in os.walk(rootdir):
                 myfile.write(curr_id + "\n")
             with open("data.txt", "a") as myfile:
                 np.savetxt(myfile, pad, delimiter=',', newline="\n")
-        no_samples = no_samples - 1
+  #      no_samples = no_samples - 1
     if elapsed_time != 0:
         mins = int((elapsed_time * (first_count - count)) / 60)
         print("\rTotal Progress: ", int((count/first_count)*100), "% ------- estimated time left: ", int(mins/60) , "hours ", (mins%60), "mins ")
