@@ -21,15 +21,15 @@ batch_size = 5000
 batch_ptr = batch_size
 counter = 1
 
-filename = filename + str(counter) 
-filename2 = filename2 + str(counter) 
+filename = filename[:-4] + str(counter) + filename[-4:] 
+filename2 = filename2[:-4] + str(counter) + filename2[-4:] 
 for subdir, dirs, files in os.walk(rootdir):
     print(subdir)
     if batch_ptr < 1:
-		batch_ptr=batch_size
-		counter = counter + 1
-		filename = filename[len(str(counter-1))] + str(counter) 
-		filename2 = filename2[len(str(counter-1))] + str(counter) 	
+        batch_ptr=batch_size
+        counter = counter + 1
+        filename = filename[:-4-len(str(counter-1))] + str(counter) + filename[-4:] 
+        filename2 = filename2[:-4-len(str(counter-1))] + str(counter) + filename2[-4:] 
     if first_count == 0:
         first_count = dirs.__len__()
     if subdir.__len__() > 29:
