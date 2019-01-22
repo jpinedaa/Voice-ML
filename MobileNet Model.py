@@ -34,37 +34,36 @@ from tensorflow.keras.optimizers import SGD
 model.compile(optimizer=SGD(lr=0.0001, momentum=0.9), loss='categorical_crossentropy',metrics=['accuracy'])
 
 
-filename = "data.txt"
-filename2 = "labels.txt"
+filename = "data1.txt"
+filename2 = "labels1.txt"
 counter = 1
 le = preprocessing.LabelEncoder()
 
 while 1:
-	filename = filename[:-4-len(str(counter-1))] + str(counter) + filename[-4:] 
-	filename2 = filename2[:-4-len(str(counter-1))] + str(counter) + filename2[-4:] 
-	counter = counter + 1
-	if os.path.isfile(filename) == False:
-		break
-	print("loading data")
-	with open(filename, "r") as file:
-		data = LoadData(file)
-	with open(filename2, 'r') as file:
-		labels = np.genfromtxt(file,dtype="string_")
-	print("encoding labels")
-	le.fit(labels)
-	labels = le.transform(labels)
-	#print(labels.shape)
-	print("Num of Speakers: ", le.get_params().size)
-	print("converting labels to categorical matrix")
-	labels = to_categorical(labels, 1251)
+    filename = filename[:-4-len(str(counter-1))] + str(counter) + filename[-4:] 
+    filename2 = filename2[:-4-len(str(counter-1))] + str(counter) + filename2[-4:] 
+    counter = counter + 1
+    if os.path.isfile(filename) == False or counter>25:
+        break
+    print("loading data")
+    with open(filename, "r") as file:
+        data = LoadData(file)
+    with open(filename2, 'r') as file:
+        labels = np.genfromtxt(file,dtype="string_")
+    print("encoding labels")
+    le.fit(labels)
+    labels = le.transform(labels)
+    #print(labels.shape)
+    print("converting labels to categorical matrix")
+    labels = to_categorical(labels, 1251)
 	
-	x_train, x_test, y_train, y_test = train_test_split(data, labels, test_size= 0.20)
+    x_train, x_test, y_train, y_test = train_test_split(data, labels, test_size= 0.05)
 
-	model.fit(x_train,y_train,verbose=1, epochs= 30)
+    model.fit(x_train,y_train,verbose=1, epochs= 30)
 
-	model.save('MobileNet1')
+    model.save('MobileNet1')
 
-	print(model.evaluate(x_test, y_test, verbose=1))
+    print(model.evaluate(x_test, y_test, verbose=1))
 
 """	
 print("loading data")
