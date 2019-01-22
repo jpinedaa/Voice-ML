@@ -10,7 +10,7 @@ from sklearn.model_selection import train_test_split
 import os
 
 
-model = keras.models.load_model("MobileNet1")
+model = tf.contrib.saved_model.load_keras_model("MobileNet1")
 model.summary
 
 filename = "data1.txt"

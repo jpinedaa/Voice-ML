@@ -61,7 +61,7 @@ while 1:
 
     model.fit(x_train,y_train,verbose=1, epochs= 30)
 
-    model.save('MobileNet1')
+    tf.contrib.saved_model(model,  'Saved_Model')
 
     print(model.evaluate(x_test, y_test, verbose=1))
 
