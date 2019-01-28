@@ -3,6 +3,7 @@ from tensorflow.keras.applications.mobilenet import MobileNet
 from tensorflow.keras.models import Model, save_model
 from tensorflow.keras.layers import Dense, GlobalAveragePooling2D, Input, Conv2D, Concatenate
 from tensorflow.keras.utils import to_categorical
+from tensorflow.contrib import saved_model
 from LoadData import LoadData
 import numpy as np
 from sklearn import preprocessing
@@ -33,6 +34,7 @@ model = Model(inputs=input, outputs=predictions)
 from tensorflow.keras.optimizers import SGD
 model.compile(optimizer=SGD(lr=0.0001, momentum=0.9), loss='categorical_crossentropy',metrics=['accuracy'])
 
+saved_model.save_keras_model(model,  'Saved_Model')
 
 filename = "data1.txt"
 filename2 = "labels1.txt"
@@ -61,7 +63,7 @@ while 1:
 
     model.fit(x_train,y_train,verbose=1, epochs= 30)
 
-    tf.contrib.saved_model(model,  'Saved_Model')
+    saved_model.save_keras_model(model,  'Saved_Model')
 
     print(model.evaluate(x_test, y_test, verbose=1))
 
