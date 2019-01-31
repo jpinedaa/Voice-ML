@@ -11,12 +11,15 @@ from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
 import os
 
+dir = "Saved_Model/"
+checkpoints = [m for m in os.listdir(dir)]
+checkpoints = [int(x) for x in checkpoints]
+checkpoints.sort()
+checkpoints = [str(x) for x in checkpoints]
 
-
-model = saved_model.load_keras_model("Saved_Model/1548198624")
+model = saved_model.load_keras_model(dir + checkpoints[-1])
 model.summary
 model.compile(optimizer=SGD(lr=0.0001, momentum=0.9), loss= 'categorical_crossentropy', metrics=['accuracy'])
-
 
 filename = "data0.txt"
 filename2 = "labels0.txt"
