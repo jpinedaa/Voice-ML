@@ -3,7 +3,7 @@ from tensorflow.keras.applications.mobilenet import MobileNet
 from tensorflow.keras.models import Model, save_model, load_model
 from tensorflow.contrib import saved_model
 from tensorflow.keras.layers import Dense, GlobalAveragePooling2D, Input, Conv2D, Concatenate
-from tensorflow.keras.utils import to_categorical, training_utils
+from tensorflow.keras.utils import to_categorical, multi_gpu_model
 from tensorflow.keras.optimizers import SGD
 from tensorflow.keras.callbacks import LearningRateScheduler
 from LoadData import LoadData
@@ -16,19 +16,19 @@ import argparse
 
 
 ap = argparse.ArgumentParser()
-ap.add_argument('g', '--gpus', type=int, default=1, help= '# of GPUs to use for training')
+ap.add_argument('-g', '--gpus', type=int, default=1, help= '# of GPUs to use for training')
 args = vars(ap.parse_args())
 G = args["gpus"]
 
 NUM_EPOCHS = 200
-INIT_LR= 0.0001
+INIT_LR= 0.001
 
 def poly_decay(epoch):
     maxEpochs = NUM_EPOCHS
-	baseLR = INIT_LR
-	power = 1.0
-	alpha = baseLR * (1 - (epoch/float(maxEpochs)))**power
-	return alpha
+    baseLR = INIT_LR
+    power = 1.0
+    alpha = baseLR * (1 - (epoch/float(maxEpochs)))**power
+    return alpha
 
 	
 print("[INFO] Searching Latest checkpoint... ")
@@ -43,9 +43,9 @@ if G<= 1:
     model = saved_model.load_keras_model(dir + "1548336946")
 else:
     print("[INFO] training with {} GPUs...".format(G))
-	with tf.device("/cpu:0"):
-	    model = saved_model.load_keras_model(dir + "1548336946")
-	model = training_utils.multi_gpu_model(model, gpus=G)
+    with tf.device("/cpu:0"):
+        model = saved_model.load_keras_model(dir + "1548336946")
+    model = multi_gpu_model(model, gpus=G)
 	
 print("[INFO] compiling model...")
 model.compile(optimizer=SGD(lr=INIT_LR, momentum=0.9), loss= 'categorical_crossentropy', metrics=['accuracy'])
@@ -68,53 +68,53 @@ while 1:
         data = LoadData(file)
     with open(filename2, 'r') as file:
         labels = np.genfromtxt(file,dtype="string_")
-    print("encoding labels")
+ 
     le.fit(labels)
     labels = le.transform(labels)
     #print(labels.shape)
-    print("converting labels to categorical matrix")
+   
     labels = to_categorical(labels, 1251)
 	
-	callbacks = [LearningRateScheduler(poly_decay)]
+    callbacks = [LearningRateScheduler(poly_decay)]
 	
     x_train, x_test, y_train, y_test = train_test_split(data, labels, test_size= 0.10)
 
-	print["[INFO] Training starting ..."]
+    print("[INFO] Training starting ...")
     H = model.fit(x_train,y_train,verbose=2, epochs= NUM_EPOCHS, callbacks= callbacks)
-	H = H.history
+    H = H.history
 	
-	print["[INFO] Plotting training loss and accuracy ..."]
-	N= np.arange(0, len(H["loss"]))
-	plt.style.use('ggplot')
-	plt.figure()
-	plt.plot(N, H['loss'], label= 'train_loss')
-	plt.plot(N, H['acc'], label= 'train_acc')
-	plt.title("Training Graph")
-	plt.xlabel('Epoch #')
-	plt.ylabel('Loss/Accuracy')
-	plt.legendd()
-	plt.savefig(graph_dir + "training " + str(counter))
+    print("[INFO] Plotting training loss and accuracy ...")
+    N= np.arange(0, len(H["loss"]))
+    plt.style.use('ggplot')
+    plt.figure()
+    plt.plot(N, H['loss'], label= 'train_loss')
+    plt.plot(N, H['acc'], label= 'train_acc')
+    plt.title("Training Graph")
+    plt.xlabel('Epoch #')
+    plt.ylabel('Loss/Accuracy')
+    plt.legend()
+    plt.savefig(graph_dir + "training" + str(counter))
 	
-	print["[INFO] Saving Model ..."]
+    print("[INFO] Saving Model ...")
     saved_model.save_keras_model(model,"Saved_Model_2")
 
-	print["[INFO] Testing Model ..."]
+    print("[INFO] Testing Model ...")
     H = model.evaluate(x_test, y_test, verbose=1)
-	H = H.history
+    H = H.history
 	
-	print["[INFO] Plotting testing loss and accuracy ..."]
-	N= np.arange(0, len(H["loss"]))
-	plt.style.use('ggplot')
-	plt.figure()
-	plt.plot(N, H['loss'], label= 'test_loss')
-	plt.plot(N, H['acc'], label= 'test_acc')
-	plt.title("Testing Graph")
-	plt.xlabel('Epoch #')
-	plt.ylabel('Loss/Accuracy')
-	plt.legendd()
-	plt.savefig(graph_dir + "testing " + str(counter))
+    print("[INFO] Plotting testing loss and accuracy ...")
+    N= np.arange(0, len(H["loss"]))
+    plt.style.use('ggplot')
+    plt.figure()
+    plt.plot(N, H['loss'], label= 'test_loss')
+    plt.plot(N, H['acc'], label= 'test_acc')
+    plt.title("Testing Graph")
+    plt.xlabel('Epoch #')
+    plt.ylabel('Loss/Accuracy')
+    plt.legend()
+    plt.savefig(graph_dir + "testing" + str(counter))
 	
-	counter = counter + 1
+    counter = counter + 1
 	
 	
 	
