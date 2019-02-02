@@ -20,8 +20,9 @@ args = vars(ap.parse_args())
 G = args["gpus"]
 
 NUM_EPOCHS = 100
-INIT_LR= 0.001
+INIT_LR= 0.1
 logfile = "evaluation_log_2.txt"
+graph_dir = "Graphs/"
 
 # create the base pre-trained model
 if G<= 1:
@@ -29,22 +30,22 @@ if G<= 1:
     input= Input(shape=(201,300,1))
     in_conc = Concatenate()([input,input,input])
     base_model = MobileNet(weights='imagenet',input_tensor=in_conc ,include_top=False)
-	x = base_model.output
+    x = base_model.output
     x = GlobalAveragePooling2D()(x)
-	x = Dense(1024, activation='relu')(x)
+    x = Dense(1024, activation='relu')(x)
     predictions = Dense(1251, activation='softmax')(x)
-	model = Model(inputs=input, outputs=predictions)
+    model = Model(inputs=input, outputs=predictions)
 else:
     print("[INFO] training with {} GPUs...".format(G))
     with tf.device("/cpu:0"):
         input= Input(shape=(201,300,1))
         in_conc = Concatenate()([input,input,input])
         base_model = MobileNet(weights='imagenet',input_tensor=in_conc ,include_top=False)
-	    x = base_model.output
+        x = base_model.output
         x = GlobalAveragePooling2D()(x)
-	    x = Dense(1024, activation='relu')(x)
+        x = Dense(1024, activation='relu')(x)
         predictions = Dense(1251, activation='softmax')(x)
-	    model = Model(inputs=input, outputs=predictions)
+        model = Model(inputs=input, outputs=predictions)
     model = multi_gpu_model(model, gpus=G)
 
 # we need to recompile the model for these modifications to take effect
@@ -78,7 +79,7 @@ while 1:
     x_train, x_test, y_train, y_test = train_test_split(data, labels, test_size= 0.10)
 
     print("[INFO] Training starting ...")
-    H = model.fit(x_train,y_train,verbose=1, epochs= NUM_EPOCHS, callbacks= callbacks)
+    H = model.fit(x_train,y_train,verbose=1, epochs= NUM_EPOCHS)
     H = H.history
 	
     print("[INFO] Plotting training loss and accuracy ...")
@@ -100,7 +101,7 @@ while 1:
     R = model.evaluate(x_test, y_test, verbose=1)
     H = R.history
 	
-	with open(logfile, 'a') as myfile:
+    with open(logfile, 'a') as myfile:
         myfile.write("batch number: " + str(counter) + '\n')
         resultstr = ' '.join(str(x) for x in R)
         myfile.write(resultstr + '\n')
