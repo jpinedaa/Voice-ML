@@ -20,18 +20,19 @@ ap.add_argument('-g', '--gpus', type=int, default=1, help= '# of GPUs to use for
 args = vars(ap.parse_args())
 G = args["gpus"]
 
-NUM_EPOCHS = 5
-INIT_LR= 0.1
+NUM_EPOCHS = 100
+INIT_LR= 0.001
 alpha = 2
+batch_size = 64
 logfile = "evaluation_log_2.txt"
-graph_dir = "Graphs/alpha2/"
+graph_dir = "Graphs/minibatches64/"
 
 # create the base pre-trained model
 if G<= 1:
     print("[INFO] training with 1 GPU...")
     input= Input(shape=(201,300,1))
     in_conc = Concatenate()([input,input,input])
-    base_model = MobileNetV2(weights='imagenet',input_tensor=in_conc ,include_top=False, alpha= alpha)
+    base_model = MobileNet(weights='imagenet',input_tensor=in_conc ,include_top=False, alpha= alpha)
     x = base_model.output
     x = GlobalAveragePooling2D()(x)
     x = Dense(1024, activation='relu')(x)
@@ -75,35 +76,43 @@ while 1:
     labels = le.transform(labels)
     #print(labels.shape)
     labels = to_categorical(labels, 1251)
-	
-    x_train, x_test, y_train, y_test = train_test_split(data, labels, test_size= 0.10)
 
-    print("[INFO] Training starting ...")
-    H = model.fit(x_train,y_train,verbose=1, epochs= NUM_EPOCHS)
-    H = H.history
+    counter2 = 0
+    x_train, x_test, y_train, y_test = train_test_split(data, labels, test_size=0.10)
+    n_samples = len(y_train)
+    b_batch_size = -(-n_samples//-(-n_samples//batch_size))
+    for i in range(-(-n_samples//b_batch_size)):
+        batch_x = x_train[i*b_batch_size:(i+1)*b_batch_size]
+        print("batch shape: " + str(batch_x.shape))
+        batch_y = y_train[i*b_batch_size:(i+1)*b_batch_size]
+
+        print("[INFO] Training starting ...")
+        H = model.fit(batch_x,batch_y,verbose=1, epochs= NUM_EPOCHS)
+        H = H.history
 	
-    print("[INFO] Plotting training loss and accuracy ...")
-    N= np.arange(0, len(H["loss"]))
-    plt.style.use('ggplot')
-    plt.figure()
-    plt.plot(N, H['loss'], label= 'train_loss')
-    plt.plot(N, H['acc'], label= 'train_acc')
-    plt.title("Training Graph")
-    plt.xlabel('Epoch #')
-    plt.ylabel('Loss/Accuracy')
-    plt.legend()
-    plt.savefig(graph_dir + "training" + str(counter))
-	
+        print("[INFO] Plotting training loss and accuracy ...")
+        N= np.arange(0, len(H["loss"]))
+        plt.style.use('ggplot')
+        plt.figure()
+        plt.plot(N, H['loss'], label= 'train_loss')
+        plt.plot(N, H['acc'], label= 'train_acc')
+        plt.title("Training Graph")
+        plt.xlabel('Epoch #')
+        plt.ylabel('Loss/Accuracy')
+        plt.legend()
+        plt.savefig(graph_dir + "training" + str(counter2) + "_" + str(counter))
+
+        counter2 = counter2 + 1
+
     print("[INFO] Saving Model ...")
-    saved_model.save_keras_model(model,"Saved_Model_2")
+    saved_model.save_keras_model(model, "Saved_Model_3")
 
     print("[INFO] Testing Model ...")
     H = model.evaluate(x_test, y_test, verbose=1)
-	
+
     with open(logfile, 'a') as myfile:
-        myfile.write("batch number: " + str(counter) + '\n')     
-        myfile.write("loss: "+str(H[0]) + "accuracy: " + str(H[1])  + '\n')
-    
+        myfile.write("batch number: " + str(counter) + '\n')
+        myfile.write("loss: " + str(H[0]) + "accuracy: " + str(H[1]) + '\n')
     counter = counter + 1	
 
 
