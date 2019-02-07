@@ -22,7 +22,7 @@ G = args["gpus"]
 
 NUM_EPOCHS = 100
 INIT_LR= 0.001
-alpha = 2
+alpha = 1
 batch_size = 64
 logfile = "evaluation_log_2.txt"
 graph_dir = "Graphs/minibatches64/"
@@ -76,17 +76,18 @@ while 1:
     labels = le.transform(labels)
     #print(labels.shape)
     labels = to_categorical(labels, 1251)
-
-    counter2 = 0
+    
+    print("[INFO] Training starting ...")
+    counter2 = 1
     x_train, x_test, y_train, y_test = train_test_split(data, labels, test_size=0.10)
     n_samples = len(y_train)
     b_batch_size = -(-n_samples//-(-n_samples//batch_size))
     for i in range(-(-n_samples//b_batch_size)):
         batch_x = x_train[i*b_batch_size:(i+1)*b_batch_size]
-        print("batch shape: " + str(batch_x.shape))
+        print("[INFO] minibatch shape: " + str(batch_x.shape))
         batch_y = y_train[i*b_batch_size:(i+1)*b_batch_size]
 
-        print("[INFO] Training starting ...")
+        print("[INFO] Training minibatch#" + str(counter2))
         H = model.fit(batch_x,batch_y,verbose=1, epochs= NUM_EPOCHS)
         H = H.history
 	
