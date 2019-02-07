@@ -19,7 +19,7 @@ ap.add_argument('-g', '--gpus', type=int, default=1, help= '# of GPUs to use for
 args = vars(ap.parse_args())
 G = args["gpus"]
 
-NUM_EPOCHS = 100
+NUM_EPOCHS = 5
 INIT_LR= 0.1
 logfile = "evaluation_log_2.txt"
 graph_dir = "Graphs/"
@@ -62,7 +62,7 @@ le = preprocessing.LabelEncoder()
 while 1:
     filename = filename[:-4-len(str(counter-1))] + str(counter) + filename[-4:] 
     filename2 = filename2[:-4-len(str(counter-1))] + str(counter) + filename2[-4:] 
-    counter = counter + 1
+    
     if os.path.isfile(filename) == False:
         break
     with open(filename, "r") as file:
@@ -98,27 +98,13 @@ while 1:
     saved_model.save_keras_model(model,"Saved_Model_2")
 
     print("[INFO] Testing Model ...")
-    R = model.evaluate(x_test, y_test, verbose=1)
-    H = R.history
+    H = model.evaluate(x_test, y_test, verbose=1)
 	
     with open(logfile, 'a') as myfile:
-        myfile.write("batch number: " + str(counter) + '\n')
-        resultstr = ' '.join(str(x) for x in R)
-        myfile.write(resultstr + '\n')
-	
-    print("[INFO] Plotting testing loss and accuracy ...")
-    N= np.arange(0, len(H["loss"]))
-    plt.style.use('ggplot')
-    plt.figure()
-    plt.plot(N, H['loss'], label= 'test_loss')
-    plt.plot(N, H['acc'], label= 'test_acc')
-    plt.title("Testing Graph")
-    plt.xlabel('Epoch #')
-    plt.ylabel('Loss/Accuracy')
-    plt.legend()
-    plt.savefig(graph_dir + "testing" + str(counter))
-	
-    counter = counter + 1
+        myfile.write("batch number: " + str(counter) + '\n')     
+        myfile.write("loss: "+str(H[0]) + "accuracy: " + str(H[1])  + '\n')
+    
+    counter = counter + 1	
 
 
 
