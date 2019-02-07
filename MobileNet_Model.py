@@ -1,5 +1,6 @@
 import tensorflow as tf
 from tensorflow.keras.applications.mobilenet import MobileNet
+#from tensorflow.keras.applications.mobilenet_v2 import MobileNetV2
 from tensorflow.keras.models import Model, save_model, load_model
 from tensorflow.contrib import saved_model
 from tensorflow.keras.layers import Dense, GlobalAveragePooling2D, Input, Conv2D, Concatenate
@@ -21,15 +22,16 @@ G = args["gpus"]
 
 NUM_EPOCHS = 5
 INIT_LR= 0.1
+alpha = 2
 logfile = "evaluation_log_2.txt"
-graph_dir = "Graphs/"
+graph_dir = "Graphs/alpha2/"
 
 # create the base pre-trained model
 if G<= 1:
     print("[INFO] training with 1 GPU...")
     input= Input(shape=(201,300,1))
     in_conc = Concatenate()([input,input,input])
-    base_model = MobileNet(weights='imagenet',input_tensor=in_conc ,include_top=False)
+    base_model = MobileNetV2(weights='imagenet',input_tensor=in_conc ,include_top=False, alpha= alpha)
     x = base_model.output
     x = GlobalAveragePooling2D()(x)
     x = Dense(1024, activation='relu')(x)
@@ -40,7 +42,7 @@ else:
     with tf.device("/cpu:0"):
         input= Input(shape=(201,300,1))
         in_conc = Concatenate()([input,input,input])
-        base_model = MobileNet(weights='imagenet',input_tensor=in_conc ,include_top=False)
+        base_model = MobileNet(weights='imagenet',input_tensor=in_conc ,include_top=False, alpha= alpha)
         x = base_model.output
         x = GlobalAveragePooling2D()(x)
         x = Dense(1024, activation='relu')(x)
@@ -69,11 +71,9 @@ while 1:
         data = LoadData(file)
     with open(filename2, 'r') as file:
         labels = np.genfromtxt(file,dtype="string_")
-    print("encoding labels")
     le.fit(labels)
     labels = le.transform(labels)
     #print(labels.shape)
-    print("converting labels to categorical matrix")
     labels = to_categorical(labels, 1251)
 	
     x_train, x_test, y_train, y_test = train_test_split(data, labels, test_size= 0.10)
