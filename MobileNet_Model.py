@@ -21,11 +21,11 @@ args = vars(ap.parse_args())
 G = args["gpus"]
 
 NUM_EPOCHS = 100
-INIT_LR= 0.001
+INIT_LR= 0.1
 alpha = 1
-batch_size = 64
+batch_size = 128
 logfile = "evaluation_log_2.txt"
-graph_dir = "Graphs/minibatches64/"
+graph_dir = "Graphs/minibatches128/"
 
 # create the base pre-trained model
 if G<= 1:
@@ -96,20 +96,23 @@ while 1:
         plt.style.use('ggplot')
         plt.figure()
         plt.plot(N, H['loss'], label= 'train_loss')
-        plt.plot(N, H['acc'], label= 'train_acc')
         plt.title("Training Graph")
-        plt.xlabel('Epoch #')
-        plt.ylabel('Loss/Accuracy')
+        plt.xlabel('Epoch')
+        plt.ylabel('Loss')
         plt.legend()
-        plt.savefig(graph_dir + "training" + str(counter2) + "_" + str(counter))
+        plt.savefig(graph_dir + "training" + str(counter) + "_" + str(counter2))
 
         counter2 = counter2 + 1
-
+    
+    open(logfile, 'a').write("reached checkpoint 1")
     print("[INFO] Saving Model ...")
     saved_model.save_keras_model(model, "Saved_Model_3")
 
+    open(logfile, 'a').write("reached checkpoint2")
     print("[INFO] Testing Model ...")
     H = model.evaluate(x_test, y_test, verbose=1)
+   
+    open(logfile, 'a').write("reached checkpoint3")
 
     with open(logfile, 'a') as myfile:
         myfile.write("batch number: " + str(counter) + '\n')
