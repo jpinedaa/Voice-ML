@@ -92,8 +92,8 @@ while 1:
         labels_temp = np.genfromtxt(file,dtype="string_")
     counter = counter + 1   
     
-        data = np.concatenate((data,data_temp))
-        labels = np.concatenate((labels,labels_temp))
+    data = np.concatenate((data,data_temp))
+    labels = np.concatenate((labels,labels_temp))
         
     end = time.time()
     elapsed = end - start
@@ -114,12 +114,11 @@ counter3 = 1
 counter4 = 1
 x_train, x_test, y_train, y_test = train_test_split(data, labels, test_size=0.10)
 n_samples = len(y_train)
-batch_size = training_batch_size/(1 - validation_split)
+batch_size = int(training_batch_size/(1 - validation_split))
 b_batch_size = -(-n_samples//-(-n_samples//batch_size))
-n_batches = -(-n_samples//b_batch_size)
 
 print("[INFO] Training Starting... ")
-for i in range(n_batches):
+for i in range(-(-n_samples//b_batch_size)):
     batch_x = x_train[i*b_batch_size:(i+1)*b_batch_size]
     print("[INFO] minibatch shape: " + str(batch_x.shape))
     batch_y = y_train[i*b_batch_size:(i+1)*b_batch_size]
