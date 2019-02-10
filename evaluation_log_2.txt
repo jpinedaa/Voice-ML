@@ -1,0 +1,89 @@
+batch number: 1
+batch number: 1
+loss: 3.723239390637862accuracy: 0.07460732999896504
+batch number: 2
+loss: 3.685623616588359accuracy: 0.08673469387755102
+batch number: 3
+loss: 3.7362151249595312accuracy: 0.07773386036709677
+batch number: 4
+loss: 3.7291526042203853accuracy: 0.060160427847329306
+batch number: 5
+loss: 3.7186777505232262accuracy: 0.018134715025906734
+batch number: 6
+loss: 3.789812075659401accuracy: 0.054404145077720206
+batch number: 7
+loss: 3.248712020725399accuracy: 0.07012987012987013
+batch number: 8
+loss: 3.346120820135928accuracy: 0.06368563685636856
+batch number: 9
+loss: 3.6665567108347448accuracy: 0.07848101277140122
+batch number: 10
+loss: 3.634627241176912accuracy: 0.07894736842105263
+batch number: 11
+loss: 3.627215975912932accuracy: 0.11615487326369267
+batch number: 12
+loss: 3.579728928137952accuracy: 0.06692913390715605
+batch number: 13
+loss: 3.7985875521278625accuracy: 0.0855683270142453
+batch number: 14
+loss: 3.557970407161307accuracy: 0.09042553191489362
+batch number: 15
+loss: 3.7400620324271068accuracy: 0.06064690026954178
+batch number: 16
+loss: 3.631029448191325accuracy: 0.05733333345254262
+batch number: 17
+loss: 3.6329210342488714accuracy: 0.10814419227623653
+batch number: 18
+loss: 3.517928559370715accuracy: 0.10353535361061192
+batch number: 19
+loss: 3.6544834656696743accuracy: 0.07040417206023165
+batch number: 20
+loss: 3.5084589812472604accuracy: 0.07639836288205923
+batch number: 21
+loss: 3.5100497714543746accuracy: 0.0635593220338983
+batch number: 22
+loss: 3.413756495430356accuracy: 0.08201058208942413
+batch number: 23
+loss: 3.593583101894766accuracy: 0.06818181826150353
+batch number: 24
+loss: 3.498882003871578accuracy: 0.11185983827493262
+batch number: 25
+loss: 3.4626834392547607accuracy: 0.10505319148936171
+batch number: 26
+loss: 3.650139637121418accuracy: 0.06308724832214765
+batch number: 27
+loss: 3.547508857795358accuracy: 0.08264462814022358
+batch number: 28
+loss: 3.571539349411091accuracy: 0.07265521799025951
+batch number: 29
+loss: 3.4204474870607915accuracy: 0.07877169564386236
+batch number: 30
+loss: 3.2577926124014507accuracy: 0.10772357723577236
+reached checkpoint 1reached checkpoint 1reached checkpoint2reached checkpoint3batch number: 1
+loss: 4.189434166354035accuracy: 0.03926701570680628
+reached checkpoint 1reached checkpoint2reached checkpoint3batch number: 2
+loss: 3.937716951175612accuracy: 0.08673469387755102
+reached checkpoint 1reached checkpoint2reached checkpoint3batch number: 3
+loss: 4.01892687052449accuracy: 0.03689064561083854
+reached checkpoint 1reached checkpoint2reached checkpoint3batch number: 4
+loss: 3.963199485432018accuracy: 0.04679144389011006
+reached checkpoint 1reached checkpoint2reached checkpoint3batch number: 5
+loss: 4.067192359291828accuracy: 0.050518134715025906
+reached checkpoint 1reached checkpoint2reached checkpoint3batch number: 6
+loss: 4.226423046131826accuracy: 0.05699481865284974
+reached checkpoint 1reached checkpoint2reached checkpoint3batch number: 7
+loss: 3.402081905092512accuracy: 0.15064935064935064
+reached checkpoint 1reached checkpoint2reached checkpoint3batch number: 8
+loss: 3.8145472454184763accuracy: 0.032520325203252036
+reached checkpoint 1reached checkpoint2reached checkpoint3batch number: 9
+loss: 4.075633802293222accuracy: 0.026582278481012658
+reached checkpoint 1reached checkpoint2reached checkpoint3batch number: 10
+loss: 4.283102471412384accuracy: 0.06371191136766008
+reached checkpoint 1reached checkpoint2reached checkpoint3batch number: 11
+loss: 4.0814569508917975accuracy: 0.03204272363150868
+reached checkpoint 1reached checkpoint2reached checkpoint3batch number: 12
+loss: 3.978202838597335accuracy: 0.06299212608202862
+reached checkpoint 1reached checkpoint2reached checkpoint3batch number: 13
+loss: 4.126380614698466accuracy: 0.05363984680990302
+reached checkpoint 1reached checkpoint2reached checkpoint3batch number: 14
+loss: 3.8668672886300595accuracy: 0.04521276595744681

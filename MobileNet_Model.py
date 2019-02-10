@@ -20,12 +20,12 @@ ap.add_argument('-g', '--gpus', type=int, default=1, help= '# of GPUs to use for
 args = vars(ap.parse_args())
 G = args["gpus"]
 
-NUM_EPOCHS = 200
-INIT_LR= 0.0001
+NUM_EPOCHS = 300
+INIT_LR= 0.00001
 alpha = 1
 batch_size = 128
 logfile = "evaluation_log_2.txt"
-graph_dir = "Graphs/minibatches128lr0.0001/"
+graph_dir = "Graphs/minibatches128lr0.00001/"
 
 # create the base pre-trained model
 if G<= 1:
