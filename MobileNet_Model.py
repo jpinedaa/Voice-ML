@@ -53,6 +53,7 @@ else:
 
 # we need to recompile the model for these modifications to take effect
 # we use SGD with a low learning rate
+print("[INFO] Compiling Model ... ")
 from tensorflow.keras.optimizers import SGD
 model.compile(optimizer=SGD(lr=INIT_LR, momentum=0.9), loss='categorical_crossentropy',metrics=['accuracy'])
 
