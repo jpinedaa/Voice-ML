@@ -21,13 +21,13 @@ ap.add_argument('-g', '--gpus', type=int, default=1, help= '# of GPUs to use for
 args = vars(ap.parse_args())
 G = args["gpus"]
 
-NUM_EPOCHS = 3
+NUM_EPOCHS = 1000
 INIT_LR= 0.000001
 training_batch_size = 64
-samples_per_checkpoint = 5000
+samples_per_checkpoint = 1000
 validation_split = 0.10
 logfile = "evaluation_log_3.txt"
-graph_dir = "Graphs/minibatches64/"
+graph_dir = "Graphs/minibatches64epoch1000/"
 dir = "Saved_Model_3/"
 save_dir = "Saved_Model_4/"
 
@@ -64,10 +64,19 @@ start = time.time()
 filename = filename[:-4-len(str(counter-1))] + str(counter) + filename[-4:] 
 filename2 = filename2[:-4-len(str(counter-1))] + str(counter) + filename2[-4:] 
 
+data = np.memmap('data.array', dtype= np.float64, mode= 'w+', shape= (250000,201,300,1))
+labels = np.empty((250000,),dtype= np.unicode_)
+
+print("[INFO] Loading first file... ")
+
 with open(filename, "r") as file:
-    data = LoadData(file)
+    data_temp = LoadData(file)
 with open(filename2, 'r') as file:
-    labels = np.genfromtxt(file,dtype="string_")
+    labels_temp = np.genfromtxt(file,dtype="string_")
+
+length = data_temp.shape[0] 
+data[0:length] = data_temp
+labels[0:labels_temp.shape[0]] = labels_temp
 counter = counter + 1
 
 end = time.time()
@@ -75,6 +84,7 @@ elapsed = end - start
 
 print("[INFO] Finished loading first file, elapsed time: " + str(elapsed))
 print("[INFO] data shape: " + str(data.shape) + "labels shape: " + str(labels.shape))
+print("[INFO] length: " + str(length) )
 
 while 1:
     print("[INFO] Loading file " + str(counter) + " ...")
@@ -83,8 +93,7 @@ while 1:
     filename = filename[:-4-len(str(counter-1))] + str(counter) + filename[-4:] 
     filename2 = filename2[:-4-len(str(counter-1))] + str(counter) + filename2[-4:] 
     
-    """if os.path.isfile(filename) == False:"""
-    if counter == 3:
+    if os.path.isfile(filename) == False:
         break
     with open(filename, "r") as file:
         data_temp = LoadData(file)
@@ -92,13 +101,16 @@ while 1:
         labels_temp = np.genfromtxt(file,dtype="string_")
     counter = counter + 1   
     
-    data = np.concatenate((data,data_temp))
-    labels = np.concatenate((labels,labels_temp))
+    new_len = data_temp.shape[0] + length 
+    data[length:new_len] = data_temp
+    labels[length:new_len] = labels_temp
+    length = new_len
         
     end = time.time()
     elapsed = end - start
     print("[INFO] Finished loading file, elapsed time: " + str(elapsed))
     print("[INFO] data shape: " + str(data.shape) + "labels shape: " + str(labels.shape))
+    print("[INFO] length: " + str(length) )
         
 print("[INFO] Finished Loading Data")
 print("[INFO] Encoding Labels... ")
@@ -112,7 +124,7 @@ print("[INFO] Splitting Data to Training/Test splits ...")
 counter2 = 1
 counter3 = 1
 counter4 = 1
-x_train, x_test, y_train, y_test = train_test_split(data, labels, test_size=0.10)
+x_train, x_test, y_train, y_test = train_test_split(data[0:length], labels[0:length], test_size=0.10)
 n_samples = len(y_train)
 batch_size = int(training_batch_size/(1 - validation_split))
 b_batch_size = -(-n_samples//-(-n_samples//batch_size))
@@ -141,7 +153,7 @@ for i in range(-(-n_samples//b_batch_size)):
     counter2 = counter2 + 1
     counter3 = counter3 + 1
 
-    if counter3 == (samples_per_checkpoint/b_batch_size):
+    if counter3 == int(samples_per_checkpoint/b_batch_size):
         counter3 = 1
         print("[INFO] Saving Model ...")
         saved_model.save_keras_model(model, save_dir)
