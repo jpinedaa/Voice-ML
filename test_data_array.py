@@ -19,7 +19,7 @@ import time
 
 data = np.memmap('data.array', dtype= np.float64, mode= 'r+', shape= (250000,201,300,1))
 
-print("shape: " + data.shape )
+print("shape: " + str(data.shape) )
 
 print("data[0]:  ", data[0])
 
