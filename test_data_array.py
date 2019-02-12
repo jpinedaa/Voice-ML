@@ -18,7 +18,6 @@ import time
 
 
 data = np.memmap('data.array', dtype= np.float64, mode= 'r+', shape= (250000,201,300,1))
-labels = np.empty((250000,),dtype= np.unicode_)
 
 print("shape: " + str(data.shape) )
 
@@ -33,38 +32,43 @@ le = preprocessing.LabelEncoder()
 print("[INFO] Loading file " + str(counter) + " ...")
 start = time.time()
 with open(filename2, 'r') as file:
-    labels_temp = np.genfromtxt(file,dtype="string_")
-length = labels_temp.shape[0] 
-labels[0:length] = labels_temp
+    labels = np.genfromtxt(file,dtype="string_")
 counter = counter + 1
 end = time.time()
 elapsed = end - start
 print("[INFO] Finished loading file, elapsed time: " + str(elapsed))
 print("labels shape: " + str(labels.shape))
-print("[INFO] length: " + str(length) )
+
 while 1:
     print("[INFO] Loading file " + str(counter) + " ...")
     start = time.time()
 
     filename2 = filename2[:-4-len(str(counter-1))] + str(counter) + filename2[-4:] 
     
-    if os.path.isfile(filename) == False:
+    if os.path.isfile(filename2) == False:
         break
 
     with open(filename2, 'r') as file:
         labels_temp = np.genfromtxt(file,dtype="string_")
     counter = counter + 1   
     
-    new_len = labels_temp.shape[0] + length 
-    labels[length:new_len] = labels_temp
-    length = new_len
+    labels = np.concatenate((labels,labels_temp))
         
     end = time.time()
     elapsed = end - start
     print("[INFO] Finished loading file, elapsed time: " + str(elapsed))
     print("labels shape: " + str(labels.shape))
-    print("[INFO] length: " + str(length) )
     
 print("labels shape: " + str(labels.shape))
-print(labels)
+print(labels[0:20])
 
+le = preprocessing.LabelEncoder()
+le.fit(labels)
+labels = le.transform(labels)
+first, second = train_test_split(labels, test_size=0.10)
+print(first[0:20])
+print(second[0:20])
+print(labels[0:20])
+labels = to_categorical(labels, 1251)
+print("shape: " + str(labels.shape))
+print(labels[0:20])
