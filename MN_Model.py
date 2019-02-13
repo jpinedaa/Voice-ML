@@ -24,14 +24,14 @@ G = args["gpus"]
 
 NUM_EPOCHS = 200
 INIT_LR= 0.0001
-training_batch_size = 1024
+training_batch_size = 512
 #samples_per_checkpoint = 1000
 validation_split = 0.05
 data_percent = 0.10
 alpha = 1
 logfile = "evaluation_log_4.txt"
 graph_dir = "Graphs/"
-graph_name = "1024batchsize"
+graph_name = "512batchsize"
 checkpoint_path = "Saved_Models/training_2/cp-{epoch:04d}.ckpt"
 checkpoint_dir = os.path.dirname(checkpoint_path)
 #dir = "Saved_Model_4/"
@@ -64,9 +64,6 @@ print("[INFO] Compiling Model ... ")
 from tensorflow.keras.optimizers import SGD
 model.compile(optimizer=SGD(lr=INIT_LR, momentum=0.9), loss='categorical_crossentropy',metrics=['accuracy'])
 
-print("[INFO] Loading Latest checkpoint weights... ")
-latest = latest_checkpoint(checkpoint_dir)
-model.load_weights(latest)
 
 print("[INFO] Loading Data... ")
 filename = "data1.txt"
