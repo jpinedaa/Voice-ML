@@ -22,13 +22,13 @@ args = vars(ap.parse_args())
 G = args["gpus"]
 
 NUM_EPOCHS = 1000
-INIT_LR= 0.000001
+INIT_LR= 0.0001
 training_batch_size = 64
 samples_per_checkpoint = 1000
 validation_split = 0.10
 logfile = "evaluation_log_3.txt"
-graph_dir = "Graphs/minibatches64epoch1000/"
-dir = "Saved_Model_3/"
+graph_dir = "Graphs/minibatches64epoch1000_2/"
+dir = "Saved_Model_4/"
 save_dir = "Saved_Model_4/"
 
 print("[INFO] Searching Latest checkpoint... ")
