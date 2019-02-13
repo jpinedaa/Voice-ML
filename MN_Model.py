@@ -22,8 +22,9 @@ ap.add_argument('-g', '--gpus', type=int, default=1, help= '# of GPUs to use for
 args = vars(ap.parse_args())
 G = args["gpus"]
 
+
 NUM_EPOCHS = 200
-INIT_LR= 0.0001
+INIT_LR= 0.1
 training_batch_size = 512
 #samples_per_checkpoint = 1000
 validation_split = 0.05
@@ -37,6 +38,13 @@ checkpoint_dir = os.path.dirname(checkpoint_path)
 #dir = "Saved_Model_4/"
 save_dir = "Saved_Model_5/"
 
+
+def poly_decay(epoch):
+    maxEpochs = NUM_EPOCHS
+    baseLR = INIT_LR
+    power = 1.0
+    alpha = baseLR * (1 - (epoch/float(maxEpochs)))**power
+    return alpha
 
 # create the base pre-trained model
 if G<= 1:
@@ -131,9 +139,10 @@ print("x_train_new shape: " + str(x_train_new.shape) + "y_train_new shape: " + s
     
 #Callback functions
 cp_callback = ModelCheckpoint(checkpoint_path, verbose=1, save_weights_only = True)
+lr_callback = LearningRateScheduler(poly_decay, verbose=1)
 
 print("[INFO] Training starting... ")
-H = model.fit(x_train_new,y_train_new,batch_size= training_batch_size ,verbose=1, epochs= NUM_EPOCHS, validation_split= validation_split, callbacks= [cp_callback])
+H = model.fit(x_train_new,y_train_new,batch_size= training_batch_size ,verbose=1, epochs= NUM_EPOCHS, validation_split= validation_split, callbacks= [cp_callback, lr_callback])
 H = H.history
 
 print("[INFO] Plotting training loss and accuracy ...")
