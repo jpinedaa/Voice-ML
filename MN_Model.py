@@ -7,6 +7,7 @@ from tensorflow.keras.layers import Dense, GlobalAveragePooling2D, Input, Conv2D
 from tensorflow.keras.utils import to_categorical, multi_gpu_model
 from tensorflow.keras.optimizers import SGD
 from tensorflow.keras.callbacks import LearningRateScheduler, ModelCheckpoint
+from tensorflow.train import latest_checkpoint
 from LoadData import LoadData
 import numpy as np
 import matplotlib.pyplot as plt
@@ -21,16 +22,17 @@ ap.add_argument('-g', '--gpus', type=int, default=1, help= '# of GPUs to use for
 args = vars(ap.parse_args())
 G = args["gpus"]
 
-NUM_EPOCHS = 1
+NUM_EPOCHS = 200
 INIT_LR= 0.0001
-training_batch_size = 128
+training_batch_size = 1024
 #samples_per_checkpoint = 1000
-validation_split = 0.10
+validation_split = 0.05
+data_percent = 0.10
 alpha = 1
 logfile = "evaluation_log_4.txt"
 graph_dir = "Graphs/"
-graph_name = "128epochs"
-checkpoint_path = "Saved_Models/training_1/cp-{epoch:04d}.ckpt"
+graph_name = "1024batchsize"
+checkpoint_path = "Saved_Models/training_2/cp-{epoch:04d}.ckpt"
 checkpoint_dir = os.path.dirname(checkpoint_path)
 #dir = "Saved_Model_4/"
 save_dir = "Saved_Model_5/"
@@ -61,6 +63,10 @@ else:
 print("[INFO] Compiling Model ... ")
 from tensorflow.keras.optimizers import SGD
 model.compile(optimizer=SGD(lr=INIT_LR, momentum=0.9), loss='categorical_crossentropy',metrics=['accuracy'])
+
+print("[INFO] Loading Latest checkpoint weights... ")
+latest = latest_checkpoint(checkpoint_dir)
+model.load_weights(latest)
 
 print("[INFO] Loading Data... ")
 filename = "data1.txt"
@@ -115,28 +121,35 @@ labels = le.transform(labels)
 labels = to_categorical(labels, 1251)
 
 print("[INFO] Splitting Data to Training/Test splits ...")
-x_train, x_test, y_train, y_test = train_test_split(data[0:len_data], labels, test_size=0.20)
+x_train, x_test, y_train, y_test = train_test_split(data[0:len_data], labels, test_size=0.20, random_state= 42)
 with open(logfile, 'a') as myfile:
     myfile.write("x_train shape: " + str(x_train.shape) + "y_train shape: " + str(y_train.shape) + '\n')
+    
+print("[INFO] Training with " + str(data_percent*100) + "% of training data")
+newlen = int(len(y_train)*data_percent)
+x_train_new = x_train[0:newlen]
+y_train_new = y_train[0:newlen]
+
+print("x_train_new shape: " + str(x_train_new.shape) + "y_train_new shape: " + str(y_train_new.shape))
     
 #Callback functions
 cp_callback = ModelCheckpoint(checkpoint_path, verbose=1, save_weights_only = True)
 
 print("[INFO] Training starting... ")
-H = model.fit(x_train,y_train,batch_size= training_batch_size ,verbose=1, epochs= NUM_EPOCHS, validation_split= validation_split, callbacks= [cp_callback])
+H = model.fit(x_train_new,y_train_new,batch_size= training_batch_size ,verbose=1, epochs= NUM_EPOCHS, validation_split= validation_split, callbacks= [cp_callback])
 H = H.history
 
 print("[INFO] Plotting training loss and accuracy ...")
-plt.plot(H.history['acc'])
-plt.plot(H.history['val_acc'])
+plt.plot(H['acc'])
+plt.plot(H['val_acc'])
 plt.title('model accuracy')
 plt.ylabel('accuracy')
 plt.xlabel('epoch')
 plt.legend(['train', 'test'], loc='upper left')
 plt.savefig(graph_dir + graph_name + "_acc")
 
-plt.plot(H.history['loss'])
-plt.plot(H.history['val_loss'])
+plt.plot(H['loss'])
+plt.plot(H['val_loss'])
 plt.title('model loss')
 plt.ylabel('loss')
 plt.xlabel('epoch')
