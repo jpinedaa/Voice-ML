@@ -26,6 +26,7 @@ INIT_LR= 0.0001
 training_batch_size = 128
 #samples_per_checkpoint = 1000
 validation_split = 0.10
+alpha = 1
 logfile = "evaluation_log_4.txt"
 graph_dir = "Graphs/"
 graph_name = "128epochs"
@@ -40,7 +41,7 @@ if G<= 1:
     print("[INFO] training with 1 GPU...")
     input= Input(shape=(201,300,1))
     in_conc = Concatenate()([input,input,input])
-    base_model = MobileNet(weights='imagenet',input_tensor=in_conc ,include_top=False, alpha= alpha)
+    base_model = MobileNet(weights='imagenet',input_tensor=in_conc ,include_top=True, alpha= alpha)
     x = base_model.output
     predictions = Dense(1251, activation='softmax')(x)
     model = Model(inputs=input, outputs=predictions)
@@ -49,7 +50,7 @@ else:
     with tf.device("/cpu:0"):
         input= Input(shape=(201,300,1))
         in_conc = Concatenate()([input,input,input])
-        base_model = MobileNet(weights='imagenet',input_tensor=in_conc ,include_top=False, alpha= alpha)
+        base_model = MobileNet(weights='imagenet',input_tensor=in_conc ,include_top=True, alpha= alpha)
         x = base_model.output
         predictions = Dense(1251, activation='softmax')(x)
         model = Model(inputs=input, outputs=predictions)
@@ -122,7 +123,7 @@ with open(logfile, 'a') as myfile:
 cp_callback = ModelCheckpoint(checkpoint_path, verbose=1, save_weights_only = True)
 
 print("[INFO] Training starting... ")
-H = model.fit(batch_x,batch_y,batch_size= training_batch_size ,verbose=1, epochs= NUM_EPOCHS, validation_split= validation_split, callbacks= [cp_callback])
+H = model.fit(x_train,y_train,batch_size= training_batch_size ,verbose=1, epochs= NUM_EPOCHS, validation_split= validation_split, callbacks= [cp_callback])
 H = H.history
 
 print("[INFO] Plotting training loss and accuracy ...")
@@ -131,7 +132,7 @@ plt.plot(H.history['val_acc'])
 plt.title('model accuracy')
 plt.ylabel('accuracy')
 plt.xlabel('epoch')
-plt.legend(['train', 'test'], loc='upper left'
+plt.legend(['train', 'test'], loc='upper left')
 plt.savefig(graph_dir + graph_name + "_acc")
 
 plt.plot(H.history['loss'])
@@ -139,7 +140,7 @@ plt.plot(H.history['val_loss'])
 plt.title('model loss')
 plt.ylabel('loss')
 plt.xlabel('epoch')
-plt.legend(['train', 'test'], loc='upper left'
+plt.legend(['train', 'test'], loc='upper left')
 plt.savefig(graph_dir + graph_name + "_loss")
 
 print("[INFO] Saving Model ...")
