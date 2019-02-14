@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import os
 import time
 
-rootdir = "/workspace/audio dataset/wav"
+rootdir = "/workspace/audio dataset/wav2"
 
 curr_id = "first"
 filename = "data.txt"
@@ -46,8 +46,8 @@ for subdir, dirs, files in os.walk(rootdir):
         sound = sound.set_channels(1)
         sound.export("modified.wav", format="wav")
         sample_rate, samples = wavfile.read("modified.wav")
-        window = signal.get_window('hamming', int((sample_rate / 1000) * 25), True)
-        frequencies, times, spectrogram = signal.spectrogram(samples, sample_rate, window=window, noverlap= int((sample_rate / 1000) * 10))
+        window = signal.get_window('hamming', 1024), True)
+        frequencies, times, spectrogram = signal.spectrogram(samples, sample_rate, window=window, noverlap= 512)
         #print(frequencies.shape, times.shape)
         normalized_spec = (spectrogram - spectrogram.mean(axis=0)) / spectrogram.std(axis=0)
         #print(spectrogram.shape)
