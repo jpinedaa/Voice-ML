@@ -24,8 +24,9 @@ G = args["gpus"]
 
 
 NUM_EPOCHS = 200
-INIT_LR= 0.1
-training_batch_size = 512
+INIT_LR= 0.001
+lr_decay = 2
+training_batch_size = 32
 #samples_per_checkpoint = 1000
 validation_split = 0.05
 data_percent = 0.10
@@ -42,7 +43,7 @@ save_dir = "Saved_Model_5/"
 def poly_decay(epoch):
     maxEpochs = NUM_EPOCHS
     baseLR = INIT_LR
-    power = 1.0
+    power = lr_decay
     alpha = baseLR * (1 - (epoch/float(maxEpochs)))**power
     return alpha
 
