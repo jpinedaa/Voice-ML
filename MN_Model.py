@@ -25,19 +25,19 @@ G = args["gpus"]
 
 NUM_EPOCHS = 200
 INIT_LR= 0.001
-lr_decay = 2
+lr_decay = 1
 training_batch_size = 32
 #samples_per_checkpoint = 1000
 validation_split = 0.05
 data_percent = 0.10
 alpha = 1
-logfile = "evaluation_log_4.txt"
+logfile = "evaluation_log_5.txt"
 graph_dir = "Graphs/"
-graph_name = "512batchsize"
-checkpoint_path = "Saved_Models/training_2/cp-{epoch:04d}.ckpt"
-checkpoint_dir = os.path.dirname(checkpoint_path)
+graph_name = "update1"
+#checkpoint_path = "Saved_Models/training_2/cp-{epoch:04d}.ckpt"
+#checkpoint_dir = os.path.dirname(checkpoint_path)
 #dir = "Saved_Model_4/"
-save_dir = "Saved_Model_5/"
+save_dir = "Saved_Models/update1/"
 
 
 def poly_decay(epoch):
@@ -50,19 +50,23 @@ def poly_decay(epoch):
 # create the base pre-trained model
 if G<= 1:
     print("[INFO] training with 1 GPU...")
-    input= Input(shape=(201,300,1))
-    in_conc = Concatenate()([input,input,input])
-    base_model = MobileNet(weights='imagenet',input_tensor=in_conc ,include_top=True, alpha= alpha)
+    input = Input(shape=(513, 300, 1))
+    # in_conc = Concatenate()([input, input, input])
+    base_model = MobileNet(input_shape=(513, 300, 1), weights=None, input_tensor=input, include_top=False, alpha=alpha)
     x = base_model.output
+    x = AveragePooling2D(pool_size=(17, 10))(x)
+    x = Dense(1024, activation='relu')(x)
     predictions = Dense(1251, activation='softmax')(x)
     model = Model(inputs=input, outputs=predictions)
 else:
     print("[INFO] training with {} GPUs...".format(G))
     with tf.device("/cpu:0"):
-        input= Input(shape=(201,300,1))
-        in_conc = Concatenate()([input,input,input])
-        base_model = MobileNet(weights='imagenet',input_tensor=in_conc ,include_top=True, alpha= alpha)
+        input = Input(shape=(513, 300, 1))
+        # in_conc = Concatenate()([input, input, input])
+        base_model = MobileNet(input_shape=(513, 300, 1), weights=None, input_tensor=input, include_top=False, alpha=alpha)
         x = base_model.output
+        x = AveragePooling2D(pool_size=(17, 10))(x)
+        x = Dense(1024, activation='relu')(x)
         predictions = Dense(1251, activation='softmax')(x)
         model = Model(inputs=input, outputs=predictions)
     model = multi_gpu_model(model, gpus=G)
@@ -75,8 +79,8 @@ model.compile(optimizer=SGD(lr=INIT_LR, momentum=0.9), loss='categorical_crossen
 
 
 print("[INFO] Loading Data... ")
-filename = "data1.txt"
-filename2 = "labels1.txt"
+filename = "ddata2/data1.txt"
+filename2 = "data2/labels1.txt"
 counter = 1
 le = preprocessing.LabelEncoder()
 
@@ -84,7 +88,7 @@ start = time.time()
 
 filename2 = filename2[:-4-len(str(counter-1))] + str(counter) + filename2[-4:] 
 
-data = np.memmap('data.array', dtype= np.float64, mode= 'r+', shape= (250000,201,300,1))
+data = np.memmap('data2.array', dtype= np.float64, mode= 'r+', shape= (250000,201,300,1))
 
 print("[INFO] Loading first file... ")
 
@@ -139,11 +143,11 @@ y_train_new = y_train[0:newlen]
 print("x_train_new shape: " + str(x_train_new.shape) + "y_train_new shape: " + str(y_train_new.shape))
     
 #Callback functions
-cp_callback = ModelCheckpoint(checkpoint_path, verbose=1, save_weights_only = True)
+#cp_callback = ModelCheckpoint(checkpoint_path, verbose=1, save_weights_only = True)
 lr_callback = LearningRateScheduler(poly_decay, verbose=1)
 
 print("[INFO] Training starting... ")
-H = model.fit(x_train_new,y_train_new,batch_size= training_batch_size ,verbose=1, epochs= NUM_EPOCHS, validation_split= validation_split, callbacks= [cp_callback, lr_callback])
+H = model.fit(x_train_new,y_train_new,batch_size= training_batch_size ,verbose=1, epochs= NUM_EPOCHS, validation_split= validation_split, callbacks= [lr_callback])
 H = H.history
 
 print("[INFO] Plotting training loss and accuracy ...")
