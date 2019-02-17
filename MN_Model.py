@@ -16,6 +16,7 @@ from sklearn.model_selection import train_test_split
 import os
 import argparse
 import time
+from pandas import DataFrame
 
 ap = argparse.ArgumentParser()
 ap.add_argument('-g', '--gpus', type=int, default=1, help= '# of GPUs to use for training')
@@ -51,10 +52,10 @@ def poly_decay(epoch):
 if G<= 1:
     print("[INFO] training with 1 GPU...")
     input = Input(shape=(513, 300, 1))
-    # in_conc = Concatenate()([input, input, input])
-    base_model = MobileNet(input_shape=(513, 300, 1), weights=None, input_tensor=input, include_top=False, alpha=alpha)
+    in_conc = Concatenate()([input, input, input])
+    base_model = MobileNet(input_shape=(513, 300, 1), weights=None, input_tensor=in_conc, include_top=False, alpha=alpha)
     x = base_model.output
-    x = AveragePooling2D(pool_size=(17, 10))(x)
+    x = GlobalAveragePooling2D()(x)
     x = Dense(1024, activation='relu')(x)
     predictions = Dense(1251, activation='softmax')(x)
     model = Model(inputs=input, outputs=predictions)
@@ -62,10 +63,10 @@ else:
     print("[INFO] training with {} GPUs...".format(G))
     with tf.device("/cpu:0"):
         input = Input(shape=(513, 300, 1))
-        # in_conc = Concatenate()([input, input, input])
-        base_model = MobileNet(input_shape=(513, 300, 1), weights=None, input_tensor=input, include_top=False, alpha=alpha)
+        in_conc = Concatenate()([input, input, input])
+        base_model = MobileNet(input_shape=(513, 300, 1), weights=None, input_tensor=in_conc, include_top=False, alpha=alpha)
         x = base_model.output
-        x = AveragePooling2D(pool_size=(17, 10))(x)
+        x = AveragePooling2D()(x)
         x = Dense(1024, activation='relu')(x)
         predictions = Dense(1251, activation='softmax')(x)
         model = Model(inputs=input, outputs=predictions)
@@ -79,7 +80,7 @@ model.compile(optimizer=SGD(lr=INIT_LR, momentum=0.9), loss='categorical_crossen
 
 
 print("[INFO] Loading Data... ")
-filename = "ddata2/data1.txt"
+filename = "data2/data1.txt"
 filename2 = "data2/labels1.txt"
 counter = 1
 le = preprocessing.LabelEncoder()
@@ -88,7 +89,7 @@ start = time.time()
 
 filename2 = filename2[:-4-len(str(counter-1))] + str(counter) + filename2[-4:] 
 
-data = np.memmap('data2.array', dtype= np.float64, mode= 'r+', shape= (250000,201,300,1))
+data = np.memmap('data2.array', dtype= np.float64, mode= 'r+', shape= (250000,513,300,1))
 
 print("[INFO] Loading first file... ")
 
@@ -129,9 +130,20 @@ le.fit(labels)
 labels = le.transform(labels)
 #print(labels.shape)
 labels = to_categorical(labels, 1251)
+#labels = np.reshape(labels, (len_data,1,1,1251))
 
 print("[INFO] Splitting Data to Training/Test splits ...")
-x_train, x_test, y_train, y_test = train_test_split(data[0:len_data], labels, test_size=0.20, random_state= 42)
+rng_state = np.random.get_state()
+np.random.shuffle(labels)
+np.random.set_state(rng_state)
+np.random.shuffle(data[:len_data])
+test_size = 0.20
+real_test_size = int(0.20*len_data)
+x_train = data[real_test_size:len_data]
+x_test = data[:real_test_size]
+y_train = labels[real_test_size:]
+y_test = labels[:real_test_size]
+#x_train, x_test, y_train, y_test = train_test_split(data[0:len_data], labels, shuffle = False , test_size=0.20, random_state= 42)
 with open(logfile, 'a') as myfile:
     myfile.write("x_train shape: " + str(x_train.shape) + "y_train shape: " + str(y_train.shape) + '\n')
     
