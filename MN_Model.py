@@ -1,9 +1,10 @@
 import tensorflow as tf
 from tensorflow.keras.applications.mobilenet import MobileNet
+from tensorflow.keras.applications.inception_v3 import InceptionV3
 #from tensorflow.keras.applications.mobilenet_v2 import MobileNetV2
 from tensorflow.keras.models import Model, save_model, load_model
 from tensorflow.contrib import saved_model
-from tensorflow.keras.layers import Dense, GlobalAveragePooling2D, Input, Conv2D, Concatenate
+from tensorflow.keras.layers import Dense, AveragePooling2D, Input, Conv2D, Concatenate, MaxPool2D, Reshape
 from tensorflow.keras.utils import to_categorical, multi_gpu_model
 from tensorflow.keras.optimizers import SGD
 from tensorflow.keras.callbacks import LearningRateScheduler, ModelCheckpoint
@@ -24,21 +25,21 @@ args = vars(ap.parse_args())
 G = args["gpus"]
 
 
-NUM_EPOCHS = 200
+NUM_EPOCHS = 5
 INIT_LR= 0.001
-lr_decay = 1
-training_batch_size = 32
+lr_decay = 0
+training_batch_size = 128
 #samples_per_checkpoint = 1000
 validation_split = 0.05
 data_percent = 0.10
 alpha = 1
 logfile = "evaluation_log_5.txt"
 graph_dir = "Graphs/"
-graph_name = "update1"
+graph_name = "update2"
 #checkpoint_path = "Saved_Models/training_2/cp-{epoch:04d}.ckpt"
 #checkpoint_dir = os.path.dirname(checkpoint_path)
 #dir = "Saved_Model_4/"
-save_dir = "Saved_Models/update1/"
+save_dir = "Saved_Models/update2/"
 
 
 def poly_decay(epoch):
@@ -53,12 +54,15 @@ if G<= 1:
     print("[INFO] training with 1 GPU...")
     input = Input(shape=(513, 300, 1))
     in_conc = Concatenate()([input, input, input])
-    base_model = MobileNet(input_shape=(513, 300, 1), weights=None, input_tensor=in_conc, include_top=False, alpha=alpha)
+    base_model = InceptionV3(input_shape=(513, 300, 3), weights= 'imagenet', input_tensor=in_conc, include_top=False)
     x = base_model.output
-    x = GlobalAveragePooling2D()(x)
+    x = MaxPool2D(pool_size= (2,2))(x)
+    x = Conv2D(4096, kernel_size= (7,1), activation= 'relu')(x)
+    x = AveragePooling2D(pool_size= (1,4))(x)
     x = Dense(1024, activation='relu')(x)
-    predictions = Dense(1251, activation='softmax')(x)
-    model = Model(inputs=input, outputs=predictions)
+    x = Dense(1251, activation= 'softmax')(x)
+    x = Reshape(target_shape=(1251,))(x)
+    model = Model(inputs=input, outputs=x)
 else:
     print("[INFO] training with {} GPUs...".format(G))
     with tf.device("/cpu:0"):
