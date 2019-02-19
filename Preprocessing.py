@@ -10,8 +10,8 @@ import time
 rootdir = "/workspace/audio dataset/wav"
 
 curr_id = "first"
-filename = "data2/data.txt"
-filename2 = "data2/labels.txt"
+filename = "data3/data.txt"
+filename2 = "data3/labels.txt"
 
 first_count = 0
 count =0
@@ -49,10 +49,14 @@ for subdir, dirs, files in os.walk(rootdir):
         window = signal.get_window('hamming', 1024, True)
         frequencies, times, spectrogram = signal.spectrogram(samples, sample_rate, window=window, noverlap= 512)
         #print(frequencies.shape, times.shape)
-        normalized_spec = (spectrogram - spectrogram.mean(axis=0)) / spectrogram.std(axis=0)
+        #normalized_spec = (spectrogram - spectrogram.mean(axis=0)) / spectrogram.std(axis=0)
+        normalized_spec = spectrogram
+        for i in range(spectrogram.shape[1]):
+            normalized_spec[:, i:i + 1] = normalized_spec[:, i:i + 1] - spectrogram.mean(axis=1).reshape((513, 1))
+            normalized_spec[:, i:i + 1] = normalized_spec[:, i:i + 1] / spectrogram.std(axis=1).reshape(513, 1)
         #print(spectrogram.shape)
         #print(normalized_spec.shape)
-        timevar = 300
+        timevar = 100
         if normalized_spec.shape[1]>=timevar:
             no_cuts= int(normalized_spec.shape[1]/timevar)
             for i in range(no_cuts):
