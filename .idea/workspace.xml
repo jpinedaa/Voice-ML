@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="84a3e620-3428-40cc-8047-bb929bdee87e" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Preprocessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/Preprocessing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modified.wav" beforeDir="false" afterPath="$PROJECT_DIR$/modified.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MN_Model.py" beforeDir="false" afterPath="$PROJECT_DIR$/MN_Model.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,8 +15,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mobilenet_inspection.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="43" column="34" selection-start-line="43" selection-start-column="34" selection-end-line="43" selection-end-column="34" />
+            <state relative-caret-position="238">
+              <caret line="29" selection-start-line="29" selection-end-line="42" selection-end-column="39" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -38,19 +36,16 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MN_Model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="41" column="32" selection-start-line="41" selection-start-column="32" selection-end-line="41" selection-end-column="32" />
-              <folding>
-                <element signature="e#0#23#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-867">
+              <caret line="3" column="1" lean-forward="true" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Preprocessing.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-511">
@@ -81,10 +76,10 @@
         <option value="$PROJECT_DIR$/MobileNet Model.py" />
         <option value="$PROJECT_DIR$/LoadArray.py" />
         <option value="$PROJECT_DIR$/MobileNet_Model.py" />
-        <option value="$PROJECT_DIR$/MN_Model.py" />
-        <option value="$PROJECT_DIR$/mobilenet_inspection.py" />
         <option value="$PROJECT_DIR$/Preprocessing_testing.py" />
         <option value="$PROJECT_DIR$/Preprocessing.py" />
+        <option value="$PROJECT_DIR$/mobilenet_inspection.py" />
+        <option value="$PROJECT_DIR$/MN_Model.py" />
       </list>
     </option>
   </component>
@@ -129,7 +124,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Preprocessing_testing">
+  <component name="RunManager" selected="Python.mobilenet_inspection">
     <configuration name="LoadData" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Voice-ML" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -237,9 +232,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.mobilenet_inspection" />
         <item itemvalue="Python.Preprocessing_testing" />
         <item itemvalue="Python.Preprocessing" />
-        <item itemvalue="Python.mobilenet_inspection" />
         <item itemvalue="Python.MobileNet Model" />
         <item itemvalue="Python.LoadData" />
       </list>
@@ -330,26 +325,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mobilenet_inspection.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="43" column="34" selection-start-line="43" selection-start-column="34" selection-end-line="43" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MN_Model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="41" column="32" selection-start-line="41" selection-start-column="32" selection-end-line="41" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Preprocessing_testing.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -367,6 +342,23 @@
           <folding>
             <element signature="e#0#30#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobilenet_inspection.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="29" selection-start-line="29" selection-end-line="42" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MN_Model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-867">
+          <caret line="3" column="1" lean-forward="true" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
         </state>
       </provider>
     </entry>

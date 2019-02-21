@@ -1,6 +1,7 @@
 import tensorflow as tf
 from tensorflow.keras.applications.mobilenet import MobileNet
 from tensorflow.keras.applications.inception_v3 import InceptionV3
+from tensorflow.keras.applications.xception import Xception
 #from tensorflow.keras.applications.mobilenet_v2 import MobileNetV2
 from tensorflow.keras.models import Model, save_model, load_model
 from tensorflow.contrib import saved_model
@@ -35,11 +36,11 @@ data_percent = 0.10
 alpha = 1
 logfile = "evaluation_log_5.txt"
 graph_dir = "Graphs/"
-graph_name = "update2"
+graph_name = "update3
 #checkpoint_path = "Saved_Models/training_2/cp-{epoch:04d}.ckpt"
 #checkpoint_dir = os.path.dirname(checkpoint_path)
 #dir = "Saved_Model_4/"
-save_dir = "Saved_Models/update2/"
+save_dir = "Saved_Models/update3/"
 
 
 def poly_decay(epoch):
@@ -52,15 +53,18 @@ def poly_decay(epoch):
 # create the base pre-trained model
 if G<= 1:
     print("[INFO] training with 1 GPU...")
-    input = Input(shape=(513, 300, 1))
+    input = Input(shape=(513, 100, 1))
     in_conc = Concatenate()([input, input, input])
-    base_model = InceptionV3(input_shape=(513, 300, 3), weights= 'imagenet', input_tensor=in_conc, include_top=False)
+    base_model = Xception(input_shape=(513, 100, 3), weights='imagenet', input_tensor=in_conc, include_top=False)
     x = base_model.output
-    x = MaxPool2D(pool_size= (2,2))(x)
-    x = Conv2D(4096, kernel_size= (7,1), activation= 'relu')(x)
-    x = AveragePooling2D(pool_size= (1,4))(x)
+    x = MaxPool2D(pool_size=(2, 2))(x)
+    # model = Model(inputs=input, outputs= x)
+    # layer = model.get_layer(index = -1)
+    # print(layer.output_shape)
+    x = Conv2D(4096, kernel_size=(8, 1), activation='relu')(x)
+    # x = AveragePooling2D(pool_size=(1,4))(x)
     x = Dense(1024, activation='relu')(x)
-    x = Dense(1251, activation= 'softmax')(x)
+    x = Dense(1251, activation='softmax')(x)
     x = Reshape(target_shape=(1251,))(x)
     model = Model(inputs=input, outputs=x)
 else:
@@ -84,8 +88,8 @@ model.compile(optimizer=SGD(lr=INIT_LR, momentum=0.9), loss='categorical_crossen
 
 
 print("[INFO] Loading Data... ")
-filename = "data2/data1.txt"
-filename2 = "data2/labels1.txt"
+filename = "data3/data1.txt"
+filename2 = "data3/labels1.txt"
 counter = 1
 le = preprocessing.LabelEncoder()
 
@@ -93,7 +97,7 @@ start = time.time()
 
 filename2 = filename2[:-4-len(str(counter-1))] + str(counter) + filename2[-4:] 
 
-data = np.memmap('data2.array', dtype= np.float64, mode= 'r+', shape= (250000,513,300,1))
+data = np.memmap('data3.array', dtype= np.float64, mode= 'r+', shape= (320000,513,100,1))
 
 print("[INFO] Loading first file... ")
 
@@ -137,7 +141,7 @@ labels = to_categorical(labels, 1251)
 #labels = np.reshape(labels, (len_data,1,1,1251))
 
 print("[INFO] Splitting Data to Training/Test splits ...")
-rng_state = np.random.get_state()
+"""rng_state = np.random.get_state()
 np.random.shuffle(labels)
 np.random.set_state(rng_state)
 np.random.shuffle(data[:len_data])
@@ -146,8 +150,8 @@ real_test_size = int(0.20*len_data)
 x_train = data[real_test_size:len_data]
 x_test = data[:real_test_size]
 y_train = labels[real_test_size:]
-y_test = labels[:real_test_size]
-#x_train, x_test, y_train, y_test = train_test_split(data[0:len_data], labels, shuffle = False , test_size=0.20, random_state= 42)
+y_test = labels[:real_test_size]"""
+x_train, x_test, y_train, y_test = train_test_split(data[0:len_data], labels , test_size=0.20, random_state= 42)
 with open(logfile, 'a') as myfile:
     myfile.write("x_train shape: " + str(x_train.shape) + "y_train shape: " + str(y_train.shape) + '\n')
     
