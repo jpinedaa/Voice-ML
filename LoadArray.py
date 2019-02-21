@@ -17,15 +17,15 @@ import argparse
 import time
 
 print("[INFO] Loading Data... ")
-filename = "data2/data1.txt"
-filename2 = "data2/labels1.txt"
+filename = "data3/data1.txt"
+filename2 = "data3/labels1.txt"
 counter = 1
 
 start = time.time()
 
 filename = filename[:-4 - len(str(counter - 1))] + str(counter) + filename[-4:]
 
-data = np.memmap('data2.array', dtype=np.float64, mode='w+', shape=(250000, 513, 300, 1))
+data = np.memmap('data3.array', dtype=np.float64, mode='w+', shape=(320000, 513, 100, 1))
 
 print("[INFO] Loading first file... ")
 
