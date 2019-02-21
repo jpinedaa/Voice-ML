@@ -1,0 +1,11 @@
+x_train shape: (125993, 513, 300, 1)y_train shape: (125993, 1251)
+x_train shape: (125993, 513, 300, 1)y_train shape: (125993, 1, 1, 1251)
+x_train shape: (125993, 513, 300, 1)y_train shape: (125993, 1251)
+x_train shape: (125993, 513, 300, 1)y_train shape: (125993, 1251)
+loss: 7.005926789219504accuracy: 0.006667089973966601
+x_train shape: (125993, 513, 300, 1)y_train shape: (125993, 1251)
+x_train shape: (125993, 513, 300, 1)y_train shape: (125993, 1251)
+x_train shape: (246731, 513, 100, 1)y_train shape: (246731, 1251)
+x_train shape: (246731, 513, 100, 1)y_train shape: (246731, 1251)
+x_train shape: (246731, 513, 100, 1)y_train shape: (246731, 1251)
+loss: 6.2633376332639505accuracy: 0.040627077152658765
