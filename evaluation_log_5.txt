@@ -9,3 +9,6 @@ x_train shape: (246731, 513, 100, 1)y_train shape: (246731, 1251)
 x_train shape: (246731, 513, 100, 1)y_train shape: (246731, 1251)
 x_train shape: (246731, 513, 100, 1)y_train shape: (246731, 1251)
 loss: 6.2633376332639505accuracy: 0.040627077152658765
+x_train shape: (246731, 513, 100, 1)y_train shape: (246731, 1251)
+x_train shape: (246732, 513, 100, 1)y_train shape: (246732, 1251)
+loss: 8.629785660728592accuracy: 0.055526733893194125

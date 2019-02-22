@@ -26,7 +26,7 @@ args = vars(ap.parse_args())
 G = args["gpus"]
 
 
-NUM_EPOCHS = 5
+NUM_EPOCHS = 100
 INIT_LR= 0.001
 lr_decay = 0
 training_batch_size = 32
@@ -36,7 +36,7 @@ data_percent = 0.10
 alpha = 1
 logfile = "evaluation_log_5.txt"
 graph_dir = "Graphs/"
-graph_name = "update3"
+graph_name = "update4"
 #checkpoint_path = "Saved_Models/training_2/cp-{epoch:04d}.ckpt"
 #checkpoint_dir = os.path.dirname(checkpoint_path)
 #dir = "Saved_Model_4/"
@@ -141,7 +141,7 @@ labels = to_categorical(labels, 1251)
 #labels = np.reshape(labels, (len_data,1,1,1251))
 
 print("[INFO] Splitting Data to Training/Test splits ...")
-"""rng_state = np.random.get_state()
+rng_state = np.random.get_state()
 np.random.shuffle(labels)
 np.random.set_state(rng_state)
 np.random.shuffle(data[:len_data])
@@ -150,8 +150,8 @@ real_test_size = int(0.20*len_data)
 x_train = data[real_test_size:len_data]
 x_test = data[:real_test_size]
 y_train = labels[real_test_size:]
-y_test = labels[:real_test_size]"""
-x_train, x_test, y_train, y_test = train_test_split(data[0:len_data], labels , test_size=0.20, random_state= 42)
+y_test = labels[:real_test_size]
+#x_train, x_test, y_train, y_test = train_test_split(data[0:len_data], labels , test_size=0.20, random_state= 42)
 with open(logfile, 'a') as myfile:
     myfile.write("x_train shape: " + str(x_train.shape) + "y_train shape: " + str(y_train.shape) + '\n')
     
@@ -178,6 +178,7 @@ plt.ylabel('accuracy')
 plt.xlabel('epoch')
 plt.legend(['train', 'test'], loc='upper left')
 plt.savefig(graph_dir + graph_name + "_acc")
+plt.clf()
 
 plt.plot(H['loss'])
 plt.plot(H['val_loss'])
