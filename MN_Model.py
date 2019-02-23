@@ -26,17 +26,17 @@ args = vars(ap.parse_args())
 G = args["gpus"]
 
 
-NUM_EPOCHS = 100
+NUM_EPOCHS = 10
 INIT_LR= 0.001
 lr_decay = 0
 training_batch_size = 32
 #samples_per_checkpoint = 1000
 validation_split = 0.05
-data_percent = 0.10
+data_percent = 1
 alpha = 1
 logfile = "evaluation_log_5.txt"
 graph_dir = "Graphs/"
-graph_name = "update4"
+graph_name = "update5"
 #checkpoint_path = "Saved_Models/training_2/cp-{epoch:04d}.ckpt"
 #checkpoint_dir = os.path.dirname(checkpoint_path)
 #dir = "Saved_Model_4/"
