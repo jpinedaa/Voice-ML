@@ -27,7 +27,7 @@ G = args["gpus"]
 
 
 NUM_EPOCHS = 10
-INIT_LR= 0.001
+INIT_LR= 0.1
 lr_decay = 0
 training_batch_size = 32
 #samples_per_checkpoint = 1000
@@ -36,7 +36,7 @@ data_percent = 1
 alpha = 1
 logfile = "evaluation_log_5.txt"
 graph_dir = "Graphs/"
-graph_name = "update5"
+update_name = "update6"
 #checkpoint_path = "Saved_Models/training_2/cp-{epoch:04d}.ckpt"
 #checkpoint_dir = os.path.dirname(checkpoint_path)
 #dir = "Saved_Model_4/"
@@ -55,7 +55,7 @@ if G<= 1:
     print("[INFO] training with 1 GPU...")
     input = Input(shape=(513, 100, 1))
     in_conc = Concatenate()([input, input, input])
-    base_model = Xception(input_shape=(513, 100, 3), weights='imagenet', input_tensor=in_conc, include_top=False)
+    base_model = MobileNet(input_shape=(513, 100, 3), weights=None, input_tensor=in_conc, include_top=False)
     x = base_model.output
     x = MaxPool2D(pool_size=(2, 2))(x)
     # model = Model(inputs=input, outputs= x)
@@ -177,7 +177,7 @@ plt.title('model accuracy')
 plt.ylabel('accuracy')
 plt.xlabel('epoch')
 plt.legend(['train', 'test'], loc='upper left')
-plt.savefig(graph_dir + graph_name + "_acc")
+plt.savefig(graph_dir + update_name + "_acc")
 plt.clf()
 
 plt.plot(H['loss'])
@@ -186,7 +186,7 @@ plt.title('model loss')
 plt.ylabel('loss')
 plt.xlabel('epoch')
 plt.legend(['train', 'test'], loc='upper left')
-plt.savefig(graph_dir + graph_name + "_loss")
+plt.savefig(update + graph_name + "_loss")
 
 print("[INFO] Saving Model ...")
 saved_model.save_keras_model(model, save_dir)
@@ -195,7 +195,7 @@ print("[INFO] Testing Model ...")
 H = model.evaluate(x_test, y_test, verbose=1)
 
 with open(logfile, 'a') as myfile:
-    myfile.write("loss: " + str(H[0]) + "accuracy: " + str(H[1]) + '\n')
+    myfile.write(update_name + " loss: " + str(H[0]) + " accuracy: " + str(H[1]) + '\n')
 
     
 print("FINISH")
