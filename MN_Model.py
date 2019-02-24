@@ -7,7 +7,7 @@ from tensorflow.keras.models import Model, save_model, load_model
 from tensorflow.contrib import saved_model
 from tensorflow.keras.layers import Dense, AveragePooling2D, Input, Conv2D, Concatenate, MaxPool2D, Reshape
 from tensorflow.keras.utils import to_categorical, multi_gpu_model
-from tensorflow.keras.optimizers import SGD
+from tensorflow.keras.optimizers import SGD, RMSprop
 from tensorflow.keras.callbacks import LearningRateScheduler, ModelCheckpoint
 from tensorflow.train import latest_checkpoint
 from LoadData import LoadData
@@ -27,16 +27,16 @@ G = args["gpus"]
 
 
 NUM_EPOCHS = 10
-INIT_LR= 0.1
+INIT_LR= 0.001
 lr_decay = 0
 training_batch_size = 32
 #samples_per_checkpoint = 1000
-validation_split = 0.05
+validation_split = 0.01
 data_percent = 1
 alpha = 1
 logfile = "evaluation_log_5.txt"
 graph_dir = "Graphs/"
-update_name = "update6"
+update_name = "update7"
 #checkpoint_path = "Saved_Models/training_2/cp-{epoch:04d}.ckpt"
 #checkpoint_dir = os.path.dirname(checkpoint_path)
 #dir = "Saved_Model_4/"
@@ -84,7 +84,8 @@ else:
 # we use SGD with a low learning rate
 print("[INFO] Compiling Model ... ")
 from tensorflow.keras.optimizers import SGD
-model.compile(optimizer=SGD(lr=INIT_LR, momentum=0.9), loss='categorical_crossentropy',metrics=['accuracy'])
+#model.compile(optimizer=SGD(lr=INIT_LR, momentum=0.9), loss='categorical_crossentropy',metrics=['accuracy'])
+model.compile(optimizer=RMSprop(lr=INIT_LR), loss='categorical_crossentropy',metrics=['accuracy'])
 
 
 print("[INFO] Loading Data... ")
@@ -195,7 +196,7 @@ print("[INFO] Testing Model ...")
 H = model.evaluate(x_test, y_test, verbose=1)
 
 with open(logfile, 'a') as myfile:
-    myfile.write(update_name + " loss: " + str(H[0]) + " accuracy: " + str(H[1]) + '\n')
+    myfile.write(update_name + " epochs= " + str(NUM_EPOCHS) + " lr= " + str(INIT_LR) + " loss: " + str(H[0]) + " accuracy: " + str(H[1]) + '\n')
 
     
 print("FINISH")
