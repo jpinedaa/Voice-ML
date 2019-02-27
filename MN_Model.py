@@ -26,7 +26,7 @@ args = vars(ap.parse_args())
 G = args["gpus"]
 
 
-NUM_EPOCHS = 50
+NUM_EPOCHS = 10
 INIT_LR= 1e-5
 lr_decay = 0
 training_batch_size = 32
@@ -36,7 +36,7 @@ data_percent = 1
 alpha = 1
 logfile = "evaluation_log_5.txt"
 graph_dir = "Graphs/"
-update_name = "update7"
+update_name = "update8"
 #checkpoint_path = "Saved_Models/training_2/cp-{epoch:04d}.ckpt"
 #checkpoint_dir = os.path.dirname(checkpoint_path)
 #dir = "Saved_Model_4/"
@@ -70,14 +70,20 @@ if G<= 1:
 else:
     print("[INFO] training with {} GPUs...".format(G))
     with tf.device("/cpu:0"):
-        input = Input(shape=(513, 300, 1))
+        input = Input(shape=(513, 100, 1))
         in_conc = Concatenate()([input, input, input])
-        base_model = MobileNet(input_shape=(513, 300, 1), weights=None, input_tensor=in_conc, include_top=False, alpha=alpha)
+        base_model = Xception(input_shape=(513, 100, 3), weights=None, input_tensor=in_conc, include_top=False)
         x = base_model.output
-        x = AveragePooling2D()(x)
+        x = MaxPool2D(pool_size=(2, 2))(x)
+        # model = Model(inputs=input, outputs= x)
+        # layer = model.get_layer(index = -1)
+        # print(layer.output_shape)
+        x = Conv2D(4096, kernel_size=(8, 1), activation='relu')(x)
+        # x = AveragePooling2D(pool_size=(1,4))(x)
         x = Dense(1024, activation='relu')(x)
-        predictions = Dense(1251, activation='softmax')(x)
-        model = Model(inputs=input, outputs=predictions)
+        x = Dense(1251, activation='softmax')(x)
+        x = Reshape(target_shape=(1251,))(x)
+        model = Model(inputs=input, outputs=x)
     model = multi_gpu_model(model, gpus=G)
 
 # we need to recompile the model for these modifications to take effect
@@ -142,16 +148,34 @@ labels = to_categorical(labels, 1251)
 #labels = np.reshape(labels, (len_data,1,1,1251))
 
 print("[INFO] Splitting Data to Training/Test splits ...")
-rng_state = np.random.get_state()
+test_size = 0.20
+real_test_size = int(0.20 * len_data)
+x_train = np.memmap('x_train.array', dtype=np.float64, mode='r', shape=((len_data-real_test_size),513,100,1))
+x_test = np.memmap('x_test.array', dtype=np.float64, mode='r', shape=(real_test_size,513,100,1))
+y_train = np.memmap('y_train.array', dtype=np.float64, mode='r', shape=((len_data-real_test_size),1251,))
+y_test = np.memmap('y_test.array', dtype=np.float64, mode='r', shape=(real_test_size,1251,))
+
+"""rng_state = np.random.get_state()
 np.random.shuffle(labels)
 np.random.set_state(rng_state)
 np.random.shuffle(data[:len_data])
 test_size = 0.20
-real_test_size = int(0.20*len_data)
-x_train = data[real_test_size:len_data]
-x_test = data[:real_test_size]
-y_train = labels[real_test_size:]
-y_test = labels[:real_test_size]
+real_test_size = int(0.20 * len_data)
+x_train1 = data[real_test_size:len_data]
+x_test1 = data[:real_test_size]
+y_train1= labels[real_test_size:]
+y_test1 = labels[:real_test_size]
+
+x_train = np.memmap('x_train.array', dtype=np.float64, mode='w+', shape=x_train1.shape)
+x_test = np.memmap('x_test.array', dtype=np.float64, mode='w+', shape=x_test1.shape)
+y_train = np.memmap('y_train.array', dtype=np.float64, mode='w+', shape=y_train1.shape)
+y_test = np.memmap('y_test.array', dtype=np.float64, mode='w+', shape=y_test1.shape)
+
+x_train[:] = x_train1
+x_test[:] = x_test1
+y_train[:] = y_train1
+y_test[:] = y_test1
+"""
 #x_train, x_test, y_train, y_test = train_test_split(data[0:len_data], labels , test_size=0.20, random_state= 42)
 with open(logfile, 'a') as myfile:
     myfile.write("x_train shape: " + str(x_train.shape) + "y_train shape: " + str(y_train.shape) + '\n')
