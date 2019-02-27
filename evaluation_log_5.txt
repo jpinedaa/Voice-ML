@@ -30,3 +30,4 @@ x_train shape: (246732, 513, 100, 1)y_train shape: (246732, 1251)
 x_train shape: (246732, 513, 100, 1)y_train shape: (246732, 1251)
 x_train shape: (246732, 513, 100, 1)y_train shape: (246732, 1251)
 update7 epochs= 50 lr= 1e-07 loss: 6.914066838737298 accuracy: 0.007068512694382497
+x_train shape: (246732, 513, 100, 1)y_train shape: (246732, 1251)
