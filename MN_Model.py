@@ -26,8 +26,8 @@ args = vars(ap.parse_args())
 G = args["gpus"]
 
 
-NUM_EPOCHS = 10
-INIT_LR= 0.001
+NUM_EPOCHS = 50
+INIT_LR= 1e-7
 lr_decay = 0
 training_batch_size = 32
 #samples_per_checkpoint = 1000
@@ -187,7 +187,7 @@ plt.title('model loss')
 plt.ylabel('loss')
 plt.xlabel('epoch')
 plt.legend(['train', 'test'], loc='upper left')
-plt.savefig(update + graph_name + "_loss")
+plt.savefig(graph_dir + update_name + "_loss")
 
 print("[INFO] Saving Model ...")
 saved_model.save_keras_model(model, save_dir)

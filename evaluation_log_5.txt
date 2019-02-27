@@ -23,3 +23,10 @@ x_train shape: (246732, 513, 100, 1)y_train shape: (246732, 1251)
 loss: 6.912750169726136accuracy: 0.0077170000972731105
 x_train shape: (246732, 513, 100, 1)y_train shape: (246732, 1251)
 loss: 16.09640669538981accuracy: 0.001345611361499303
+x_train shape: (246732, 513, 100, 1)y_train shape: (246732, 1251)
+x_train shape: (246732, 513, 100, 1)y_train shape: (246732, 1251)
+update7 epochs= 10 lr= 0.1 loss: 16.088567405308094 accuracy: 0.0018319769138484484
+x_train shape: (246732, 513, 100, 1)y_train shape: (246732, 1251)
+x_train shape: (246732, 513, 100, 1)y_train shape: (246732, 1251)
+x_train shape: (246732, 513, 100, 1)y_train shape: (246732, 1251)
+update7 epochs= 50 lr= 1e-07 loss: 6.914066838737298 accuracy: 0.007068512694382497
