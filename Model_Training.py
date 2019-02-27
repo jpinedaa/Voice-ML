@@ -28,7 +28,7 @@ G = args["gpus"]
 NUM_EPOCHS = 10
 INIT_LR = 0.001
 lr_decay = 0
-training_batch_size = 128
+training_batch_size = 32
 # samples_per_checkpoint = 1000
 validation_split = 0.01
 data_percent = 0.1
@@ -157,10 +157,12 @@ labels = to_categorical(labels, 1251)
 # labels = np.reshape(labels, (len_data,1,1,1251))
 
 print("[INFO] Splitting Data to Training/Test splits ...")
-x_train = np.memmap('x_train.array', dtype=np.float64, mode='r', shape=x_train1.shape)
-x_test = np.memmap('x_test.array', dtype=np.float64, mode='r', shape=x_test1.shape)
-y_train = np.memmap('y_train.array', dtype=np.float64, mode='r', shape=y_train1.shape)
-y_test = np.memmap('y_test.array', dtype=np.float64, mode='r', shape=y_test1.shape)
+test_size = 0.20
+real_test_size = int(0.20 * len_data)
+x_train = np.memmap('x_train.array', dtype=np.float64, mode='r', shape=((len_data-real_test_size),513,100,1))
+x_test = np.memmap('x_test.array', dtype=np.float64, mode='r', shape=(real_test_size,513,100,1))
+y_train = np.memmap('y_train.array', dtype=np.float64, mode='r', shape=((len_data-real_test_size),1251,))
+y_test = np.memmap('y_test.array', dtype=np.float64, mode='r', shape=(real_test_size,1251,))
 
 """rng_state = np.random.get_state()
 np.random.shuffle(labels)

@@ -27,7 +27,7 @@ G = args["gpus"]
 
 
 NUM_EPOCHS = 50
-INIT_LR= 1e-7
+INIT_LR= 1e-5
 lr_decay = 0
 training_batch_size = 32
 #samples_per_checkpoint = 1000
@@ -55,7 +55,7 @@ if G<= 1:
     print("[INFO] training with 1 GPU...")
     input = Input(shape=(513, 100, 1))
     in_conc = Concatenate()([input, input, input])
-    base_model = MobileNet(input_shape=(513, 100, 3), weights=None, input_tensor=in_conc, include_top=False)
+    base_model = Xception(input_shape=(513, 100, 3), weights=None, input_tensor=in_conc, include_top=False)
     x = base_model.output
     x = MaxPool2D(pool_size=(2, 2))(x)
     # model = Model(inputs=input, outputs= x)
