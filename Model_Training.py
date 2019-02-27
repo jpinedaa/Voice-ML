@@ -28,10 +28,10 @@ G = args["gpus"]
 NUM_EPOCHS = 10
 INIT_LR = 0.001
 lr_decay = 0
-training_batch_size = 64
+training_batch_size = 128
 # samples_per_checkpoint = 1000
 validation_split = 0.01
-data_percent = 1
+data_percent = 0.1
 alpha = 1
 logfile = "evaluation_log_5.txt"
 graph_dir = "Graphs/"
@@ -157,7 +157,12 @@ labels = to_categorical(labels, 1251)
 # labels = np.reshape(labels, (len_data,1,1,1251))
 
 print("[INFO] Splitting Data to Training/Test splits ...")
-rng_state = np.random.get_state()
+x_train = np.memmap('x_train.array', dtype=np.float64, mode='r', shape=x_train1.shape)
+x_test = np.memmap('x_test.array', dtype=np.float64, mode='r', shape=x_test1.shape)
+y_train = np.memmap('y_train.array', dtype=np.float64, mode='r', shape=y_train1.shape)
+y_test = np.memmap('y_test.array', dtype=np.float64, mode='r', shape=y_test1.shape)
+
+"""rng_state = np.random.get_state()
 np.random.shuffle(labels)
 np.random.set_state(rng_state)
 np.random.shuffle(data[:len_data])
@@ -177,7 +182,7 @@ x_train[:] = x_train1
 x_test[:] = x_test1
 y_train[:] = y_train1
 y_test[:] = y_test1
-
+"""
 
 # x_train, x_test, y_train, y_test = train_test_split(data[0:len_data], labels , test_size=0.20, random_state= 42)
 with open(logfile, 'a') as myfile:
