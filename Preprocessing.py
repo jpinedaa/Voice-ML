@@ -6,6 +6,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import os
 import time
+from speechpy.feature import lmfe, extract_derivative_feature
 
 rootdir = "/workspace/audio dataset/wav"
 
@@ -56,6 +57,7 @@ for subdir, dirs, files in os.walk(rootdir):
             normalized_spec[:, i:i + 1] = normalized_spec[:, i:i + 1] / spectrogram.std(axis=1).reshape(513, 1)
         #print(spectrogram.shape)
         #print(normalized_spec.shape)
+
         timevar = 100
         if normalized_spec.shape[1]>=timevar:
             no_cuts= int(normalized_spec.shape[1]/timevar)
