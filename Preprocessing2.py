@@ -44,7 +44,7 @@ for subdir, dirs, files in os.walk(rootdir):
 
     for file in files:
 
-        sound = AudioSegment.from_wav(rootdir + file)
+        sound = AudioSegment.from_wav(subdir + "/"  + file)
         sound = sound.set_channels(1)
         sound.export("modified.wav", format="wav")
         sample_rate, samples = wavfile.read("modified.wav")
@@ -61,7 +61,7 @@ for subdir, dirs, files in os.walk(rootdir):
                 with open(filename2, "a") as myfile:
                     myfile.write(curr_id + "\n")
                 with open(filename, "a") as myfile:
-                    for data_slice in cut
+                    for data_slice in cut:
                         np.savetxt(myfile, data_slice, delimiter=',', newline="\n")
         else:
             pad = np.pad(features, ((0, 100 - features.shape[0]), (0, 0), (0, 0)), 'constant', constant_values=0)
@@ -69,7 +69,7 @@ for subdir, dirs, files in os.walk(rootdir):
             with open(filename2, "a") as myfile:
                 myfile.write(curr_id + "\n")
             with open(filename, "a") as myfile:
-                for data_slice in pad
+                for data_slice in pad:
                     np.savetxt(myfile, data_slice, delimiter=',', newline="\n")
         batch_ptr = batch_ptr - 1
     if elapsed_time != 0:
