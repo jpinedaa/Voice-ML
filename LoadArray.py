@@ -25,7 +25,7 @@ start = time.time()
 
 filename = filename[:-4 - len(str(counter - 1))] + str(counter) + filename[-4:]
 
-data = np.memmap('data4.array', dtype=np.float64, mode='w+', shape=(320000, 513, 100, 1))
+data = np.memmap('data4.array', dtype=np.float64, mode='w+', shape=(1300000, 100, 40, 3))
 
 print("[INFO] Loading first file... ")
 
