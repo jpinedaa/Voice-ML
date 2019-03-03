@@ -53,7 +53,7 @@ def poly_decay(epoch):
 # create the base pre-trained model
 if G <= 1:
     print("[INFO] training with 1 GPU...")
-    input = Input(shape=(513, 100, 1))
+    input = Input(shape=(100, 40, 3))
     x = Conv2D(32, kernel_size=(7, 7), strides=(2, 2), activation='relu')(input)
     x = BatchNormalization()(x)
     x = Conv2D(64, kernel_size=(5, 5), strides=(1, 1), activation='relu')(x)
@@ -75,7 +75,7 @@ if G <= 1:
 else:
     print("[INFO] training with {} GPUs...".format(G))
     with tf.device("/cpu:0"):
-        input = Input(shape=(513, 100, 1))
+        input = Input(shape=(100, 40, 3))
         x = Conv2D(32, kernel_size=(7, 7), strides=(2, 2), activation='relu')(input)
         x = BatchNormalization()(x)
         x = Conv2D(64, kernel_size=(5, 5), strides=(1, 1), activation='relu')(x)

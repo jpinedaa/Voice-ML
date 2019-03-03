@@ -36,7 +36,7 @@ data_percent = 1
 alpha = 1
 logfile = "evaluation_log_5.txt"
 graph_dir = "Graphs/"
-update_name = "update8"
+update_name = "update9"
 #checkpoint_path = "Saved_Models/training_2/cp-{epoch:04d}.ckpt"
 #checkpoint_dir = os.path.dirname(checkpoint_path)
 #dir = "Saved_Model_4/"
@@ -53,9 +53,8 @@ def poly_decay(epoch):
 # create the base pre-trained model
 if G<= 1:
     print("[INFO] training with 1 GPU...")
-    input = Input(shape=(513, 100, 1))
-    in_conc = Concatenate()([input, input, input])
-    base_model = Xception(input_shape=(513, 100, 3), weights=None, input_tensor=in_conc, include_top=False)
+    input = Input(shape=(100, 40, 3))
+    base_model = Xception(input_shape=(100, 40, 3), weights=None, input_tensor=input, include_top=False)
     x = base_model.output
     x = MaxPool2D(pool_size=(2, 2))(x)
     # model = Model(inputs=input, outputs= x)
@@ -70,9 +69,8 @@ if G<= 1:
 else:
     print("[INFO] training with {} GPUs...".format(G))
     with tf.device("/cpu:0"):
-        input = Input(shape=(513, 100, 1))
-        in_conc = Concatenate()([input, input, input])
-        base_model = Xception(input_shape=(513, 100, 3), weights=None, input_tensor=in_conc, include_top=False)
+        input = Input(shape=(100, 40, 3))
+        base_model = Xception(input_shape=(100, 40, 3), weights=None, input_tensor=input, include_top=False)
         x = base_model.output
         x = MaxPool2D(pool_size=(2, 2))(x)
         # model = Model(inputs=input, outputs= x)
@@ -90,13 +88,13 @@ else:
 # we use SGD with a low learning rate
 print("[INFO] Compiling Model ... ")
 from tensorflow.keras.optimizers import SGD
-#model.compile(optimizer=SGD(lr=INIT_LR, momentum=0.9), loss='categorical_crossentropy',metrics=['accuracy'])
-model.compile(optimizer=RMSprop(lr=INIT_LR), loss='categorical_crossentropy',metrics=['accuracy'])
+model.compile(optimizer=SGD(lr=INIT_LR, momentum=0.9), loss='categorical_crossentropy',metrics=['accuracy'])
+#model.compile(optimizer=RMSprop(lr=INIT_LR), loss='categorical_crossentropy',metrics=['accuracy'])
 
 
 print("[INFO] Loading Data... ")
-filename = "data3/data1.txt"
-filename2 = "data3/labels1.txt"
+filename = "data4/data1.txt"
+filename2 = "data4/labels1.txt"
 counter = 1
 le = preprocessing.LabelEncoder()
 
@@ -104,7 +102,7 @@ start = time.time()
 
 filename2 = filename2[:-4-len(str(counter-1))] + str(counter) + filename2[-4:] 
 
-data = np.memmap('data3.array', dtype= np.float64, mode= 'r+', shape= (320000,513,100,1))
+data = np.memmap('data4.array', dtype= np.float64, mode= 'r+', shape= (320000,100,40,3))
 
 print("[INFO] Loading first file... ")
 
@@ -148,14 +146,14 @@ labels = to_categorical(labels, 1251)
 #labels = np.reshape(labels, (len_data,1,1,1251))
 
 print("[INFO] Splitting Data to Training/Test splits ...")
-test_size = 0.20
+"""test_size = 0.20
 real_test_size = int(0.20 * len_data)
-x_train = np.memmap('x_train.array', dtype=np.float64, mode='r', shape=((len_data-real_test_size),513,100,1))
-x_test = np.memmap('x_test.array', dtype=np.float64, mode='r', shape=(real_test_size,513,100,1))
-y_train = np.memmap('y_train.array', dtype=np.float64, mode='r', shape=((len_data-real_test_size),1251,))
-y_test = np.memmap('y_test.array', dtype=np.float64, mode='r', shape=(real_test_size,1251,))
-
-"""rng_state = np.random.get_state()
+x_train = np.memmap('x_train2.array', dtype=np.float64, mode='r', shape=((len_data-real_test_size),513,100,1))
+x_test = np.memmap('x_test2.array', dtype=np.float64, mode='r', shape=(real_test_size,513,100,1))
+y_train = np.memmap('y_train2.array', dtype=np.float64, mode='r', shape=((len_data-real_test_size),1251,))
+y_test = np.memmap('y_test2.array', dtype=np.float64, mode='r', shape=(real_test_size,1251,))
+"""
+rng_state = np.random.get_state()
 np.random.shuffle(labels)
 np.random.set_state(rng_state)
 np.random.shuffle(data[:len_data])
@@ -166,16 +164,16 @@ x_test1 = data[:real_test_size]
 y_train1= labels[real_test_size:]
 y_test1 = labels[:real_test_size]
 
-x_train = np.memmap('x_train.array', dtype=np.float64, mode='w+', shape=x_train1.shape)
-x_test = np.memmap('x_test.array', dtype=np.float64, mode='w+', shape=x_test1.shape)
-y_train = np.memmap('y_train.array', dtype=np.float64, mode='w+', shape=y_train1.shape)
-y_test = np.memmap('y_test.array', dtype=np.float64, mode='w+', shape=y_test1.shape)
+x_train = np.memmap('x_train2.array', dtype=np.float64, mode='w+', shape=x_train1.shape)
+x_test = np.memmap('x_test2.array', dtype=np.float64, mode='w+', shape=x_test1.shape)
+y_train = np.memmap('y_train2.array', dtype=np.float64, mode='w+', shape=y_train1.shape)
+y_test = np.memmap('y_test2.array', dtype=np.float64, mode='w+', shape=y_test1.shape)
 
 x_train[:] = x_train1
 x_test[:] = x_test1
 y_train[:] = y_train1
 y_test[:] = y_test1
-"""
+
 #x_train, x_test, y_train, y_test = train_test_split(data[0:len_data], labels , test_size=0.20, random_state= 42)
 with open(logfile, 'a') as myfile:
     myfile.write("x_train shape: " + str(x_train.shape) + "y_train shape: " + str(y_train.shape) + '\n')
