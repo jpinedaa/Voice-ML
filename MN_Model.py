@@ -5,7 +5,7 @@ from tensorflow.keras.applications.xception import Xception
 #from tensorflow.keras.applications.mobilenet_v2 import MobileNetV2
 from tensorflow.keras.models import Model, save_model, load_model
 from tensorflow.contrib import saved_model
-from tensorflow.keras.layers import Dense, AveragePooling2D, Input, Conv2D, Concatenate, MaxPool2D, Reshape
+from tensorflow.keras.layers import Dense, AveragePooling2D, Input, Conv2D, Concatenate, MaxPool2D, Reshape, Flatten
 from tensorflow.keras.utils import to_categorical, multi_gpu_model
 from tensorflow.keras.optimizers import SGD, RMSprop
 from tensorflow.keras.callbacks import LearningRateScheduler, ModelCheckpoint
@@ -26,10 +26,10 @@ args = vars(ap.parse_args())
 G = args["gpus"]
 
 
-NUM_EPOCHS = 10
+NUM_EPOCHS = 100
 INIT_LR= 1e-5
 lr_decay = 0
-training_batch_size = 32
+training_batch_size = 128
 #samples_per_checkpoint = 1000
 validation_split = 0.01
 data_percent = 1
@@ -54,14 +54,15 @@ def poly_decay(epoch):
 if G<= 1:
     print("[INFO] training with 1 GPU...")
     input = Input(shape=(100, 40, 3))
-    base_model = Xception(input_shape=(100, 40, 3), weights=None, input_tensor=input, include_top=False)
+    base_model = MobileNet(input_shape=(100, 40, 3), weights=None, input_tensor=input, include_top=False)
     x = base_model.output
-    x = MaxPool2D(pool_size=(2, 2))(x)
+    #x = MaxPool2D(pool_size=(2, 2))(x)
     # model = Model(inputs=input, outputs= x)
     # layer = model.get_layer(index = -1)
     # print(layer.output_shape)
-    x = Conv2D(4096, kernel_size=(8, 1), activation='relu')(x)
+    #x = Conv2D(4096, kernel_size=(8, 1), activation='relu')(x)
     # x = AveragePooling2D(pool_size=(1,4))(x)
+    x = Flatten()(x)
     x = Dense(1024, activation='relu')(x)
     x = Dense(1251, activation='softmax')(x)
     x = Reshape(target_shape=(1251,))(x)
@@ -102,7 +103,7 @@ start = time.time()
 
 filename2 = filename2[:-4-len(str(counter-1))] + str(counter) + filename2[-4:] 
 
-data = np.memmap('data4.array', dtype= np.float64, mode= 'r+', shape= (320000,100,40,3))
+data = np.memmap('data4.array', dtype= np.float64, mode= 'r+', shape= (1300000,100,40,3))
 
 print("[INFO] Loading first file... ")
 
@@ -146,10 +147,10 @@ labels = to_categorical(labels, 1251)
 #labels = np.reshape(labels, (len_data,1,1,1251))
 
 print("[INFO] Splitting Data to Training/Test splits ...")
-"""test_size = 0.20
+test_size = 0.20
 real_test_size = int(0.20 * len_data)
-x_train = np.memmap('x_train2.array', dtype=np.float64, mode='r', shape=((len_data-real_test_size),513,100,1))
-x_test = np.memmap('x_test2.array', dtype=np.float64, mode='r', shape=(real_test_size,513,100,1))
+x_train = np.memmap('x_train2.array', dtype=np.float64, mode='r', shape=((len_data-real_test_size),100,40,3))
+x_test = np.memmap('x_test2.array', dtype=np.float64, mode='r', shape=(real_test_size,100,40,3))
 y_train = np.memmap('y_train2.array', dtype=np.float64, mode='r', shape=((len_data-real_test_size),1251,))
 y_test = np.memmap('y_test2.array', dtype=np.float64, mode='r', shape=(real_test_size,1251,))
 """
@@ -173,7 +174,7 @@ x_train[:] = x_train1
 x_test[:] = x_test1
 y_train[:] = y_train1
 y_test[:] = y_test1
-
+"""
 #x_train, x_test, y_train, y_test = train_test_split(data[0:len_data], labels , test_size=0.20, random_state= 42)
 with open(logfile, 'a') as myfile:
     myfile.write("x_train shape: " + str(x_train.shape) + "y_train shape: " + str(y_train.shape) + '\n')
