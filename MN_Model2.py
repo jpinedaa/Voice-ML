@@ -25,9 +25,9 @@ ap.add_argument('-g', '--gpus', type=int, default=1, help='# of GPUs to use for 
 args = vars(ap.parse_args())
 G = args["gpus"]
 
-NUM_EPOCHS = 40
+NUM_EPOCHS = 10
 INIT_LR = 1e-5
-lr_decay = 1
+lr_decay = 0
 training_batch_size = 128
 # samples_per_checkpoint = 1000
 validation_split = 0.01
@@ -35,7 +35,7 @@ data_percent = 1
 alpha = 1
 logfile = "evaluation_log_5.txt"
 graph_dir = "Graphs/"
-update_name = "update10"
+update_name = "update11"
 # checkpoint_path = "Saved_Models/training_2/cp-{epoch:04d}.ckpt"
 # checkpoint_dir = os.path.dirname(checkpoint_path)
 # dir = "Saved_Model_4/"
