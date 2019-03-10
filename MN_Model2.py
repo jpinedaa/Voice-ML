@@ -5,7 +5,7 @@ from tensorflow.keras.applications.xception import Xception
 # from tensorflow.keras.applications.mobilenet_v2 import MobileNetV2
 from tensorflow.keras.models import Model, save_model, load_model
 from tensorflow.contrib import saved_model
-from tensorflow.keras.layers import Dense, AveragePooling2D, Input, Conv2D, Concatenate, MaxPool2D, Reshape
+from tensorflow.keras.layers import Dense, AveragePooling2D, Input, Conv2D, Concatenate, MaxPool2D, Reshape, BatchNormalization, Flatten
 from tensorflow.keras.utils import to_categorical, multi_gpu_model
 from tensorflow.keras.optimizers import SGD, RMSprop
 from tensorflow.keras.callbacks import LearningRateScheduler, ModelCheckpoint
@@ -25,17 +25,17 @@ ap.add_argument('-g', '--gpus', type=int, default=1, help='# of GPUs to use for 
 args = vars(ap.parse_args())
 G = args["gpus"]
 
-NUM_EPOCHS = 400
+NUM_EPOCHS = 100
 INIT_LR = 1e-5
 lr_decay = 0
-training_batch_size = 512
+training_batch_size = 32
 # samples_per_checkpoint = 1000
 validation_split = 0.005
 data_percent = 1
 alpha = 1
 logfile = "evaluation_log_5.txt"
 graph_dir = "Graphs/"
-update_name = "update14"
+update_name = "update15"
 # checkpoint_path = "Saved_Models/training_2/cp-{epoch:04d}.ckpt"
 # checkpoint_dir = os.path.dirname(checkpoint_path)
 # dir = "Saved_Model_4/"
@@ -60,7 +60,7 @@ if G <= 1:
     print("[INFO] training with 1 GPU...")
     """
     input = Input(shape=(100, 40, 3))
-    base_model = Xception(input_shape=(100, 40, 3), weights=None, input_tensor=input, include_top=False)
+    base_model = MobileNet(input_shape=(100, 40, 3), weights=None, input_tensor=input, include_top=False)
     x = base_model.output
     x = MaxPool2D(pool_size=(2, 2))(x)
     # model = Model(inputs=input, outputs= x)
@@ -73,6 +73,23 @@ if G <= 1:
     x = Reshape(target_shape=(1251,))(x)
     model = Model(inputs=input, outputs=x)"""
     model = saved_model.load_keras_model(save_dir + checkpoints[-1])
+    temp_weights = [layer.get_weights() for layer in model.layers]
+    inp = Input(shape=(100,40,3))
+    inp2 = BatchNormalization()(inp)
+    base_model = MobileNet(input_shape=(100,40,3), weights = None, input_tensor= inp2, include_top=False)
+    x = base_model.output
+    x = Flatten()(x)
+    x = Dense(1024, activation= 'relu')(x)
+    x = Dense(1251, activation='softmax')(x)
+    x = Reshape(target_shape=(1251,))(x)
+    model = Model(inputs=inp, outputs=x)
+    j = 0
+    for i in range(len(temp_weights)):
+        print("i: " + str(i) + " j: " + str(j) )
+        if j == 1 :
+            j = j + 1
+        model.layers[j].set_weights(temp_weights[i])
+        j = j + 1
 
 else:
     print("[INFO] training with {} GPUs...".format(G))
