@@ -28,14 +28,14 @@ G = args["gpus"]
 NUM_EPOCHS = 100
 INIT_LR = 1e-5
 lr_decay = 0
-training_batch_size = 32
+training_batch_size = 128
 # samples_per_checkpoint = 1000
 validation_split = 0.005
 data_percent = 1
 alpha = 1
 logfile = "evaluation_log_5.txt"
 graph_dir = "Graphs/"
-update_name = "update15"
+update_name = "update16"
 # checkpoint_path = "Saved_Models/training_2/cp-{epoch:04d}.ckpt"
 # checkpoint_dir = os.path.dirname(checkpoint_path)
 # dir = "Saved_Model_4/"
@@ -72,7 +72,9 @@ if G <= 1:
     x = Dense(1251, activation='softmax')(x)
     x = Reshape(target_shape=(1251,))(x)
     model = Model(inputs=input, outputs=x)"""
+
     model = saved_model.load_keras_model(save_dir + checkpoints[-1])
+    """
     temp_weights = [layer.get_weights() for layer in model.layers]
     inp = Input(shape=(100,40,3))
     inp2 = BatchNormalization()(inp)
@@ -89,7 +91,7 @@ if G <= 1:
         if j == 1 :
             j = j + 1
         model.layers[j].set_weights(temp_weights[i])
-        j = j + 1
+        j = j + 1"""
 
 else:
     print("[INFO] training with {} GPUs...".format(G))
