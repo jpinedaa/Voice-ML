@@ -28,14 +28,14 @@ G = args["gpus"]
 NUM_EPOCHS = 100
 INIT_LR = 1e-5
 lr_decay = 0
-training_batch_size = 128
+training_batch_size = 32
 # samples_per_checkpoint = 1000
 validation_split = 0.005
 data_percent = 1
 alpha = 1
 logfile = "evaluation_log_5.txt"
 graph_dir = "Graphs/"
-update_name = "update17"
+update_name = "update18"
 # checkpoint_path = "Saved_Models/training_2/cp-{epoch:04d}.ckpt"
 # checkpoint_dir = os.path.dirname(checkpoint_path)
 # dir = "Saved_Model_4/"
@@ -74,18 +74,24 @@ if G <= 1:
     model = Model(inputs=input, outputs=x)"""
 
     model = saved_model.load_keras_model(save_dir + checkpoints[-1])
-    """
+
     temp_weights = [layer.get_weights() for layer in model.layers]
     inp = Input(shape=(100,40,3))
     inp2 = BatchNormalization()(inp)
     base_model = MobileNet(input_shape=(100,40,3), weights = None, input_tensor= inp2, include_top=False)
     x = base_model.output
-    x = Flatten()(x)
-    x = Dense(1024, activation= 'relu')(x)
+    x = Conv2D(4096, kernel_size=(4, 1), activation='relu')(x)
+    x = BatchNormalization()(x)
+    x = AveragePooling2D(pool_size=(1,2))(x)
+    x = Dense(1024, activation='relu')(x)
+    x = Reshape(target_shape=(1024,))(x)
+    x = BatchNormalization()(x)
     x = Dense(1251, activation='softmax')(x)
-    x = Reshape(target_shape=(1251,))(x)
-    model = Model(inputs=inp, outputs=x)
-    j = 0
+    model = Model(inputs=input, outputs=x)
+    for i in range(97):
+        model.layers[i].set_weights(temp_weights[i])
+
+   """ j = 0
     for i in range(len(temp_weights)):
         print("i: " + str(i) + " j: " + str(j) )
         if j == 1 :
