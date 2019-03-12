@@ -80,18 +80,19 @@ if G <= 1:
     inp2 = BatchNormalization()(inp)
     base_model = MobileNet(input_shape=(100,40,3), weights = None, input_tensor= inp2, include_top=False)
     x = base_model.output
-    x = Conv2D(4096, kernel_size=(4, 1), activation='relu')(x)
+    x = Conv2D(4096, kernel_size=(3, 1), activation='relu')(x)
     x = BatchNormalization()(x)
-    x = AveragePooling2D(pool_size=(1,2))(x)
+    #x = AveragePooling2D(pool_size=(1,2))(x)
     x = Dense(1024, activation='relu')(x)
     x = Reshape(target_shape=(1024,))(x)
     x = BatchNormalization()(x)
     x = Dense(1251, activation='softmax')(x)
-    model = Model(inputs=input, outputs=x)
-    for i in range(97):
+    model = Model(inputs=inp, outputs=x)
+    for i in range(88):
+        print(i)
         model.layers[i].set_weights(temp_weights[i])
-
-   """ j = 0
+    """
+    j = 0
     for i in range(len(temp_weights)):
         print("i: " + str(i) + " j: " + str(j) )
         if j == 1 :
