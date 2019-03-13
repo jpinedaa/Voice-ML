@@ -73,3 +73,5 @@ update17 epochs= 100 lr= 1e-05 loss: 1.3061314359891623 accuracy: 0.704195287366
 x_train shape: (920081, 100, 40, 3)y_train shape: (920081, 1251)
 x_train shape: (920081, 100, 40, 3)y_train shape: (920081, 1251)
 update18 epochs= 100 lr= 1e-05 loss: 1.0716853641835817 accuracy: 0.7590470393878793
+x_train shape: (920081, 100, 40, 3)y_train shape: (920081, 1251)
+update19 epochs= 100 lr= 1e-05 loss: 0.968145640067832 accuracy: 0.7809277454134423
