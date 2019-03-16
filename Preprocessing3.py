@@ -8,7 +8,7 @@ import os
 import time
 from speechpy.feature import lmfe, extract_derivative_feature
 
-rootdir = "D:/downloads/train-clean-100/LibriSpeech/train-clean-100"
+rootdir= "/workspace/audio dataset2/LibriSpeech/train-clean-360/"
 
 curr_id = 0
 filename = "verdata/data.txt"
@@ -22,7 +22,7 @@ batch_size = 5000
 batch_ptr = batch_size
 counter = 1
 dirs_count=0
-flag = 1
+flag = 0
 
 exit = 500
 
@@ -38,11 +38,16 @@ for subdir, dirs, files in os.walk(rootdir):
     if first_count == 0:
         first_count = dirs.__len__()
         flag = 1
+        continue
     if flag == 1:
         curr_id = curr_id + 1
         dirs_count = dirs.__len__()
+        print("dirs_count: " + str(dirs_count))
         flag = 0
         elapsed_time = time.time() - start_time
+        start_time = time.time()
+        count = count + 1
+        continue
     if flag == 0:
         if dirs_count == 1:
             flag = 1
@@ -57,13 +62,17 @@ for subdir, dirs, files in os.walk(rootdir):
             count = count + 1
             start_time = time.time()
 """
+    no_files = 2
     for file in files:
-        exit = exit - 1
+        #exit = exit - 1
         if exit <= 0:
             break
         if file[-4:] != "flac":
             continue
-        print(subdir + "\\"  + file)
+        if no_files == 0:
+            continue
+        no_files = no_files - 1
+        #print(subdir + "\\"  + file)
         sound = AudioSegment.from_file(subdir + "/" + file)
         sound = sound.set_channels(1)
         sound.export("modified.wav", format="wav")
