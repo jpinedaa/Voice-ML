@@ -37,7 +37,7 @@ data_percent = 1
 alpha = 1
 logfile = "evaluation_log_5.txt"
 graph_dir = "Graphs/"
-update_name = "update19"
+update_name = "update20"
 # checkpoint_path = "Saved_Models/training_2/cp-{epoch:04d}.ckpt"
 # checkpoint_dir = os.path.dirname(checkpoint_path)
 # dir = "Saved_Model_4/"
@@ -80,7 +80,7 @@ def contrastive_loss(y_true, y_pred):
 def accuracy(y_true, y_pred):
     '''Compute classification accuracy with a fixed threshold on distances.
     '''
-    return K.mean(K.equal(y_true, K.cast(y_pred < 0.5, y_true.dtype)))
+    return K.mean(K.equal(y_true, K.cast(y_pred > 0.5, y_true.dtype)))
 
 # create the base pre-trained model
 if G <= 1:
@@ -90,7 +90,7 @@ if G <= 1:
     model1.layers.pop()
     model2 = Model(model1.input, model1.output)
 
-    input_a = Input(shape=(100,40,3))
+    input_a = Input(shape=(100, 40, 3))
     input_b = Input(shape=(100, 40, 3))
 
     processed_a = model2(input_a)
@@ -147,6 +147,8 @@ labels = np.memmap('pairs_labels.array', dtype= np.float64, mode= 'r+', shape= (
 
 print("[INFO] Finished Loading Data")
 print("[INFO] Encoding Labels... ")
+
+print(labels[0:20])
 
 len_data = len(labels)
 le.fit(labels)
