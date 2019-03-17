@@ -28,7 +28,7 @@ args = vars(ap.parse_args())
 G = args["gpus"]
 
 NUM_EPOCHS = 100
-INIT_LR = 1e-5
+INIT_LR = 1e-6
 lr_decay = 0
 training_batch_size = 32
 # samples_per_checkpoint = 1000
@@ -41,7 +41,8 @@ update_name = "update19"
 # checkpoint_path = "Saved_Models/training_2/cp-{epoch:04d}.ckpt"
 # checkpoint_dir = os.path.dirname(checkpoint_path)
 # dir = "Saved_Model_4/"
-save_dir = "Saved_Models/update4/"
+save_dir = "Saved_Models/update3/"
+save_dir2 = "Saved_Models/update4/"
 
 print("[INFO] Searching Latest checkpoint... ")
 checkpoints = [m for m in os.listdir(save_dir)]
@@ -87,7 +88,7 @@ if G <= 1:
 
     model1 = saved_model.load_keras_model(save_dir + checkpoints[-1])
     model1.layers.pop()
-    model2 = Model(input = model1.input, output = model1.layers[-1])
+    model2 = Model(model1.input, model1.output)
 
     input_a = Input(shape=(100,40,3))
     input_b = Input(shape=(100, 40, 3))
@@ -95,7 +96,7 @@ if G <= 1:
     processed_a = model2(input_a)
     processed_b = model2(input_b)
 
-    distance = Lambda(euclidean_distance, ouput_shape=eucl_dist_output_shape)([processed_a, processed_b])
+    distance = Lambda(euclidean_distance, output_shape=eucl_dist_output_shape)([processed_a, processed_b])
     model = Model([input_a, input_b], distance)
 
 
@@ -126,7 +127,7 @@ print("[INFO] Compiling Model ... ")
 from tensorflow.keras.optimizers import SGD
 
 rms = RMSprop()
-model.compile(optimizer=rms, loss=contrastive_loss, metrics=[accuracy])
+model.compile(optimizer=SGD(INIT_LR,0.99), loss=contrastive_loss, metrics=[accuracy])
 # model.compile(optimizer=RMSprop(lr=INIT_LR), loss='categorical_crossentropy',metrics=['accuracy'])
 
 
@@ -155,13 +156,13 @@ labels = to_categorical(labels, 2)
 # labels = np.reshape(labels, (len_data,1,1,1251))
 
 print("[INFO] Splitting Data to Training/Test splits ...")
-"""
+
 test_size = 0.10
 real_test_size = int(test_size * len_data)
-x_train = np.memmap('x_train_pairs.array', dtype=np.float64, mode='r', shape=((len_data-real_test_size),100,40,3))
-x_test = np.memmap('x_test_pairs.array', dtype=np.float64, mode='r', shape=(real_test_size,100,40,3))
-y_train = np.memmap('y_train_pairs.array', dtype=np.float64, mode='r', shape=((len_data-real_test_size),1251,))
-y_test = np.memmap('y_test_pairs.array', dtype=np.float64, mode='r', shape=(real_test_size,1251,))
+x_train = np.memmap('x_train_pairs.array', dtype=np.float64, mode='r', shape=((len_data-real_test_size),2,100,40,3))
+x_test = np.memmap('x_test_pairs.array', dtype=np.float64, mode='r', shape=(real_test_size,2,100,40,3))
+y_train = np.memmap('y_train_pairs.array', dtype=np.float64, mode='r', shape=((len_data-real_test_size),2,))
+y_test = np.memmap('y_test_pairs.array', dtype=np.float64, mode='r', shape=(real_test_size,2,))
 """
 rng_state = np.random.get_state()
 np.random.shuffle(labels)
@@ -183,7 +184,7 @@ x_train[:] = x_train1
 x_test[:] = x_test1
 y_train[:] = y_train1
 y_test[:] = y_test1
-
+"""
 # x_train, x_test, y_train, y_test = train_test_split(data[0:len_data], labels , test_size=0.20, random_state= 42)
 with open(logfile, 'a') as myfile:
     myfile.write("x_train shape: " + str(x_train.shape) + "y_train shape: " + str(y_train.shape) + '\n')
@@ -203,7 +204,7 @@ print("[INFO] Training starting... ")
 H = model.fit([x_train_new[:,0,:,:,:],x_train_new[:,1,:,:,:]], y_train_new, batch_size=training_batch_size, verbose=1, epochs=NUM_EPOCHS,
               validation_split=validation_split, callbacks=[lr_callback])
 H = H.history
-
+"""
 print("[INFO] Plotting training loss and accuracy ...")
 plt.plot(H['acc'])
 plt.plot(H['val_acc'])
@@ -213,7 +214,7 @@ plt.xlabel('epoch')
 plt.legend(['train', 'test'], loc='upper left')
 plt.savefig(graph_dir + update_name + "_acc")
 plt.clf()
-
+"""
 plt.plot(H['loss'])
 plt.plot(H['val_loss'])
 plt.title('model loss')
@@ -223,10 +224,10 @@ plt.legend(['train', 'test'], loc='upper left')
 plt.savefig(graph_dir + update_name + "_loss")
 
 print("[INFO] Saving Model ...")
-saved_model.save_keras_model(model, save_dir)
+saved_model.save_keras_model(model, save_dir2)
 
 print("[INFO] Testing Model ...")
-H = model.evaluate(x_test, y_test, verbose=1)
+H = model.evaluate([x_test[:,0,:,:,:],x_test[:,1,:,:,:]], y_test, verbose=1)
 
 with open(logfile, 'a') as myfile:
     myfile.write(update_name + " epochs= " + str(NUM_EPOCHS) + " lr= " + str(INIT_LR) + " loss: " + str(
