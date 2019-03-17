@@ -56,8 +56,11 @@ else:
     pairs_labels[0] = 1
 flag = 1
 i = 1
+total_pairs = 1
 while i < (labels.shape[0] - 1):
-    print("[INFO]Arranging pair#" + str(i))
+    if total_pairs == 10000:
+        break
+    print("[INFO]Arranging pair#" + str(total_pairs))
     if flag == 0:
         pairs_data_tmp = np.zeros((1, 2, 100, 40, 3))
         pairs_data_tmp[0] = [data[i], data[i+1]]
@@ -67,9 +70,11 @@ while i < (labels.shape[0] - 1):
             pairs_labels_tmp[0] = 0
         else:
             pairs_labels_tmp[0] = 1
+        print(pairs_labels_tmp[0])
         pairs_labels = np.concatenate((pairs_labels, pairs_labels_tmp))
         flag = 1
         i = i + 2
+        total_pairs = total_pairs + 1
     if flag == 1:
         random.seed()
         index = random.randint(0,(labels.shape[0]-1))
@@ -81,9 +86,11 @@ while i < (labels.shape[0] - 1):
             pairs_labels_tmp[0] = 0
         else:
             pairs_labels_tmp[0] = 1
+        print(pairs_labels_tmp[0])
         pairs_labels = np.concatenate((pairs_labels, pairs_labels_tmp))
-        flag = 1
+        flag = 0
         i = i + 1
+        total_pairs = total_pairs + 1
     print("[INFO]pairs_data shape: " + str(pairs_data.shape) + " pairs_labels shape: " + str(pairs_labels.shape))
 
 pairs_data1 = np.memmap('pairs_data.array', dtype= np.float64, mode= 'w+', shape= pairs_data.shape)

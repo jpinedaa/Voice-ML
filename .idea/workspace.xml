@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="84a3e620-3428-40cc-8047-bb929bdee87e" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/Siamese_Model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Siamese_Model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Preprocessing3-2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Preprocessing3-2.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -81,11 +82,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Preprocessing3-2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1513">
-              <caret line="89" column="45" lean-forward="true" selection-start-line="89" selection-start-column="45" selection-end-line="89" selection-end-column="45" />
+            <state relative-caret-position="333">
+              <caret line="90" column="16" selection-start-line="90" selection-start-column="16" selection-end-line="90" selection-end-column="16" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -93,7 +94,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Siamese_Model.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="884">
@@ -154,11 +155,11 @@
         <option value="$PROJECT_DIR$/MN_Model.py" />
         <option value="$PROJECT_DIR$/Preprocessing2.py" />
         <option value="$PROJECT_DIR$/Preprocessing3.py" />
-        <option value="$PROJECT_DIR$/Preprocessing3-2.py" />
         <option value="$PROJECT_DIR$/mobilenet_inspection.py" />
         <option value="$PROJECT_DIR$/MN_Model2.py" />
         <option value="$PROJECT_DIR$/Verification_Model.py" />
         <option value="$PROJECT_DIR$/Siamese_Model.py" />
+        <option value="$PROJECT_DIR$/Preprocessing3-2.py" />
       </list>
     </option>
   </component>
@@ -518,22 +519,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Preprocessing3-2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1513">
-          <caret line="89" column="45" lean-forward="true" selection-start-line="89" selection-start-column="45" selection-end-line="89" selection-end-column="45" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Siamese_Model.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="884">
           <caret line="82" column="49" selection-start-line="82" selection-start-column="49" selection-end-line="82" selection-end-column="49" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Preprocessing3-2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="90" column="16" selection-start-line="90" selection-start-column="16" selection-end-line="90" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
