@@ -28,7 +28,7 @@ args = vars(ap.parse_args())
 G = args["gpus"]
 
 NUM_EPOCHS = 100
-INIT_LR = 1e-6
+INIT_LR = 1e-5
 lr_decay = 0
 training_batch_size = 32
 # samples_per_checkpoint = 1000
@@ -148,7 +148,7 @@ labels = np.memmap('pairs_labels.array', dtype= np.float64, mode= 'r+', shape= (
 print("[INFO] Finished Loading Data")
 print("[INFO] Encoding Labels... ")
 
-print(labels[0:20])
+print(labels[0:200])
 
 len_data = len(labels)
 le.fit(labels)
