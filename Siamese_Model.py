@@ -27,10 +27,10 @@ ap.add_argument('-g', '--gpus', type=int, default=1, help='# of GPUs to use for 
 args = vars(ap.parse_args())
 G = args["gpus"]
 
-NUM_EPOCHS = 1
+NUM_EPOCHS = 20
 INIT_LR = 1e-5
 lr_decay = 0
-training_batch_size = 64
+training_batch_size = 32
 # samples_per_checkpoint = 1000
 validation_split = 0.005
 data_percent = 1
