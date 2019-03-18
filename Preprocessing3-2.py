@@ -75,7 +75,7 @@ while i < (labels.shape[0] - 1):
         flag = 1
         i = i + 2
         total_pairs = total_pairs + 1
-    if flag == 1:
+    else:
         random.seed()
         index = random.randint(0,(labels.shape[0]-1))
         pairs_data_tmp = np.zeros((1, 2, 100, 40, 3))

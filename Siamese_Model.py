@@ -80,7 +80,7 @@ def contrastive_loss(y_true, y_pred):
 def accuracy(y_true, y_pred):
     '''Compute classification accuracy with a fixed threshold on distances.
     '''
-    return K.mean(K.equal(y_true, K.cast(y_pred > 0.5, y_true.dtype)))
+    return K.mean(K.equal(y_true, K.cast(y_pred < 0.5, y_true.dtype)))
 
 # create the base pre-trained model
 if G <= 1:
@@ -158,14 +158,14 @@ labels = to_categorical(labels, 2)
 # labels = np.reshape(labels, (len_data,1,1,1251))
 
 print("[INFO] Splitting Data to Training/Test splits ...")
-
+"""
 test_size = 0.10
 real_test_size = int(test_size * len_data)
 x_train = np.memmap('x_train_pairs.array', dtype=np.float64, mode='r', shape=((len_data-real_test_size),2,100,40,3))
 x_test = np.memmap('x_test_pairs.array', dtype=np.float64, mode='r', shape=(real_test_size,2,100,40,3))
 y_train = np.memmap('y_train_pairs.array', dtype=np.float64, mode='r', shape=((len_data-real_test_size),2,))
 y_test = np.memmap('y_test_pairs.array', dtype=np.float64, mode='r', shape=(real_test_size,2,))
-"""
+
 rng_state = np.random.get_state()
 np.random.shuffle(labels)
 np.random.set_state(rng_state)
@@ -187,7 +187,7 @@ x_test[:] = x_test1
 y_train[:] = y_train1
 y_test[:] = y_test1
 """
-# x_train, x_test, y_train, y_test = train_test_split(data[0:len_data], labels , test_size=0.20, random_state= 42)
+x_train, x_test, y_train, y_test = train_test_split(data[0:len_data], labels , test_size=0.10, random_state= 42)
 with open(logfile, 'a') as myfile:
     myfile.write("x_train shape: " + str(x_train.shape) + "y_train shape: " + str(y_train.shape) + '\n')
 
