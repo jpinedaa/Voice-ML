@@ -58,8 +58,8 @@ flag = 1
 i = 1
 total_pairs = 1
 while i < (labels.shape[0] - 1):
-    if total_pairs == 10000:
-        break
+#    if total_pairs == 10000:
+#        break
     print("[INFO]Arranging pair#" + str(total_pairs))
     if flag == 0:
         pairs_data_tmp = np.zeros((1, 2, 100, 40, 3))
