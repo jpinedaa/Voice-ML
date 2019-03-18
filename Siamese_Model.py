@@ -86,6 +86,8 @@ def compute_accuracy(y_true, y_pred):
     '''Compute classification accuracy with a fixed threshold on distances.
     '''
     pred = y_pred.ravel() < 0.5
+    print(pred[0:20])
+    print((pred[0:20] == y_true))
     return np.mean(pred == y_true)
 
 # create the base pre-trained model
