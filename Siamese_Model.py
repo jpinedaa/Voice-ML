@@ -27,7 +27,7 @@ ap.add_argument('-g', '--gpus', type=int, default=1, help='# of GPUs to use for 
 args = vars(ap.parse_args())
 G = args["gpus"]
 
-NUM_EPOCHS = 20
+NUM_EPOCHS = 5
 INIT_LR = 1e-5
 lr_decay = 0
 training_batch_size = 64
@@ -238,7 +238,9 @@ print("[INFO] Testing Model ...")
 H = model.evaluate([x_test[:,0,:,:,:],x_test[:,1,:,:,:]], y_test, verbose=1)
 
 y_pred = model.predict([x_test[:,0,:,:,:],x_test[:,1,:,:,:]])
+print(y_pred)
 te_acc = compute_accuracy(y_test,y_pred)
+print(te_acc)
 
 with open(logfile, 'a') as myfile:
     myfile.write(update_name + " epochs= " + str(NUM_EPOCHS) + " lr= " + str(INIT_LR) + " loss: " + str(
