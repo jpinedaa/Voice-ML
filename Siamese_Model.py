@@ -27,17 +27,17 @@ ap.add_argument('-g', '--gpus', type=int, default=1, help='# of GPUs to use for 
 args = vars(ap.parse_args())
 G = args["gpus"]
 
-NUM_EPOCHS = 100
+NUM_EPOCHS = 20
 INIT_LR = 1e-5
 lr_decay = 0
-training_batch_size = 32
+training_batch_size = 128
 # samples_per_checkpoint = 1000
 validation_split = 0.005
 data_percent = 1
 alpha = 1
 logfile = "evaluation_log_5.txt"
 graph_dir = "Graphs/"
-update_name = "update20"
+update_name = "update21"
 # checkpoint_path = "Saved_Models/training_2/cp-{epoch:04d}.ckpt"
 # checkpoint_dir = os.path.dirname(checkpoint_path)
 # dir = "Saved_Model_4/"
@@ -81,6 +81,12 @@ def accuracy(y_true, y_pred):
     '''Compute classification accuracy with a fixed threshold on distances.
     '''
     return K.mean(K.equal(y_true, K.cast(y_pred < 0.5, y_true.dtype)))
+
+def compute_accuracy(y_true, y_pred):
+    '''Compute classification accuracy with a fixed threshold on distances.
+    '''
+    pred = y_pred.ravel() < 0.5
+    return np.mean(pred == y_true)
 
 # create the base pre-trained model
 if G <= 1:
@@ -231,8 +237,11 @@ saved_model.save_keras_model(model, save_dir2)
 print("[INFO] Testing Model ...")
 H = model.evaluate([x_test[:,0,:,:,:],x_test[:,1,:,:,:]], y_test, verbose=1)
 
+y_pred = model.predict([x_test[:,0,:,:,:],x_test[:,1,:,:,:]])
+te_acc = compute_accuracy(y_test,y_pred)
+
 with open(logfile, 'a') as myfile:
     myfile.write(update_name + " epochs= " + str(NUM_EPOCHS) + " lr= " + str(INIT_LR) + " loss: " + str(
-        H[0]) + " accuracy: " + str(H[1]) + '\n')
+        H[0]) + " accuracy: " + str(H[1]) + " computed accuracy: " + str(te_acc) +'\n')
 
 print("FINISH")
