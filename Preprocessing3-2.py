@@ -45,11 +45,14 @@ while 1:
     print("[INFO] Finished loading file")
     print("labels shape: " + str(labels.shape))
 
+pairs_data = np.memmap('pairs_data.array', dtype= np.float64, mode= 'w+', shape= (45000, 2, 100, 40, 3))
+pairs_labels = np.memmap('pairs_labels.array', dtype= np.float64, mode= 'w+', shape= (45000, ))
+
 print("[INFO]Arrangig first pair... ")
-pairs_data = np.zeros((1,2,100,40,3))
+#pairs_data = np.zeros((1,2,100,40,3))
 pairs_data[0] = [data[0],data[1]]
 print("pairs data shape: " + str(pairs_data.shape))
-pairs_labels = np.zeros((1,))
+#pairs_labels = np.zeros((1,))
 if labels[0] == labels[1]:
     pairs_labels[0] = 0
 else:
@@ -58,45 +61,45 @@ flag = 1
 i = 1
 total_pairs = 1
 while i < (labels.shape[0] - 1):
-#    if total_pairs == 10000:
-#        break
+    if total_pairs == 45000:
+        break
     print("[INFO]Arranging pair#" + str(total_pairs))
     if flag == 0:
-        pairs_data_tmp = np.zeros((1, 2, 100, 40, 3))
-        pairs_data_tmp[0] = [data[i], data[i+1]]
-        pairs_data = np.concatenate((pairs_data,pairs_data_tmp))
-        pairs_labels_tmp = np.zeros((1,))
+        #pairs_data_tmp = np.zeros((1, 2, 100, 40, 3))
+        #pairs_data_tmp[0] = [data[i], data[i+1]]
+        #pairs_data = np.concatenate((pairs_data,pairs_data_tmp))
+        pairs_data[total_pairs] = [data[i], data[i + 1]]
+        #pairs_labels_tmp = np.zeros((1,))
         if labels[i] == labels[i+1]:
-            pairs_labels_tmp[0] = 0
+            pairs_labels[total_pairs] = 0
         else:
-            pairs_labels_tmp[0] = 1
-        print(pairs_labels_tmp[0])
-        pairs_labels = np.concatenate((pairs_labels, pairs_labels_tmp))
+            pairs_labels[total_pairs] = 1
+        #pairs_labels = np.concatenate((pairs_labels, pairs_labels_tmp))
         flag = 1
         i = i + 2
         total_pairs = total_pairs + 1
     else:
         random.seed()
         index = random.randint(0,(labels.shape[0]-1))
-        pairs_data_tmp = np.zeros((1, 2, 100, 40, 3))
-        pairs_data_tmp[0] = [data[i], data[index]]
-        pairs_data = np.concatenate((pairs_data, pairs_data_tmp))
-        pairs_labels_tmp = np.zeros((1,))
+        #pairs_data_tmp = np.zeros((1, 2, 100, 40, 3))
+        #pairs_data_tmp[0] = [data[i], data[index]]
+        #pairs_data = np.concatenate((pairs_data, pairs_data_tmp)
+        pairs_data[total_pairs] = [data[i], data[index]]
+        #pairs_labels_tmp = np.zeros((1,))
         if labels[i] == labels[index]:
-            pairs_labels_tmp[0] = 0
+            pairs_labels[total_pairs] = 0
         else:
-            pairs_labels_tmp[0] = 1
-        print(pairs_labels_tmp[0])
-        pairs_labels = np.concatenate((pairs_labels, pairs_labels_tmp))
+            pairs_labels[total_pairs] = 1
+        #pairs_labels = np.concatenate((pairs_labels, pairs_labels_tmp))
         flag = 0
         i = i + 1
         total_pairs = total_pairs + 1
     print("[INFO]pairs_data shape: " + str(pairs_data.shape) + " pairs_labels shape: " + str(pairs_labels.shape))
 
-pairs_data1 = np.memmap('pairs_data.array', dtype= np.float64, mode= 'w+', shape= pairs_data.shape)
-pairs_labels1 = np.memmap('pairs_labels.array', dtype= np.float64, mode= 'w+', shape= pairs_labels.shape)
+#pairs_data1 = np.memmap('pairs_data.array', dtype= np.float64, mode= 'w+', shape= pairs_data.shape)
+#pairs_labels1 = np.memmap('pairs_labels.array', dtype= np.float64, mode= 'w+', shape= pairs_labels.shape)
 
-pairs_data1[:] = pairs_data
-pairs_labels1[:] = pairs_labels
+#pairs_data1[:] = pairs_data
+#pairs_labels1[:] = pairs_labels
 
 print("final shapes= data:" + str(pairs_data.shape) + "labels: " + str(pairs_labels.shape))
