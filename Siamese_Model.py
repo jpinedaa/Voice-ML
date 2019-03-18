@@ -27,7 +27,7 @@ ap.add_argument('-g', '--gpus', type=int, default=1, help='# of GPUs to use for 
 args = vars(ap.parse_args())
 G = args["gpus"]
 
-NUM_EPOCHS = 5
+NUM_EPOCHS = 1
 INIT_LR = 1e-5
 lr_decay = 0
 training_batch_size = 64
@@ -87,7 +87,8 @@ def compute_accuracy(y_true, y_pred):
     '''
     pred = y_pred.ravel() < 0.5
     print(pred[0:20])
-    print((pred[0:20] == y_true))
+    print(y_true[0:20])
+    print((pred[0:20] == y_true[0:20]))
     return np.mean(pred == y_true)
 
 # create the base pre-trained model
@@ -159,10 +160,10 @@ print("[INFO] Encoding Labels... ")
 print(labels[0:200])
 
 len_data = len(labels)
-le.fit(labels)
-labels = le.transform(labels)
+#le.fit(labels)
+#labels = le.transform(labels)
 # print(labels.shape)
-labels = to_categorical(labels, 2)
+#labels = to_categorical(labels, 2)
 # labels = np.reshape(labels, (len_data,1,1,1251))
 
 print("[INFO] Splitting Data to Training/Test splits ...")
