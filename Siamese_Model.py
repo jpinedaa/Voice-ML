@@ -147,8 +147,8 @@ start = time.time()
 
 filename2 = filename2[:-4 - len(str(counter - 1))] + str(counter) + filename2[-4:]
 
-data = np.memmap('pairs_data.array', dtype=np.float64, mode='r+', shape=(50479, 2, 100, 40, 3))
-labels = np.memmap('pairs_labels.array', dtype= np.float64, mode= 'r+', shape= (50479, ))
+data = np.memmap('pairs_data.array', dtype=np.float64, mode='r+', shape=(10000, 2, 100, 40, 3))
+labels = np.memmap('pairs_labels.array', dtype= np.float64, mode= 'r+', shape= (10000, ))
 
 
 print("[INFO] Finished Loading Data")
