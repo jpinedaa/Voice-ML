@@ -62,7 +62,7 @@ for subdir, dirs, files in os.walk(rootdir):
             count = count + 1
             start_time = time.time()
 """
-    no_files = 2
+    no_files = 20
     for file in files:
         #exit = exit - 1
         if exit <= 0:
