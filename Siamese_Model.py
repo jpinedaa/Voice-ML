@@ -97,7 +97,9 @@ if G <= 1:
 
     model1 = saved_model.load_keras_model(save_dir + checkpoints[-1])
     model1.layers.pop()
-    model2 = Model(model1.input, model1.output)
+    x = model1.output
+    x = Dense(1024, activation= 'relu', name= 'features')(x)
+    model2 = Model(model1.input, x)
 
     input_a = Input(shape=(100, 40, 3))
     input_b = Input(shape=(100, 40, 3))
@@ -150,8 +152,8 @@ start = time.time()
 
 filename2 = filename2[:-4 - len(str(counter - 1))] + str(counter) + filename2[-4:]
 
-data = np.memmap('pairs_data.array', dtype=np.float64, mode='r+', shape=(29539, 2, 100, 40, 3))
-labels = np.memmap('pairs_labels.array', dtype= np.float64, mode= 'r+', shape= (29539, ))
+data = np.memmap('pairs_data.array', dtype=np.float64, mode='r+', shape=(35000, 2, 100, 40, 3))
+labels = np.memmap('pairs_labels.array', dtype= np.float64, mode= 'r+', shape= (35000, ))
 
 
 print("[INFO] Finished Loading Data")
