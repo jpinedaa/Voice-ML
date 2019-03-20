@@ -37,7 +37,7 @@ data_percent = 1
 alpha = 1
 logfile = "evaluation_log_5.txt"
 graph_dir = "Graphs/"
-update_name = "update21"
+update_name = "update22"
 # checkpoint_path = "Saved_Models/training_2/cp-{epoch:04d}.ckpt"
 # checkpoint_dir = os.path.dirname(checkpoint_path)
 # dir = "Saved_Model_4/"
@@ -150,8 +150,8 @@ start = time.time()
 
 filename2 = filename2[:-4 - len(str(counter - 1))] + str(counter) + filename2[-4:]
 
-data = np.memmap('pairs_data.array', dtype=np.float64, mode='r+', shape=(10000, 2, 100, 40, 3))
-labels = np.memmap('pairs_labels.array', dtype= np.float64, mode= 'r+', shape= (10000, ))
+data = np.memmap('pairs_data.array', dtype=np.float64, mode='r+', shape=(29539, 2, 100, 40, 3))
+labels = np.memmap('pairs_labels.array', dtype= np.float64, mode= 'r+', shape= (29539, ))
 
 
 print("[INFO] Finished Loading Data")
