@@ -76,14 +76,16 @@ while 1:
 
     if os.path.isfile(filename2) == False:
         break
+
+    del labels
+    del data
+
     with open(filename2, 'r') as file:
-        labels_temp = np.genfromtxt(file, dtype="string_")
+        labels = np.genfromtxt(file, dtype="string_")
     with open(filename, "r") as file:
-        data_temp = LoadData(file)
+        data = LoadData(file)
     counter = counter + 1
 
-    labels = labels_temp
-    data = data_temp
 
     print("[INFO] Finished loading file")
     print("labels shape: " + str(labels.shape))
