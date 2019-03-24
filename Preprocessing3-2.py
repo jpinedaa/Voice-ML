@@ -11,8 +11,8 @@ counter = 1
 filename = filename[:-4 - len(str(counter - 1))] + str(counter) + filename[-4:]
 filename2 = filename2[:-4 - len(str(counter - 1))] + str(counter) + filename2[-4:]
 
-pairs_data = np.memmap('pairs_data.array', dtype= np.float64, mode= 'w+', shape= (45000, 2, 100, 40, 3))
-pairs_labels = np.memmap('pairs_labels.array', dtype= np.float64, mode= 'w+', shape= (45000, ))
+pairs_data = np.memmap('pairs_data.array', dtype= np.float64, mode= 'w+', shape= (450000, 2, 100, 40, 3))
+pairs_labels = np.memmap('pairs_labels.array', dtype= np.float64, mode= 'w+', shape= (450000, ))
 
 print("[INFO] Loading first file... ")
 
@@ -28,11 +28,10 @@ counter = counter + 1
 print("[INFO] Finished loading first file")
 print("labels shape: " + str(labels.shape))
 
-flag = 0
-i = 0
 total_pairs = 0
 while 1:
-
+    i = 0
+    flag = 0
     while i < (labels.shape[0] - 1):
         #    if total_pairs == 45000:
         #        break
