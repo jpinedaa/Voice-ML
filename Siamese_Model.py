@@ -37,7 +37,7 @@ data_percent = 1
 alpha = 1
 logfile = "evaluation_log_5.txt"
 graph_dir = "Graphs/"
-update_name = "update22"
+update_name = "update23"
 # checkpoint_path = "Saved_Models/training_2/cp-{epoch:04d}.ckpt"
 # checkpoint_dir = os.path.dirname(checkpoint_path)
 # dir = "Saved_Model_4/"
@@ -96,6 +96,8 @@ if G <= 1:
     print("[INFO] training with 1 GPU...")
 
     model1 = saved_model.load_keras_model(save_dir + checkpoints[-1])
+    for i in range(len(model1.layers)):
+        model1.layers[i].trainable = False
     model1.layers.pop()
     x = model1.output
     x = Dense(1024, activation= 'relu', name= 'features')(x)
@@ -152,8 +154,8 @@ start = time.time()
 
 filename2 = filename2[:-4 - len(str(counter - 1))] + str(counter) + filename2[-4:]
 
-data = np.memmap('pairs_data.array', dtype=np.float64, mode='r+', shape=(35000, 2, 100, 40, 3))
-labels = np.memmap('pairs_labels.array', dtype= np.float64, mode= 'r+', shape= (35000, ))
+data = np.memmap('pairs_data.array', dtype=np.float64, mode='r+', shape=(294343, 2, 100, 40, 3))
+labels = np.memmap('pairs_labels.array', dtype= np.float64, mode= 'r+', shape= (294343, ))
 
 
 print("[INFO] Finished Loading Data")
