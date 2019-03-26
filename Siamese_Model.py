@@ -28,7 +28,7 @@ args = vars(ap.parse_args())
 G = args["gpus"]
 
 NUM_EPOCHS = 20
-INIT_LR = 1e-5
+INIT_LR = 1e-2
 lr_decay = 0
 training_batch_size = 32
 # samples_per_checkpoint = 1000
@@ -37,7 +37,7 @@ data_percent = 1
 alpha = 1
 logfile = "evaluation_log_5.txt"
 graph_dir = "Graphs/"
-update_name = "update23"
+update_name = "update24"
 # checkpoint_path = "Saved_Models/training_2/cp-{epoch:04d}.ckpt"
 # checkpoint_dir = os.path.dirname(checkpoint_path)
 # dir = "Saved_Model_4/"
@@ -178,7 +178,7 @@ x_train = np.memmap('x_train_pairs.array', dtype=np.float64, mode='r', shape=((l
 x_test = np.memmap('x_test_pairs.array', dtype=np.float64, mode='r', shape=(real_test_size,2,100,40,3))
 y_train = np.memmap('y_train_pairs.array', dtype=np.float64, mode='r', shape=((len_data-real_test_size),2,))
 y_test = np.memmap('y_test_pairs.array', dtype=np.float64, mode='r', shape=(real_test_size,2,))
-
+"""
 rng_state = np.random.get_state()
 np.random.shuffle(labels)
 np.random.set_state(rng_state)
@@ -199,8 +199,8 @@ x_train[:] = x_train1
 x_test[:] = x_test1
 y_train[:] = y_train1
 y_test[:] = y_test1
-"""
-x_train, x_test, y_train, y_test = train_test_split(data[0:len_data], labels , test_size=0.10, random_state= 42)
+
+#x_train, x_test, y_train, y_test = train_test_split(data[0:len_data], labels , test_size=0.10, random_state= 42)
 with open(logfile, 'a') as myfile:
     myfile.write("x_train shape: " + str(x_train.shape) + "y_train shape: " + str(y_train.shape) + '\n')
 
