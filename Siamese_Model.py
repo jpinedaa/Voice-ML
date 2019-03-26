@@ -28,7 +28,7 @@ args = vars(ap.parse_args())
 G = args["gpus"]
 
 NUM_EPOCHS = 20
-INIT_LR = 1e-3
+INIT_LR = 1e-2
 lr_decay = 0
 training_batch_size = 256
 # samples_per_checkpoint = 1000
@@ -37,7 +37,7 @@ data_percent = 1
 alpha = 1
 logfile = "evaluation_log_5.txt"
 graph_dir = "Graphs/"
-update_name = "update25"
+update_name = "update26"
 # checkpoint_path = "Saved_Models/training_2/cp-{epoch:04d}.ckpt"
 # checkpoint_dir = os.path.dirname(checkpoint_path)
 # dir = "Saved_Model_4/"
@@ -80,7 +80,7 @@ def contrastive_loss(y_true, y_pred):
 def accuracy(y_true, y_pred):
     '''Compute classification accuracy with a fixed threshold on distances.
     '''
-    return K.mean(K.equal(y_true, K.cast(y_pred < 0.5, y_true.dtype)))
+    return K.mean(K.equal(y_true, K.cast(y_pred < 0.3, y_true.dtype)))
 
 def compute_accuracy(y_true, y_pred):
     '''Compute classification accuracy with a fixed threshold on distances.
