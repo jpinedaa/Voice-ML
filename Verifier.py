@@ -31,7 +31,7 @@ def cosine_comparison(T, input_a, input_b):
         else:
             predicted_labels.append(0)
 
-    print("[INFO] input_a shape: " + str(input_a) + " input_b shape: " + str(input_b) + " predicted_labels shape: " + str(predicted_labels))
+    print("[INFO] input_a shape: " + str(input_a.shape) + " input_b shape: " + str(input_b.shape) + " predicted_labels shape: " + str(predicted_labels.shape))
     return predicted_labels
 
 def calculate_error(labels_true, labels_predicted):
@@ -39,6 +39,8 @@ def calculate_error(labels_true, labels_predicted):
     total_impostor = 0
     total_fr = 0
     total_fa = 0
+    print(labels_true.shape)
+    print(labels_predicted.shape)
     for i in range(len(labels_true)):
         if labels_true[i] == 0:
             total_genuine += 1
