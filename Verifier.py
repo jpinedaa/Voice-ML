@@ -52,7 +52,8 @@ def calculate_error(labels_true, labels_predicted):
                 total_fa += 1
     frr = total_fr/total_genuine
     far = total_fa/total_impostor
-    return [frr,far]
+    acc = (total_fa + total_fr) / len(labels_predicted)
+    return [frr,far, acc]
 
 ap = argparse.ArgumentParser()
 ap.add_argument('-g', '--gpus', type=int, default=1, help='# of GPUs to use for training')
@@ -219,7 +220,8 @@ plt.xlabel('FRR')
 plt.savefig(graph_dir + update_name)
 
 
+
 with open(logfile, 'a') as myfile:
-    myfile.write(update_name + str(error_rates) +'\n')
+    myfile.write(update_name + str(error_rates) + " test:  " + str(error_rates[:][0]) + " 2: " + str(error_rates[:][1]) + '\n')
 
 print("FINISH")

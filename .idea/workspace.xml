@@ -73,7 +73,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Siamese_Model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-17">
+            <state relative-caret-position="-2270">
               <caret line="80" selection-start-line="80" selection-end-line="83" selection-end-column="70" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
@@ -90,8 +90,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Verifier.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="329">
-              <caret line="42" column="32" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="32" />
+            <state relative-caret-position="722">
+              <caret line="224" column="119" selection-start-line="224" selection-start-column="119" selection-end-line="224" selection-end-column="119" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -160,10 +160,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1920" />
-    <option name="height" value="1040" />
+    <option name="x" value="-1927" />
+    <option name="y" value="-75" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -330,7 +330,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-1927" y="-75" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24973656" />
@@ -537,7 +537,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Siamese_Model.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-17">
+        <state relative-caret-position="-2270">
           <caret line="80" selection-start-line="80" selection-end-line="83" selection-end-column="70" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
@@ -547,8 +547,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Verifier.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="42" column="32" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="32" />
+        <state relative-caret-position="722">
+          <caret line="224" column="119" selection-start-line="224" selection-start-column="119" selection-end-line="224" selection-end-column="119" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>
