@@ -27,8 +27,8 @@ ap.add_argument('-g', '--gpus', type=int, default=1, help='# of GPUs to use for 
 args = vars(ap.parse_args())
 G = args["gpus"]
 
-NUM_EPOCHS = 200
-INIT_LR = 1e-3
+NUM_EPOCHS = 100
+INIT_LR = 1e-5
 lr_decay = 0
 training_batch_size = 256
 # samples_per_checkpoint = 1000
@@ -37,11 +37,11 @@ data_percent = 1
 alpha = 1
 logfile = "evaluation_log_5.txt"
 graph_dir = "Graphs/"
-update_name = "update27"
+update_name = "update28"
 # checkpoint_path = "Saved_Models/training_2/cp-{epoch:04d}.ckpt"
 # checkpoint_dir = os.path.dirname(checkpoint_path)
 # dir = "Saved_Model_4/"
-save_dir = "Saved_Models/update3/"
+save_dir = "Saved_Models/update4/"
 save_dir2 = "Saved_Models/update4/"
 
 print("[INFO] Searching Latest checkpoint... ")
@@ -96,7 +96,8 @@ def compute_accuracy(y_true, y_pred):
 if G <= 1:
     print("[INFO] training with 1 GPU...")
 
-    model1 = saved_model.load_keras_model(save_dir + checkpoints[-1])
+    model = saved_model.load_keras_model(save_dir + checkpoints[-1])
+    """ 
     for i in range(len(model1.layers)):
         model1.layers[i].trainable = False
     model1.layers.pop()
@@ -112,6 +113,7 @@ if G <= 1:
 
     #distance = Lambda(euclidean_distance, output_shape=eucl_dist_output_shape)([processed_a, processed_b])
     model = Model([input_a, input_b], [processed_a, processed_b])
+    """
 
 
 else:
