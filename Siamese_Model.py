@@ -27,8 +27,8 @@ ap.add_argument('-g', '--gpus', type=int, default=1, help='# of GPUs to use for 
 args = vars(ap.parse_args())
 G = args["gpus"]
 
-NUM_EPOCHS = 20
-INIT_LR = 1e-2
+NUM_EPOCHS = 200
+INIT_LR = 1e-3
 lr_decay = 0
 training_batch_size = 256
 # samples_per_checkpoint = 1000
@@ -37,7 +37,7 @@ data_percent = 1
 alpha = 1
 logfile = "evaluation_log_5.txt"
 graph_dir = "Graphs/"
-update_name = "update26"
+update_name = "update27"
 # checkpoint_path = "Saved_Models/training_2/cp-{epoch:04d}.ckpt"
 # checkpoint_dir = os.path.dirname(checkpoint_path)
 # dir = "Saved_Model_4/"
@@ -75,18 +75,18 @@ def contrastive_loss(y_true, y_pred):
     margin = 1
     square_pred = K.square(y_pred)
     margin_square = K.square(K.maximum(margin - y_pred, 0))
-    return K.mean(y_true * square_pred + (1 - y_true) * margin_square)
+    return K.mean(y_true * margin_square + (1 - y_true) * square_pred)
 
 
 def accuracy(y_true, y_pred):
     '''Compute classification accuracy with a fixed threshold on distances.
     '''
-    return K.mean(K.equal(y_true, K.cast(y_pred < 0.3, y_true.dtype)))
+    return K.mean(K.equal(y_true, K.cast(y_pred > 0.5, y_true.dtype)))
 
 def compute_accuracy(y_true, y_pred):
     '''Compute classification accuracy with a fixed threshold on distances.
     '''
-    pred = y_pred.ravel() < 0.5
+    pred = y_pred.ravel() > 0.5
     print(pred[0:20])
     print(y_true[0:20])
     print((pred[0:20] == y_true[0:20]))

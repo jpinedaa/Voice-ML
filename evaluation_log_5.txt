@@ -117,3 +117,6 @@ x_train shape: (264909, 2, 100, 40, 3)y_train shape: (264909,)
 update25 epochs= 20 lr= 0.001 loss: 0.29399729121506535 accuracy: 0.4570904396357416 computed accuracy: 0.4570904396276415
 x_train shape: (264909, 2, 100, 40, 3)y_train shape: (264909,)
 update26 epochs= 20 lr= 0.01 loss: 0.29137584958305224 accuracy: 0.4593327444492495 computed accuracy: 0.4483930148807502
+x_train shape: (264909, 2, 100, 40, 3)y_train shape: (264909,)
+x_train shape: (264909, 2, 100, 40, 3)y_train shape: (264909,)
+update27 epochs= 200 lr= 0.001 loss: 0.15079472581070305 accuracy: 0.7789631038853564 computed accuracy: 0.7789631038934566
