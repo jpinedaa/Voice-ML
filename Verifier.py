@@ -213,7 +213,9 @@ plt.legend(['train', 'test'], loc='upper left')
 plt.savefig(graph_dir + update_name + "_acc")
 plt.clf()
 """
-plt.plot(error_rates[:][0], error_rates[:][1])
+far = [fa[1] for fa in error_rates]
+frr = [fa[0] for fa in error_rates]
+plt.plot(frr, far)
 plt.title('error rate')
 plt.ylabel('FAR')
 plt.xlabel('FRR')
