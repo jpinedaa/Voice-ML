@@ -31,7 +31,7 @@ def cosine_comparison(T, input_a, input_b):
         else:
             predicted_labels.append(0)
 
-    print("[INFO] input_a shape: " + str(input_a.shape) + " input_b shape: " + str(input_b.shape) + " predicted_labels shape: " + str(predicted_labels.shape))
+    print("[INFO] input_a shape: " + str(input_a.shape) + " input_b shape: " + str(input_b.shape) + " predicted_labels shape: " + str(len(predicted_labels)))
     return predicted_labels
 
 def calculate_error(labels_true, labels_predicted):
@@ -40,7 +40,7 @@ def calculate_error(labels_true, labels_predicted):
     total_fr = 0
     total_fa = 0
     print(labels_true.shape)
-    print(labels_predicted.shape)
+    print(len(labels_predicted))
     for i in range(len(labels_true)):
         if labels_true[i] == 0:
             total_genuine += 1
@@ -167,8 +167,8 @@ test_size = 0.10
 real_test_size = int(test_size * len_data)
 x_train = np.memmap('x_train_pairs.array', dtype=np.float64, mode='r', shape=((len_data-real_test_size),2,100,40,3))
 x_test = np.memmap('x_test_pairs.array', dtype=np.float64, mode='r', shape=(real_test_size,2,100,40,3))
-y_train = np.memmap('y_train_pairs.array', dtype=np.float64, mode='r', shape=((len_data-real_test_size),2,))
-y_test = np.memmap('y_test_pairs.array', dtype=np.float64, mode='r', shape=(real_test_size,2,))
+y_train = np.memmap('y_train_pairs.array', dtype=np.float64, mode='r', shape=((len_data-real_test_size),))
+y_test = np.memmap('y_test_pairs.array', dtype=np.float64, mode='r', shape=(real_test_size,))
 """
 rng_state = np.random.get_state()
 np.random.shuffle(labels)
@@ -212,7 +212,7 @@ plt.legend(['train', 'test'], loc='upper left')
 plt.savefig(graph_dir + update_name + "_acc")
 plt.clf()
 """
-plt.plot(error_rates[:,0], error_rates[:,1])
+plt.plot(error_rates[:][0], error_rates[:][1])
 plt.title('error rate')
 plt.ylabel('FAR')
 plt.xlabel('FRR')
