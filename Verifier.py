@@ -99,6 +99,7 @@ if G <= 1:
     print("[INFO] training with 1 GPU...")
 
     model = saved_model.load_keras_model(save_dir + checkpoints[-1])
+    print(model.summary())
     temp_weights = [layer.get_weights() for layer in model.layers]
     inp = Input(shape=(100, 40, 3))
     inp2 = BatchNormalization()(inp)
@@ -112,6 +113,7 @@ if G <= 1:
     x = BatchNormalization()(x)
     x = Dense(1024, activation='relu')(x)
     model = Model(inputs=inp, outputs=x)
+    print(model.summary)
     for i in range(len(temp_weights)):
         print(i)
         model.layers[i].set_weights(temp_weights[i])
