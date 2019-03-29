@@ -77,6 +77,7 @@ def contrastive_loss(y_true, y_pred):
     margin_square = K.square(K.maximum(margin - y_pred, 0))
     return K.mean(y_true * square_pred + (1 - y_true) * margin_square)
 
+
 def accuracy(y_true, y_pred):
     '''Compute classification accuracy with a fixed threshold on distances.
     '''
@@ -109,8 +110,8 @@ if G <= 1:
     processed_a = model2(input_a)
     processed_b = model2(input_b)
 
-    distance = Lambda(euclidean_distance, output_shape=eucl_dist_output_shape)([processed_a, processed_b])
-    model = Model([input_a, input_b], distance)
+    #distance = Lambda(euclidean_distance, output_shape=eucl_dist_output_shape)([processed_a, processed_b])
+    model = Model([input_a, input_b], [processed_a, processed_b])
 
 
 else:

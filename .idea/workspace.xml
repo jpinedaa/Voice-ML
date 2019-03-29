@@ -73,7 +73,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Preprocessing3-2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="603">
+            <state relative-caret-position="1343">
               <caret line="79" column="12" selection-start-line="79" selection-start-column="12" selection-end-line="79" selection-end-column="12" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
@@ -85,8 +85,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Siamese_Model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="107" lean-forward="true" selection-start-line="107" selection-end-line="107" />
+            <state relative-caret-position="497">
+              <caret line="77" column="70" selection-start-line="77" selection-start-column="70" selection-end-line="77" selection-end-column="70" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -97,8 +97,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Verifier.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1326">
-              <caret line="99" column="21" selection-start-line="99" selection-start-column="21" selection-end-line="99" selection-end-column="21" />
+            <state relative-caret-position="1045">
+              <caret line="68" column="28" selection-start-line="68" selection-start-column="28" selection-end-line="68" selection-end-column="28" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -109,7 +109,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MN_Model2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2983">
+            <state relative-caret-position="3774">
               <caret line="242" column="9" selection-start-line="242" selection-start-column="9" selection-end-line="242" selection-end-column="9" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
@@ -157,10 +157,10 @@
         <option value="$PROJECT_DIR$/MN_Model2.py" />
         <option value="$PROJECT_DIR$/Verification_Model.py" />
         <option value="$PROJECT_DIR$/Preprocessing3.py" />
-        <option value="$PROJECT_DIR$/Verifier.py" />
         <option value="$PROJECT_DIR$/mobilenet_inspection.py" />
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/Preprocessing3-2.py" />
+        <option value="$PROJECT_DIR$/Verifier.py" />
         <option value="$PROJECT_DIR$/Siamese_Model.py" />
       </list>
     </option>
@@ -176,6 +176,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -187,7 +188,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -508,10 +508,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Verifier.py">
+    <entry file="file://$PROJECT_DIR$/MN_Model2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1326">
-          <caret line="99" column="21" selection-start-line="99" selection-start-column="21" selection-end-line="99" selection-end-column="21" />
+        <state relative-caret-position="3774">
+          <caret line="242" column="9" selection-start-line="242" selection-start-column="9" selection-end-line="242" selection-end-column="9" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>
@@ -528,9 +528,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Verifier.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1045">
+          <caret line="68" column="28" selection-start-line="68" selection-start-column="28" selection-end-line="68" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Preprocessing3-2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="603">
+        <state relative-caret-position="1343">
           <caret line="79" column="12" selection-start-line="79" selection-start-column="12" selection-end-line="79" selection-end-column="12" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
@@ -538,20 +548,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MN_Model2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2983">
-          <caret line="242" column="9" selection-start-line="242" selection-start-column="9" selection-end-line="242" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Siamese_Model.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="107" lean-forward="true" selection-start-line="107" selection-end-line="107" />
+        <state relative-caret-position="497">
+          <caret line="77" column="70" selection-start-line="77" selection-start-column="70" selection-end-line="77" selection-end-column="70" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>
