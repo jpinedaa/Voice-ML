@@ -31,6 +31,7 @@ def cosine_comparison(T, input_a, input_b):
         else:
             predicted_labels.append(0)
 
+    print("[INFO] input_a shape: " + str(input_a) + " input_b shape: " + str(input_b) + " predicted_labels shape: " + str(predicted_labels))
     return predicted_labels
 
 def calculate_error(labels_true, labels_predicted):
@@ -98,7 +99,7 @@ if G <= 1:
     print("[INFO] training with 1 GPU...")
 
     model1 = saved_model.load_keras_model(save_dir + checkpoints[-1])
-    model = Model(model1.input, model1.layer[-2])
+    model = Model(model1.input, model1.layers[-2].output)
 
 else:
     print("[INFO] training with {} GPUs...".format(G))
