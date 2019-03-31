@@ -220,9 +220,7 @@ print("x_train_new shape: " + str(x_train_new.shape) + "y_train_new shape: " + s
 lr_callback = LearningRateScheduler(poly_decay, verbose=1)
 
 print("[INFO] Training starting... ")
-H = model.fit([x_train_new[:,0,:,:,:],x_train_new[:,1,:,:,:]], y_train_new, batch_size=training_batch_size, verbose=1, epochs=NUM_EPOCHS,
-              validation_split=validation_split, callbacks=[lr_callback])
-H = H.history
+H = model.fit([x_train_new[:,0,:,:,:],x_train_new[:,1,:,:,:]], y_train_new, batch_size=training_batch_size, verbose=1, epochs=NUM_EPOCHS,validation_split=validation_split, callbacks=[lr_callback])
 """
 print("[INFO] Plotting training loss and accuracy ...")
 plt.plot(H['acc'])
