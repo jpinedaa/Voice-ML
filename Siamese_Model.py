@@ -113,7 +113,7 @@ if G <= 1:
     processed_b = model2(input_b)
 
     distance = Lambda(euclidean_distance, output_shape=eucl_dist_output_shape)([processed_a, processed_b])
-    model = Model([input_a, input_b], [processed_a, processed_b])
+    model = Model([input_a, input_b], distance)
 
 
 
