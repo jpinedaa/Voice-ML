@@ -27,10 +27,10 @@ ap.add_argument('-g', '--gpus', type=int, default=1, help='# of GPUs to use for 
 args = vars(ap.parse_args())
 G = args["gpus"]
 
-NUM_EPOCHS = 100
+NUM_EPOCHS = 50
 INIT_LR = 1e-5
 lr_decay = 0
-training_batch_size = 256
+training_batch_size = 32
 # samples_per_checkpoint = 1000
 validation_split = 0.005
 data_percent = 1
@@ -221,6 +221,7 @@ lr_callback = LearningRateScheduler(poly_decay, verbose=1)
 
 print("[INFO] Training starting... ")
 H = model.fit([x_train_new[:,0,:,:,:],x_train_new[:,1,:,:,:]], y_train_new, batch_size=training_batch_size, verbose=1, epochs=NUM_EPOCHS,validation_split=validation_split, callbacks=[lr_callback])
+H = H.history
 """
 print("[INFO] Plotting training loss and accuracy ...")
 plt.plot(H['acc'])
