@@ -212,7 +212,7 @@ error_rates = []
 real_T = 0
 i = 0
 ind = 0
-for T in np.linspace(-1,1,50):
+for T in np.linspace(0.3,0.7,1000):
     a = model.predict(x_test[:,0,:,:,:])
     b = model.predict(x_test[:, 1, :, :, :])
     predicted_labels = euclidean_distance(T, a, b)
