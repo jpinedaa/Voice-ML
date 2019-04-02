@@ -197,8 +197,8 @@ min = 100
 error_rates = []
 real_T = 0
 i = 0
-ind
-for T in np.linspace(-1,1,40):
+ind = 0
+for T in np.linspace(0.93,0.94,300):
     a = model.predict(x_test[:,0,:,:,:])
     b = model.predict(x_test[:, 1, :, :, :])
     predicted_labels = cosine_comparison(T, a, b)
@@ -237,6 +237,6 @@ plt.savefig(graph_dir + update_name)
 
 
 with open(logfile, 'a') as myfile:
-    myfile.write(update_name + "real T: " + str(real_T) + " ratess: " + str(error_rates[i]) + str(error_rates) + " test:  " + str(error_rates[:][0]) + " 2: " + str(error_rates[:][1]) + '\n')
+    myfile.write(update_name + "real T: " + str(real_T) + " ratess: " + str(error_rates[ind]) + str(error_rates) + " test:  " + str(error_rates[:][0]) + " 2: " + str(error_rates[:][1]) + '\n')
 
 print("FINISH")
