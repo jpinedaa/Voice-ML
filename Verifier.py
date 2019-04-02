@@ -36,8 +36,10 @@ def cosine_comparison(T, input_a, input_b):
 
 def euclidean_distance(T, input_a, input_b):
     x, y = input_a, input_b
-    sum_square = K.sum(K.square(x - y), axis=1, keepdims=True)
-    distance = K.sqrt(K.maximum(sum_square, K.epsilon()))
+    sum_square = np.sum(np.square(x - y), axis=1, keepdims=True)
+    distance = np.sqrt(np.maximum(sum_square, 1e-7))
+    print("distance shape: " + str(distance.shape))
+    print(distance[5])
     predicted_labels = []
     for i in range(len(input_a)):
         if distance[i] < T:
@@ -80,9 +82,9 @@ training_batch_size = 32
 validation_split = 0.005
 data_percent = 1
 alpha = 1
-logfile = "evaluation_log_5.txt"
+logfile = "evaluation_log_6.txt"
 graph_dir = "Graphs/"
-update_name = "error_update2"
+update_name = "error_update3"
 # checkpoint_path = "Saved_Models/training_2/cp-{epoch:04d}.ckpt"
 # checkpoint_dir = os.path.dirname(checkpoint_path)
 # dir = "Saved_Model_4/"
@@ -210,7 +212,7 @@ error_rates = []
 real_T = 0
 i = 0
 ind = 0
-for T in np.linspace(0.93,0.94,300):
+for T in np.linspace(-1,1,50):
     a = model.predict(x_test[:,0,:,:,:])
     b = model.predict(x_test[:, 1, :, :, :])
     predicted_labels = euclidean_distance(T, a, b)
