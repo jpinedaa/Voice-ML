@@ -34,6 +34,18 @@ def cosine_comparison(T, input_a, input_b):
     print("[INFO] input_a shape: " + str(input_a.shape) + " input_b shape: " + str(input_b.shape) + " predicted_labels shape: " + str(len(predicted_labels)))
     return predicted_labels
 
+def euclidean_distance(T, input_a, input_b):
+    x, y = input_a, input_b
+    sum_square = K.sum(K.square(x - y), axis=1, keepdims=True)
+    distance = K.sqrt(K.maximum(sum_square, K.epsilon()))
+    predicted_labels = []
+    for i in range(len(input_a)):
+        if distance[i] < T:
+            predicted_labels.append(0)
+        else:
+            predicted_labels.append(1)
+    return predicted_labels
+
 def calculate_error(labels_true, labels_predicted):
     total_genuine = 0
     total_impostor = 0
@@ -201,7 +213,7 @@ ind = 0
 for T in np.linspace(0.93,0.94,300):
     a = model.predict(x_test[:,0,:,:,:])
     b = model.predict(x_test[:, 1, :, :, :])
-    predicted_labels = cosine_comparison(T, a, b)
+    predicted_labels = euclidean_distance(T, a, b)
     er = calculate_error(y_test,predicted_labels)
     temp = abs(er[0] - er[1])
     if  temp < min:
@@ -237,6 +249,6 @@ plt.savefig(graph_dir + update_name)
 
 
 with open(logfile, 'a') as myfile:
-    myfile.write(update_name + "real T: " + str(real_T) + " ratess: " + str(error_rates[ind]) + str(error_rates) + " test:  " + str(error_rates[:][0]) + " 2: " + str(error_rates[:][1]) + '\n')
+    myfile.write(update_name + "real T: " + str(real_T) + " ratess: " + str(error_rates[ind]) + '\n')
 
 print("FINISH")

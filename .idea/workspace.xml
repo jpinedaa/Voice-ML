@@ -73,8 +73,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Siamese_Model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-9">
-              <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
+            <state relative-caret-position="161">
+              <caret line="62" column="53" lean-forward="true" selection-start-line="59" selection-end-line="62" selection-end-column="53" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -90,8 +90,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Verifier.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="807">
-              <caret line="239" column="91" selection-start-line="239" selection-start-column="91" selection-end-line="239" selection-end-column="91" />
+            <state relative-caret-position="425">
+              <caret line="49" column="21" lean-forward="true" selection-start-line="49" selection-start-column="21" selection-end-line="49" selection-end-column="21" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -536,8 +536,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Siamese_Model.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-9">
-          <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
+        <state relative-caret-position="161">
+          <caret line="62" column="53" lean-forward="true" selection-start-line="59" selection-end-line="62" selection-end-column="53" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>
@@ -546,8 +546,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Verifier.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="807">
-          <caret line="239" column="91" selection-start-line="239" selection-start-column="91" selection-end-line="239" selection-end-column="91" />
+        <state relative-caret-position="425">
+          <caret line="49" column="21" lean-forward="true" selection-start-line="49" selection-start-column="21" selection-end-line="49" selection-end-column="21" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>
