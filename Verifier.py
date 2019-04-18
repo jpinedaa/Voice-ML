@@ -89,7 +89,7 @@ update_name = "error_update3"
 # checkpoint_dir = os.path.dirname(checkpoint_path)
 # dir = "Saved_Model_4/"
 save_dir = "Saved_Models/update4/"
-save_dir2 = "Saved_Models/update4/"
+save_dir2 = "Saved_Models/update5/"
 
 print("[INFO] Searching Latest checkpoint... ")
 checkpoints = [m for m in os.listdir(save_dir)]
@@ -149,6 +149,7 @@ rms = RMSprop()
 model.compile(optimizer=SGD(INIT_LR,0.99), loss=contrastive_loss, metrics=[accuracy])
 # model.compile(optimizer=RMSprop(lr=INIT_LR), loss='categorical_crossentropy',metrics=['accuracy'])
 
+saved_model.save_keras_model(model, save_dir2)
 
 print("[INFO] Loading Data... ")
 filename = "data4/data1.txt"
