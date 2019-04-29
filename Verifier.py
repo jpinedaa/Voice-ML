@@ -149,7 +149,7 @@ rms = RMSprop()
 model.compile(optimizer=SGD(INIT_LR,0.99), loss=contrastive_loss, metrics=[accuracy])
 # model.compile(optimizer=RMSprop(lr=INIT_LR), loss='categorical_crossentropy',metrics=['accuracy'])
 
-saved_model.save_keras_model(model, save_dir2)
+#saved_model.save_keras_model(model, save_dir2)
 
 print("[INFO] Loading Data... ")
 filename = "data4/data1.txt"
