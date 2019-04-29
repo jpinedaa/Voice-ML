@@ -36,6 +36,7 @@ def cosine_comparison(T, input_a, input_b):
 
 def euclidean_distance(T, input_a, input_b):
     x, y = input_a, input_b
+    print("SHAPE: " + str(x.shape))
     sum_square = np.sum(np.square(x - y), axis=1, keepdims=True)
     distance = np.sqrt(np.maximum(sum_square, 1e-7))
     print("distance shape: " + str(distance.shape))
@@ -88,7 +89,7 @@ update_name = "error_update3"
 # checkpoint_path = "Saved_Models/training_2/cp-{epoch:04d}.ckpt"
 # checkpoint_dir = os.path.dirname(checkpoint_path)
 # dir = "Saved_Model_4/"
-save_dir = "Saved_Models/update4/"
+save_dir = "Saved_Models/update5/"
 save_dir2 = "Saved_Models/update5/"
 
 print("[INFO] Searching Latest checkpoint... ")
@@ -116,7 +117,7 @@ if G <= 1:
     print("[INFO] training with 1 GPU...")
 
     model = saved_model.load_keras_model(save_dir + checkpoints[-1])
-    model = model.layers[-2]
+   
 
 
 else:
