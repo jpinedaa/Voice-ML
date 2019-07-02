@@ -1,0 +1,17 @@
+Metadata-Version: 2.0
+Name: speechpy
+Version: 2.4
+Summary: The python package for extracting speech features.
+Home-page: https://github.com/astorfi/speechpy
+Author: Amirsina Torfi
+Author-email: amirsina.torfi@gmail.com
+License: UNKNOWN
+Download-URL: https://github.com/astorfi/speechpy/archive/2.4.zip
+Description-Content-Type: UNKNOWN
+Platform: UNKNOWN
+Requires-Dist: scipy
+Requires-Dist: numpy
+
+UNKNOWN
+
+
