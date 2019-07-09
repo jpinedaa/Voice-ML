@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
             jstate = isChecked
         }
 
+        //go to enrollment activity
         val enroll = findViewById<Button>(R.id.enroll)
         enroll.setOnClickListener{
             val myIntent = Intent(this, Enrollment_activity::class.java)
@@ -55,6 +56,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(myIntent)
         }
 
+        //go to verify activity
         val verify = findViewById<Button>(R.id.verify)
         verify.setOnClickListener{
             val myIntent2 = Intent(this, Verify_activity::class.java)

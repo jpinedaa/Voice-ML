@@ -33,11 +33,13 @@ private val BUFFER_SIZE = 2 * AudioRecord.getMinBufferSize(
 
 private const val T =0.4525525
 
-class AudioRecording(private val mic : ImageButton, private val model: InputStream, private val storeFile: File, private val cont: Context ,private val enrollment : Boolean, private val audi: InputStream, private val loading: TextView, private val nstate: Boolean, private val jstate: Boolean) : Runnable {
+class AudioRecording(private val mic : ImageButton, private val model: InputStream, private val storeFile: File, private val cont: Context ,private val enrollment : Boolean, /*private val audi: InputStream,*/ private val loading: TextView, private val nstate: Boolean, private val jstate: Boolean) : Runnable {
 
     private var distance : Double = 0.0
 
     private val handler: Handler = object : Handler(Looper.getMainLooper()) {
+
+        //UI handling
         override fun handleMessage(msg: Message?) {
             Log.d("DEBUG","its here")
             if (msg != null) {
@@ -72,6 +74,8 @@ class AudioRecording(private val mic : ImageButton, private val model: InputStre
         //val mic = findViewById<ImageButton>(R.id.mic) as ImageButton
         //while (((mic.background) as ColorDrawable).color != Color.RED) {}
 
+
+        //recording
         var recorder: AudioRecord? = null
         recorder = AudioRecord(
             AUDIO_SOURCE,
@@ -150,6 +154,8 @@ class AudioRecording(private val mic : ImageButton, private val model: InputStre
 
         var final1 = Array(100, { Array(40, { FloatArray(3) }) })
 
+
+        //Recording Processing
         if(jstate) {
             Log.d("DEBUGProc", signal.toString())
             var Processing = Processing()
@@ -232,6 +238,7 @@ class AudioRecording(private val mic : ImageButton, private val model: InputStre
         //val testfinal = arrayOf(final1,final2)
 
 
+        //run model and obtain feature vector
         val tfliteOptions = Interpreter.Options().setUseNNAPI(nstate)
 
         val interpreter = Interpreter(modelbuffer, tfliteOptions)
@@ -254,6 +261,8 @@ class AudioRecording(private val mic : ImageButton, private val model: InputStre
         //Log.d("DEBUG","model output " + processed[0][10].toString())
 
         if(enrollment) {
+
+            //store feature vector
             Log.d("output before writing", output2[20].toString())
             handler.obtainMessage(7).apply {
                 sendToTarget()
@@ -270,6 +279,8 @@ class AudioRecording(private val mic : ImageButton, private val model: InputStre
                 sendToTarget()
             }
         } else {
+
+            //compare stored feature vector with verifying feature vector using euclidean distance
             handler.obtainMessage(9).apply {
                 sendToTarget()
             }

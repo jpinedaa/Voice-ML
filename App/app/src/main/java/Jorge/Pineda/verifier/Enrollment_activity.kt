@@ -184,13 +184,20 @@ class Enrollment_activity : AppCompatActivity() {
         Log.d("DEBUG","b4 start recordding done")
 
         val mic = findViewById<ImageButton>(R.id.mic)
+
+        //converted tensorflow lite model
         val model = resources.openRawResource(R.raw.voicenet)
-        val audio = resources.openRawResource(R.raw.testaudio)
+
+        //val audio = resources.openRawResource(R.raw.testaudio)
+
+        //file where enrolled voice vector is stored
         val storeFile = File(filesDir, "userFeatures")
+
         val loading = findViewById<TextView>(R.id.loading)
         val nstate = getIntent().getBooleanExtra("nnapi", false)
         val jstate = getIntent().getBooleanExtra("java", false)
-        val record = AudioRecording(mic, model, storeFile, this ,true, audio, loading, nstate, jstate)
+
+        val record = AudioRecording(mic, model, storeFile, this ,true ,/*audio,*/ loading, nstate, jstate)
         Thread(record).start()
         //startRecording()
         Log.d("DEBUG","fininshed llistener")
