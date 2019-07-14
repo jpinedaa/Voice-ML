@@ -33,7 +33,9 @@ private val BUFFER_SIZE = 2 * AudioRecord.getMinBufferSize(
 
 private const val T =0.4525525
 
-class AudioRecording(private val mic : ImageButton, private val model: InputStream, private val storeFile: File, private val cont: Context ,private val enrollment : Boolean, /*private val audi: InputStream,*/ private val loading: TextView, private val nstate: Boolean, private val jstate: Boolean) : Runnable {
+class AudioRecording(private val mic : ImageButton, private val model: InputStream, private val storeFile: File,
+                     private val cont: Context ,private val enrollment : Boolean, /*private val audi: InputStream,*/
+                     private val loading: TextView, private val nstate: Boolean, private val jstate: Boolean) : Runnable {
 
     private var distance : Double = 0.0
 
@@ -160,9 +162,14 @@ class AudioRecording(private val mic : ImageButton, private val model: InputStre
             Log.d("DEBUGProc", signal.toString())
             var Processing = Processing()
             var processed = Processing.lmfe(signal, 16000, 0.025, 0.01, 40, 400)
-            var final1 = Processing.extract_derivative_features(processed);
+            final1 = Processing.extract_derivative_features(processed)
 
-            //Log.d("DEBUGProc", finalProcessed[600][0][1].toString())
+            for(i in 0 until 40) {
+                Log.d("DEBUGProc", final1[21][i][0].toString())
+                Log.d("DEBUGProc2", final1[21][i][1].toString())
+                Log.d("DEBUGProc3", final1[21][i][2].toString())
+            }
+            Log.d("DEBUGProc", final1[0].size.toString())
         } else {
 
             val py = Python.getInstance()
@@ -200,7 +207,11 @@ class AudioRecording(private val mic : ImageButton, private val model: InputStre
                 }
             }
 
-            Log.d("PYTHON:", final1[0][0][0].toString())
+            for (i in 0 until 40) {
+                Log.d("PYTHON:", final1[21][i][0].toString())
+                Log.d("PYTHON2:", final1[21][i][1].toString())
+                Log.d("PYTHON3:", final1[21][i][2].toString())
+            }
 
         }
         /*

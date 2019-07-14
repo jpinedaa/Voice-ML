@@ -235,8 +235,7 @@ def derivative_extraction(feat, DeltaWindows):
         # The dynamic range
         Range = i + 1
 
-        dif = Range * FEAT[:, offset + Range:offset + Range + cols]
-        - FEAT[:, offset - Range:offset - Range + cols]
+        dif = Range * FEAT[:, offset + Range:offset + Range + cols] - FEAT[:, offset - Range:offset - Range + cols]
         Scale += 2 * np.power(Range, 2)
         DIF += dif
 

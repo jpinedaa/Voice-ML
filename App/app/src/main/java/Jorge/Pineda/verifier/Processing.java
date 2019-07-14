@@ -3,6 +3,8 @@ package Jorge.Pineda.verifier;
 import android.util.Log;
 import org.jtransforms.fft.*;
 
+//java translation of speechpy implementation
+
 public class Processing {
 
     double[][] stack_frames(double[] signal, int sampling_frequency, double frame_length, double frame_stride) {
@@ -209,7 +211,7 @@ public class Processing {
             int Range = i + 1;
             for (int j = 0; j < rows; j++) {
                 for (int k = 0; k < cols; k++) {
-                    DIF[j][k] += Range * FEAT[j][offset + Range + k] - FEAT[j][offset - Range + k];
+                    DIF[j][k] += Range * FEAT[j][offset + Range + k] /*- FEAT[j][offset - Range + k]*/;
                 }
             }
             Scale += 2 * Math.pow(Range, 2);
@@ -227,15 +229,15 @@ public class Processing {
     }
 
     float[][][] extract_derivative_features(float[][] features) {
-        float feature_cube[][][] = new float[features.length][features[0].length][3];
+        float feature_cube[][][] = new float[/*features.length*/100][features[0].length][3];
         float features1[][] = derivative_extraction(features, 2);
         float features2[][] = derivative_extraction(features1, 2);
 
         for(int i = 0; i< feature_cube.length ; i++) {
             for(int j = 0; j < feature_cube[0].length; j++) {
-                feature_cube[i][j][0] = features[i][j];
-                feature_cube[i][j][1] = features1[i][j];
-                feature_cube[i][j][2] = features2[i][j];
+                feature_cube[i][j][0] = features[i+30][j];
+                feature_cube[i][j][1] = features1[i+30][j];
+                feature_cube[i][j][2] = features2[i+30][j];
 
             }
 
