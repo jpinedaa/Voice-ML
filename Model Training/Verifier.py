@@ -208,6 +208,11 @@ x_test[:] = x_test1
 y_train[:] = y_train1
 y_test[:] = y_test1
 """
+print (x_test[1,0,:,:,:])
+print (x_test[1,1,:,:,:])
+
+exit()
+
 #x_train, x_test, y_train, y_test = train_test_split(data[0:len_data], labels , test_size=0.10, random_state= 42)
 min = 100
 error_rates = []
