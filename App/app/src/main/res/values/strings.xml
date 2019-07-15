@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Verifier</string>
+    <string name="no_account">Add new ID...</string>
 </resources>

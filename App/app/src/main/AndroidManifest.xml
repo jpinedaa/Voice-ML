@@ -15,6 +15,9 @@
             android:theme="@style/AppTheme"
             android:name="com.chaquo.python.android.PyApplication">
 
+        <activity android:name=".Accounts_activity"
+                  android:parentActivityName=".MainActivity">
+        </activity>
         <activity android:name=".Fail_activity"
                   android:parentActivityName=".MainActivity">
         </activity>

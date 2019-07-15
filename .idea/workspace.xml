@@ -43,7 +43,7 @@
         <entry file="file://$PROJECT_DIR$/Model Training/processing.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="265">
-              <caret line="229" column="72" lean-forward="true" selection-start-line="229" selection-start-column="72" selection-end-line="229" selection-end-column="72" />
+              <caret line="229" column="72" selection-start-line="229" selection-start-column="72" selection-end-line="229" selection-end-column="72" />
               <folding>
                 <element signature="e#911#925#0" expanded="true" />
               </folding>
@@ -55,7 +55,7 @@
         <entry file="file://$PROJECT_DIR$/Model Training/feature.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-4155">
-              <caret line="13" column="64" lean-forward="true" selection-start-line="13" selection-start-column="64" selection-end-line="13" selection-end-column="64" />
+              <caret line="13" column="64" selection-start-line="13" selection-start-column="64" selection-end-line="13" selection-end-column="64" />
               <folding>
                 <element signature="e#688#719#0" expanded="true" />
               </folding>
@@ -364,7 +364,7 @@
     <entry file="file://$PROJECT_DIR$/Model Training/processing.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="265">
-          <caret line="229" column="72" lean-forward="true" selection-start-line="229" selection-start-column="72" selection-end-line="229" selection-end-column="72" />
+          <caret line="229" column="72" selection-start-line="229" selection-start-column="72" selection-end-line="229" selection-end-column="72" />
           <folding>
             <element signature="e#911#925#0" expanded="true" />
           </folding>
@@ -391,7 +391,7 @@
     <entry file="file://$PROJECT_DIR$/Model Training/feature.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-4155">
-          <caret line="13" column="64" lean-forward="true" selection-start-line="13" selection-start-column="64" selection-end-line="13" selection-end-column="64" />
+          <caret line="13" column="64" selection-start-line="13" selection-start-column="64" selection-end-line="13" selection-end-column="64" />
           <folding>
             <element signature="e#688#719#0" expanded="true" />
           </folding>

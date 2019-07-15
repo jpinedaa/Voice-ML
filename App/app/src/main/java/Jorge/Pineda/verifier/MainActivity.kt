@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
             jstate = isChecked
         }
 
+
         //go to enrollment activity
         val enroll = findViewById<Button>(R.id.enroll)
         enroll.setOnClickListener{
@@ -63,6 +64,12 @@ class MainActivity : AppCompatActivity() {
             myIntent2.putExtra("nnapi", nstate)
             myIntent2.putExtra("java", jstate)
             startActivity(myIntent2)
+        }
+
+        val accounts = findViewById<Button>(R.id.accounts)
+        accounts.setOnClickListener{
+            val myIntent3 = Intent(this, Accounts_activity::class.java)
+            startActivity(myIntent3)
         }
     }
 
