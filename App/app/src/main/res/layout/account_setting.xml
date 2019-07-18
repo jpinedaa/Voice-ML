@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             tools:ignore="ExtraText">
+
+
+    <TextView
+            android:text="ID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/account_id"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:textSize="40dp"
+    />
+    <Button
+            android:text="Register Voice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/button_register"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+    />
+    <TextView
+            android:text="Playlist:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/playlist"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_register"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+    />
+    <Button
+            android:text="Save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/save_button"
+            app:layout_constraintTop_toBottomOf="@id/link"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+    />
+    <Button
+            android:text="Delete Account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/delete_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+    />
+    <android.support.design.widget.TextInputLayout
+            android:id="@+id/link"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/playlist">
+
+        <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:hint="Playlist link"/>
+    </android.support.design.widget.TextInputLayout>
+</android.support.constraint.ConstraintLayout>
