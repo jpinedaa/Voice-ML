@@ -8,6 +8,7 @@ import android.graphics.ColorSpace
 import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
+import android.media.audiofx.NoiseSuppressor
 import android.os.*
 import android.support.v4.content.ContextCompat.startActivity
 import android.util.Log
@@ -86,6 +87,15 @@ class AudioRecording(private val mic : ImageButton, private val model: InputStre
             ENCODING,
             BUFFER_SIZE
         )
+        val SESSION = recorder.audioSessionId
+
+        //var noiseSuppresor = NoiseSuppressor.create(SESSION)
+        //var getEnableStatus = noiseSuppresor.enabled
+        var availabilityStatus = NoiseSuppressor.isAvailable()
+
+        //Log.d("getEnableStatus", getEnableStatus.toString())
+        Log.d("AvailabilityStatus", availabilityStatus.toString())
+
         recorder.startRecording()
 
         var buffer = ShortArray(BUFFER_SIZE/2)
