@@ -69,6 +69,8 @@ class MainActivity : AppCompatActivity() {
         val accounts = findViewById<Button>(R.id.accounts)
         accounts.setOnClickListener{
             val myIntent3 = Intent(this, Accounts_activity::class.java)
+            myIntent3.putExtra("nnapi", nstate)
+            myIntent3.putExtra("java", jstate)
             startActivity(myIntent3)
         }
     }

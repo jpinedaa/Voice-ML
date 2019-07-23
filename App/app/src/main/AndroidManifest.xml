@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="Jorge.Pineda.verifier">
+          xmlns:tools="http://schemas.android.com/tools" package="Jorge.Pineda.verifier">
 
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -13,10 +13,19 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
-            android:name="com.chaquo.python.android.PyApplication">
+            android:name="com.chaquo.python.android.PyApplication" tools:ignore="GoogleAppIndexingWarning">
 
+        <activity android:name=".Account_setting"
+                  android:parentActivityName=".Accounts_activity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="Jorge.Pineda.verifier.MainActivity"/>
+        </activity>
         <activity android:name=".Accounts_activity"
                   android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="Jorge.Pineda.verifier.MainActivity"/>
         </activity>
         <activity android:name=".Fail_activity"
                   android:parentActivityName=".MainActivity">

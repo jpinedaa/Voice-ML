@@ -65,4 +65,31 @@
             android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
             app:layout_constraintTop_toTopOf="@+id/avatar3" app:layout_constraintBottom_toBottomOf="@+id/avatar3"
             android:textSize="30sp"/>
+    <Button
+            android:id="@+id/add_acc_1"
+            android:layout_width="327dp"
+            android:layout_height="105dp"
+            app:layout_constraintTop_toTopOf="@id/avatar1"
+            app:layout_constraintBottom_toBottomOf="@id/avatar1"
+            app:layout_constraintLeft_toLeftOf="@id/avatar1"
+            app:layout_constraintRight_toRightOf="@id/id1"
+            android:background="@android:color/transparent"/>
+    <Button
+            android:id="@+id/add_acc_2"
+            android:layout_width="327dp"
+            android:layout_height="105dp"
+            app:layout_constraintTop_toTopOf="@id/avatar2"
+            app:layout_constraintBottom_toBottomOf="@id/avatar2"
+            app:layout_constraintLeft_toLeftOf="@id/avatar2"
+            app:layout_constraintRight_toRightOf="@id/id2"
+            android:background="@android:color/transparent"/>
+    <Button
+            android:id="@+id/add_acc_3"
+            android:layout_width="327dp"
+            android:layout_height="105dp"
+            app:layout_constraintTop_toTopOf="@id/avatar3"
+            app:layout_constraintBottom_toBottomOf="@id/avatar3"
+            app:layout_constraintLeft_toLeftOf="@id/avatar3"
+            app:layout_constraintRight_toRightOf="@id/id3"
+            android:background="@android:color/transparent"/>
 </android.support.constraint.ConstraintLayout>
