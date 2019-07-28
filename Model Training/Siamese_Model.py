@@ -41,8 +41,8 @@ update_name = "update29"
 # checkpoint_path = "Saved_Models/training_2/cp-{epoch:04d}.ckpt"
 # checkpoint_dir = os.path.dirname(checkpoint_path)
 # dir = "Saved_Model_4/"
-save_dir = "Saved_Models/update3/"
-save_dir2 = "Saved_Models/update4/"
+save_dir = "Saved_Models/update5/"
+save_dir2 = "Saved_Models/update5/"
 
 print("[INFO] Searching Latest checkpoint... ")
 checkpoints = [m for m in os.listdir(save_dir)]
@@ -98,6 +98,8 @@ if G <= 1:
     for i in range(len(model1.layers)):
         model1.layers[i].trainable = False
         """
+
+    """
     model1.layers.pop()
     x = model1.output
     x = Dense(1024, activation= 'relu', name= 'features')(x)
@@ -111,7 +113,7 @@ if G <= 1:
 
     distance = Lambda(euclidean_distance, output_shape=eucl_dist_output_shape)([processed_a, processed_b])
     model = Model([input_a, input_b], distance)
-
+    """
 
 
 else:

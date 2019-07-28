@@ -131,8 +131,8 @@ model.compile(optimizer=SGD(lr=INIT_LR, momentum=0.9), loss='categorical_crossen
 
 
 print("[INFO] Loading Data... ")
-filename = "data4/data1.txt"
-filename2 = "data4/labels1.txt"
+filename = "/workspace/data/data1.txt"
+filename2 = "/workspace/data/labels1.txt"
 counter = 1
 le = preprocessing.LabelEncoder()
 
@@ -140,7 +140,7 @@ start = time.time()
 
 filename2 = filename2[:-4 - len(str(counter - 1))] + str(counter) + filename2[-4:]
 
-data = np.memmap('data4.array', dtype=np.float64, mode='r+', shape=(320000, 100, 40, 3))
+data = np.memmap('newdata.array', dtype=np.float64, mode='r+', shape=(320000, 100, 40, 3))
 
 print("[INFO] Loading first file... ")
 

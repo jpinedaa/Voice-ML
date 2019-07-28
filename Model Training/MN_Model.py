@@ -1,4 +1,4 @@
- import tensorflow as tf
+import tensorflow as tf
 from tensorflow.keras.applications.mobilenet import MobileNet
 from tensorflow.keras.applications.inception_v3 import InceptionV3
 from tensorflow.keras.applications.xception import Xception
