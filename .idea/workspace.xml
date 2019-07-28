@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="84a3e620-3428-40cc-8047-bb929bdee87e" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/Model Training/MN_Model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model Training/MN_Model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model Training/MN_Model2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model Training/MN_Model2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Model Training/Siamese_Model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model Training/Siamese_Model.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -60,11 +58,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Model Training/Siamese_Model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-615">
-              <caret line="115" column="7" selection-start-line="115" selection-start-column="7" selection-end-line="115" selection-end-column="7" />
+            <state relative-caret-position="517">
+              <caret line="115" column="4" lean-forward="true" selection-start-line="115" selection-start-column="4" selection-end-line="115" selection-end-column="4" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -72,10 +70,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Model Training/MN_Model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="210">
+              <caret line="32" selection-start-line="32" selection-end-line="32" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -103,7 +102,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Model Training/Verifier.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2732">
+            <state relative-caret-position="-413">
               <caret line="68" column="4" selection-start-line="68" selection-start-column="4" selection-end-line="68" selection-end-column="4" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
@@ -155,8 +154,8 @@
         <option value="$PROJECT_DIR$/Model Training/Verifier.py" />
         <option value="$PROJECT_DIR$/Model Training/LoadArray.py" />
         <option value="$PROJECT_DIR$/Model Training/MN_Model2.py" />
-        <option value="$PROJECT_DIR$/Model Training/Siamese_Model.py" />
         <option value="$PROJECT_DIR$/Model Training/MN_Model.py" />
+        <option value="$PROJECT_DIR$/Model Training/Siamese_Model.py" />
       </list>
     </option>
   </component>
@@ -534,9 +533,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Model Training/MN_Model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="32" selection-start-line="32" selection-end-line="32" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Model Training/Verifier.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2732">
+        <state relative-caret-position="-413">
           <caret line="68" column="4" selection-start-line="68" selection-start-column="4" selection-end-line="68" selection-end-column="4" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
@@ -546,17 +555,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Model Training/Siamese_Model.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-615">
-          <caret line="115" column="7" selection-start-line="115" selection-start-column="7" selection-end-line="115" selection-end-column="7" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Model Training/MN_Model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="517">
+          <caret line="115" column="4" lean-forward="true" selection-start-line="115" selection-start-column="4" selection-end-line="115" selection-end-column="4" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>

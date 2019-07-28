@@ -99,8 +99,8 @@ if G <= 1:
         model1.layers[i].trainable = False
         """
 
-    """
-    model1.layers.pop()
+
+    #model1.layers.pop()
     x = model1.output
     x = Dense(1024, activation= 'relu', name= 'features')(x)
     model2 = Model(model1.input, x)
@@ -113,7 +113,7 @@ if G <= 1:
 
     distance = Lambda(euclidean_distance, output_shape=eucl_dist_output_shape)([processed_a, processed_b])
     model = Model([input_a, input_b], distance)
-    """
+    
 
 
 else:
