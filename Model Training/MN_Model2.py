@@ -33,13 +33,13 @@ training_batch_size = 128
 validation_split = 0.005
 data_percent = 1
 alpha = 1
-logfile = "evaluation_log_5.txt"
+logfile = "evaluation_log_6.txt"
 graph_dir = "Graphs/"
-update_name = "update19"
+update_name = "update_new_1"
 # checkpoint_path = "Saved_Models/training_2/cp-{epoch:04d}.ckpt"
 # checkpoint_dir = os.path.dirname(checkpoint_path)
 # dir = "Saved_Model_4/"
-save_dir = "Saved_Models/update3/"
+save_dir = "Saved_Models/update6/"
 
 print("[INFO] Searching Latest checkpoint... ")
 checkpoints = [m for m in os.listdir(save_dir)]
