@@ -21,6 +21,7 @@ class Accounts_activity : AppCompatActivity() {
         acc1.setOnClickListener{
             val myIntent1 = Intent(this,Account_setting::class.java)
             myIntent1.putExtra("link",link1)
+            myIntent1.putExtra("account_no",1)
             startActivityForResult(myIntent1,1)
         }
 
@@ -28,6 +29,7 @@ class Accounts_activity : AppCompatActivity() {
         acc2.setOnClickListener{
             val myIntent2 = Intent(this,Account_setting::class.java)
             myIntent2.putExtra("link",link2)
+            myIntent2.putExtra("account_no",2)
             startActivityForResult(myIntent2,2)
         }
 
@@ -35,6 +37,7 @@ class Accounts_activity : AppCompatActivity() {
         acc3.setOnClickListener{
             val myIntent3 = Intent(this,Account_setting::class.java)
             myIntent3.putExtra("link",link3)
+            myIntent3.putExtra("account_no",3)
             startActivityForResult(myIntent3,3)
         }
     }

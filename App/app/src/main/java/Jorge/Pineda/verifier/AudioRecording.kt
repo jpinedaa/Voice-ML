@@ -1,5 +1,7 @@
 package Jorge.Pineda.verifier
 
+import android.app.Activity
+import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
@@ -14,7 +16,7 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
-import com.chaquo.python.Python
+//import com.chaquo.python.Python
 import java.nio.ByteBuffer
 import org.tensorflow.lite.Interpreter
 import java.io.*
@@ -34,36 +36,41 @@ private val BUFFER_SIZE = 2 * AudioRecord.getMinBufferSize(
 private const val T =0.4525525
 
 class AudioRecording(private val mic : ImageButton, private val model: InputStream, private val storeFile: File,
-                     private val cont: Context ,private val enrollment : Boolean, /*private val audi: InputStream,*/
-                     private val loading: TextView, private val nstate: Boolean, private val jstate: Boolean) : Runnable {
+                     private val cont : Enrollment_activity ,private val enrollment : Boolean, /*private val audi: InputStream,*/
+                     private val loading: TextView, private val nstate: Boolean, private val jstate: Boolean): Runnable {
 
-    private var distance : Double = 0.0
+    private var distance: Double = 0.0
 
     private val handler: Handler = object : Handler(Looper.getMainLooper()) {
 
         //UI handling
         override fun handleMessage(msg: Message?) {
-            Log.d("DEBUG","its here")
+            Log.d("DEBUG", "its here")
             if (msg != null) {
-                when(msg.what){
+                when (msg.what) {
                     1 -> mic.setBackgroundColor(Color.LTGRAY)
                     2 -> {
                         val myIntent = Intent(cont, Pass_activity::class.java)
                         myIntent.putExtra("distance", distance)
                         startActivity(cont, myIntent, null)
-                         }
+                    }
                     3 -> {
                         val myIntent = Intent(cont, Fail_activity::class.java)
                         myIntent.putExtra("distance", distance)
                         startActivity(cont, myIntent, null)
-                         }
-                    in 11..Int.MAX_VALUE  -> loading.setText("Processing Audio: " + (msg.what - 11).toString() + "%")
+                    }
+                    in 12..Int.MAX_VALUE -> loading.setText("Processing Audio: " + (msg.what - 12).toString() + "%")
                     5 -> loading.setText("Loading Model")
                     6 -> loading.setText("Inferencing")
                     7 -> loading.setText("Saving")
                     8 -> loading.setText("Finished")
                     9 -> loading.setText("Opening registered voice data")
                     10 -> loading.setText("Calculating Difference")
+                    11 -> {
+                        cont.setResult(Activity.RESULT_OK, cont.intent)
+                        cont.finish()
+
+                    }
 
                 }
 
@@ -88,7 +95,7 @@ class AudioRecording(private val mic : ImageButton, private val model: InputStre
         )
         recorder.startRecording()
 
-        var buffer = ShortArray(BUFFER_SIZE/2)
+        var buffer = ShortArray(BUFFER_SIZE / 2)
         var audio = ArrayList<Short>()
 
         //val fileName = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "audiorecord.pcm").path
@@ -96,9 +103,9 @@ class AudioRecording(private val mic : ImageButton, private val model: InputStre
 
         var startTime = SystemClock.elapsedRealtime()
         var elapsedTime: Long = 0
-        while((elapsedTime/1000)<2) {
-            recorder.read(buffer, 0, BUFFER_SIZE/2)
-            for (i in 0 until BUFFER_SIZE/2) {
+        while ((elapsedTime / 1000) < 2) {
+            recorder.read(buffer, 0, BUFFER_SIZE / 2)
+            for (i in 0 until BUFFER_SIZE / 2) {
                 audio.add(buffer[i])
             }
             var temp = SystemClock.elapsedRealtime()
@@ -158,19 +165,19 @@ class AudioRecording(private val mic : ImageButton, private val model: InputStre
 
 
         //Recording Processing
-        if(jstate) {
+        if (jstate) {
             Log.d("DEBUGProc", signal.toString())
             var Processing = Processing()
             var processed = Processing.lmfe(signal, 16000, 0.025, 0.01, 40, 400)
             final1 = Processing.extract_derivative_features(processed)
 
-            for(i in 0 until 40) {
+            for (i in 0 until 40) {
                 Log.d("DEBUGProc", final1[21][i][0].toString())
                 Log.d("DEBUGProc2", final1[21][i][1].toString())
                 Log.d("DEBUGProc3", final1[21][i][2].toString())
             }
             Log.d("DEBUGProc", final1[0].size.toString())
-        } else {
+        } /*else {
 
             val py = Python.getInstance()
             val speechpy = py.getModule("speechpy.feature")
@@ -195,7 +202,7 @@ class AudioRecording(private val mic : ImageButton, private val model: InputStre
             val temp = finalProcessed.asList()
             for (i in 0 until 100) {
                 Log.d("time", i.toString())
-                handler.obtainMessage(i + 11).apply {
+                handler.obtainMessage(i + 12).apply {
                     sendToTarget()
                 }
                 val temp2 = temp.get(i).asList()
@@ -213,7 +220,7 @@ class AudioRecording(private val mic : ImageButton, private val model: InputStre
                 Log.d("PYTHON3:", final1[21][i][2].toString())
             }
 
-        }
+        }*/
         /*
 
         var final2 = Array(100, {Array(40, {FloatArray(3)})})
@@ -271,7 +278,7 @@ class AudioRecording(private val mic : ImageButton, private val model: InputStre
         //Log.d("DEBUG","model output " + finalProcessed[0][10][0].toString())
         //Log.d("DEBUG","model output " + processed[0][10].toString())
 
-        if(enrollment) {
+        if (enrollment) {
 
             //store feature vector
             Log.d("output before writing", output2[20].toString())
@@ -289,6 +296,7 @@ class AudioRecording(private val mic : ImageButton, private val model: InputStre
             handler.obtainMessage(8).apply {
                 sendToTarget()
             }
+
         } else {
 
             //compare stored feature vector with verifying feature vector using euclidean distance
@@ -334,9 +342,12 @@ class AudioRecording(private val mic : ImageButton, private val model: InputStre
         }
 
 
-        Log.d("DEBUG","start recordding done")
+        Log.d("DEBUG", "start recordding done")
 
-
+        handler.obtainMessage(11).apply {
+            sendToTarget()
+        }
 
     }
+
 }

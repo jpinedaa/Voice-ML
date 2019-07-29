@@ -13,7 +13,7 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
-            android:name="com.chaquo.python.android.PyApplication" tools:ignore="GoogleAppIndexingWarning">
+            tools:ignore="GoogleAppIndexingWarning">
 
         <activity android:name=".Account_setting"
                   android:parentActivityName=".Accounts_activity">
@@ -36,7 +36,7 @@
         </activity>
         <activity
                 android:name=".Enrollment_activity"
-                android:parentActivityName=".MainActivity">
+                android:parentActivityName=".Account_setting">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data

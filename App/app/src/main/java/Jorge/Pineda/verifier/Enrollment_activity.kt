@@ -1,6 +1,8 @@
 package Jorge.Pineda.verifier
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.graphics.Color
@@ -194,12 +196,16 @@ class Enrollment_activity : AppCompatActivity() {
         val storeFile = File(filesDir, "userFeatures")
 
         val loading = findViewById<TextView>(R.id.loading)
-        val nstate = getIntent().getBooleanExtra("nnapi", false)
-        val jstate = getIntent().getBooleanExtra("java", false)
+        //val nstate = getIntent().getBooleanExtra("nnapi", false)
+        //val jstate = getIntent().getBooleanExtra("java", false)
 
-        val record = AudioRecording(mic, model, storeFile, this ,true ,/*audio,*/ loading, nstate, jstate)
-        Thread(record).start()
+        val record = AudioRecording(mic, model, storeFile, this ,true ,/*audio,*/ loading, true, true)
+        //val record_thread = Thread(record)
+        //record_thread.start()
         //startRecording()
+
+        Thread(record).start()
+
         Log.d("DEBUG","fininshed llistener")
         //if (mStartRecording) {
         //  mic.setBackgroundColor(Color.RED)
@@ -209,6 +215,8 @@ class Enrollment_activity : AppCompatActivity() {
         //onRecord(mStartRecording, mic)
         //onPlay(!mStartRecording)
         //mStartRecording = !mStartRecording
+
+
     }
     override fun onStop() {
         super.onStop()

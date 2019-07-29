@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 
-apply plugin: 'com.chaquo.python'
+//apply plugin: 'com.chaquo.python'
 
 apply plugin: 'kotlin-android'
 
@@ -18,12 +18,12 @@ android {
         ndk{
             abiFilters "armeabi-v7a", "x86"
         }
-        python {
+        /*python {
             pip {
                 install "speechpy"
                 install "numpy"
             }
-        }
+        }*/
     }
     buildTypes {
         release {

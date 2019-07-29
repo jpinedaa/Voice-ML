@@ -66,4 +66,13 @@
                 android:layout_marginStart="16dp"
                 android:hint="Playlist link"/>
     </android.support.design.widget.TextInputLayout>
+    <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/register_status" app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.8"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 </android.support.constraint.ConstraintLayout>
