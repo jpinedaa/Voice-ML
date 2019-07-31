@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import java.io.File
@@ -48,8 +49,8 @@ class Verify_activity : AppCompatActivity() {
         val jstate = getIntent().getBooleanExtra("java", false)
 
 
-        //val record = AudioRecording(mic, model, storeFile, this,false,/*audi,*/ loading, nstate, jstate)
-        //Thread(record).start()
+        val record = AudioRecording(mic, model, storeFile, this,false,/*audi,*/ loading, nstate, jstate,filesDir)
+        Thread(record).start()
         Log.d("DEBUG","fininshed llistener")
 
     }

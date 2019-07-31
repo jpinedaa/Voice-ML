@@ -199,7 +199,7 @@ class Enrollment_activity : AppCompatActivity() {
         //val nstate = getIntent().getBooleanExtra("nnapi", false)
         //val jstate = getIntent().getBooleanExtra("java", false)
 
-        val record = AudioRecording(mic, model, storeFile, this ,true ,/*audio,*/ loading, true, true)
+        val record = AudioRecording(mic, model, storeFile, this ,true ,/*audio,*/ loading, true, true, filesDir)
         //val record_thread = Thread(record)
         //record_thread.start()
         //startRecording()

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.net.Uri
 
+
 var link1: String = ""
 var link2: String = ""
 var link3: String = ""

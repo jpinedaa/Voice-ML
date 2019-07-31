@@ -2,7 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="84a3e620-3428-40cc-8047-bb929bdee87e" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/Model Training/Verifier.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model Training/Verifier.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/App/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/app/src/main/java/Jorge/Pineda/verifier/Account_setting.kt" beforeDir="false" afterPath="$PROJECT_DIR$/App/app/src/main/java/Jorge/Pineda/verifier/Account_setting.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/app/src/main/java/Jorge/Pineda/verifier/Accounts_activity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/App/app/src/main/java/Jorge/Pineda/verifier/Accounts_activity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/app/src/main/java/Jorge/Pineda/verifier/AudioRecording.kt" beforeDir="false" afterPath="$PROJECT_DIR$/App/app/src/main/java/Jorge/Pineda/verifier/AudioRecording.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/app/src/main/java/Jorge/Pineda/verifier/Enrollment_activity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/App/app/src/main/java/Jorge/Pineda/verifier/Enrollment_activity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/app/src/main/java/Jorge/Pineda/verifier/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/App/app/src/main/java/Jorge/Pineda/verifier/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/app/src/main/res/layout/account_setting.xml" beforeDir="false" afterPath="$PROJECT_DIR$/App/app/src/main/res/layout/account_setting.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/App/app/src/main/res/layout/activity_main.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -155,8 +163,8 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-7" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="-9" />
     <option name="width" value="1920" />
     <option name="height" value="1040" />
   </component>
@@ -336,7 +344,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24966975" />

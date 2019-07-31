@@ -12,6 +12,7 @@ import android.media.AudioRecord
 import android.media.MediaRecorder
 import android.os.*
 import android.support.v4.content.ContextCompat.startActivity
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.ImageButton
@@ -36,8 +37,8 @@ private val BUFFER_SIZE = 2 * AudioRecord.getMinBufferSize(
 private const val T =0.4525525
 
 class AudioRecording(private val mic : ImageButton, private val model: InputStream, private val storeFile: File,
-                     private val cont : Enrollment_activity ,private val enrollment : Boolean, /*private val audi: InputStream,*/
-                     private val loading: TextView, private val nstate: Boolean, private val jstate: Boolean): Runnable {
+                     private val cont : Activity ,private val enrollment : Boolean, /*private val audi: InputStream,*/
+                     private val loading: TextView, private val nstate: Boolean, private val jstate: Boolean, private val filesDir: File): Runnable {
 
     private var distance: Double = 0.0
 
@@ -76,6 +77,33 @@ class AudioRecording(private val mic : ImageButton, private val model: InputStre
 
             }
         }
+    }
+
+    fun measure_distance(file : File, features : FloatArray) : Double {
+        val os = FileInputStream(file).channel
+        var filebuffer = ByteBuffer.allocate(features.size * 4)
+        os.read(filebuffer)
+        filebuffer.flip()
+        var floatfilebuffer = filebuffer.asFloatBuffer()
+        val storedoutput = FloatArray(features.size)
+        floatfilebuffer.get(storedoutput)
+        Log.d("output after loading", storedoutput[20].toString())
+
+        handler.obtainMessage(10).apply {
+            sendToTarget()
+        }
+
+        //val timer11 = SystemClock.elapsedRealtime()
+        var dist : Double = 0.0
+        for (i in 0 until features.size) {
+            dist += (storedoutput[i] - features[i]) * (storedoutput[i] - features[i])
+            //distance += (output[0][i] - output[1][i]) * (output[0][i] - output[1][i])
+            //Log.d("DEBUG","this 1 " + output[0][i].toString())
+            //Log.d("DEBUG","this 2 " + output2[i].toString())
+        }
+        dist = Math.sqrt(Math.max(dist, 0.0000001))
+        return dist
+
     }
 
     override fun run() {
@@ -164,6 +192,10 @@ class AudioRecording(private val mic : ImageButton, private val model: InputStre
         var final1 = Array(100, { Array(40, { FloatArray(3) }) })
 
 
+        handler.obtainMessage(1).apply {
+            sendToTarget()
+        }
+
         //Recording Processing
         if (jstate) {
             Log.d("DEBUGProc", signal.toString())
@@ -195,9 +227,6 @@ class AudioRecording(private val mic : ImageButton, private val model: InputStre
             temp = finalProcessed.asList().toTypedArray()
         }*/
 
-            handler.obtainMessage(1).apply {
-                sendToTarget()
-            }
 
             val temp = finalProcessed.asList()
             for (i in 0 until 100) {
@@ -297,13 +326,50 @@ class AudioRecording(private val mic : ImageButton, private val model: InputStre
                 sendToTarget()
             }
 
+            handler.obtainMessage(11).apply {
+                sendToTarget()
+            }
+
         } else {
 
             //compare stored feature vector with verifying feature vector using euclidean distance
             handler.obtainMessage(9).apply {
                 sendToTarget()
             }
-            val os = FileInputStream(storeFile).channel
+
+            var min : Double = Double.MAX_VALUE
+            var user : Int = 0
+            var dist: Double = 0.0
+            for (i in 1 until 4){
+                Log.d("DEBUG","i: " + i.toString())
+                val file = File(filesDir, "user" + i.toString() + "Features")
+                if (file.isFile){
+                    dist = measure_distance(file, output2)
+                    if (dist<min){
+                        min = dist
+                        user = i
+                    }
+                }
+                Log.d("DEBUG","dist: " + dist.toString() + " min: " + min.toString())
+
+            }
+
+
+            // HERE IS THE RESULT OF DETECTION
+            if (min > T){
+                //The voice wasnt detected as a registered user
+                Log.d("No registered user",min.toString())
+
+            }else {
+                //the variable "user" contains the number of the account detected to be the user speaking
+                Log.d("User detected","user: " + user.toString() + "  distance: " + min.toString() )
+            }
+
+            handler.obtainMessage(8).apply {
+                sendToTarget()
+            }
+
+            /*val os = FileInputStream(storeFile).channel
             var filebuffer = ByteBuffer.allocate(output2.size * 4)
             os.read(filebuffer)
             filebuffer.flip()
@@ -337,16 +403,13 @@ class AudioRecording(private val mic : ImageButton, private val model: InputStre
             Log.d("class Time: ", modeltime.toString())
             handler.obtainMessage(result).apply {
                 sendToTarget()
-            }
+            }*/
 
         }
 
 
         Log.d("DEBUG", "start recordding done")
 
-        handler.obtainMessage(11).apply {
-            sendToTarget()
-        }
 
     }
 
