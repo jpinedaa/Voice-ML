@@ -70,11 +70,11 @@ class Account_setting : AppCompatActivity() {
         }
     }
 
-/*
+
     fun openYoutubeLink(youtubeID: String) {
-        val testIntent = Intent(Intent.ACTION_VIEW, Uri.parse(getlink.text.toString()))
+        val testIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link1))
         startActivity(testIntent)
     }
-*/
+
 
 }

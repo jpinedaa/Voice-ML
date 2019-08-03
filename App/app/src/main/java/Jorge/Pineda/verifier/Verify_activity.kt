@@ -9,7 +9,11 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import java.io.File
+import android.content.Intent
+import android.net.Uri
+import android.widget.Toast
 
+var done:Int=0
 class Verify_activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +54,26 @@ class Verify_activity : AppCompatActivity() {
 
 
         val record = AudioRecording(mic, model, storeFile, this,false,/*audi,*/ loading, nstate, jstate,filesDir)
-        Thread(record).start()
+        val t = Thread(record)
+        t.start()
+        t.join()
+        while (done==0){}
+        when(done){
+            1->{
+                val testIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link1))
+                startActivity(testIntent)
+            }
+            2->{
+                val testIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link2))
+                startActivity(testIntent)
+            }
+            3->{
+                val testIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link3))
+                startActivity(testIntent)
+            }
+        }
+        done=0
+        Toast.makeText(this, link1,Toast.LENGTH_LONG).show()
         Log.d("DEBUG","fininshed llistener")
 
     }

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.ColorSpace
@@ -22,6 +23,8 @@ import java.nio.ByteBuffer
 import org.tensorflow.lite.Interpreter
 import java.io.*
 import java.nio.ByteOrder
+import java.io.File
+import android.widget.Toast;
 
 private val AUDIO_SOURCE = MediaRecorder.AudioSource.MIC
 private val SAMPLE_RATE = 16000
@@ -64,17 +67,16 @@ class AudioRecording(private val mic : ImageButton, private val model: InputStre
                     5 -> loading.setText("Loading Model")
                     6 -> loading.setText("Inferencing")
                     7 -> loading.setText("Saving")
-                    8 -> loading.setText("Finished")
+                    8 -> {
+                        loading.setText("Finished")
+                    }
                     9 -> loading.setText("Opening registered voice data")
                     10 -> loading.setText("Calculating Difference")
                     11 -> {
                         cont.setResult(Activity.RESULT_OK, cont.intent)
                         cont.finish()
-
                     }
-
                 }
-
             }
         }
     }
@@ -110,7 +112,6 @@ class AudioRecording(private val mic : ImageButton, private val model: InputStre
         android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND)
         //val mic = findViewById<ImageButton>(R.id.mic) as ImageButton
         //while (((mic.background) as ColorDrawable).color != Color.RED) {}
-
 
         //recording
         var recorder: AudioRecord? = null
@@ -362,12 +363,14 @@ class AudioRecording(private val mic : ImageButton, private val model: InputStre
 
             }else {
                 //the variable "user" contains the number of the account detected to be the user speaking
+                done=user
                 Log.d("User detected","user: " + user.toString() + "  distance: " + min.toString() )
             }
 
             handler.obtainMessage(8).apply {
                 sendToTarget()
             }
+
 
             /*val os = FileInputStream(storeFile).channel
             var filebuffer = ByteBuffer.allocate(output2.size * 4)
@@ -406,11 +409,6 @@ class AudioRecording(private val mic : ImageButton, private val model: InputStre
             }*/
 
         }
-
-
         Log.d("DEBUG", "start recordding done")
-
-
     }
-
 }
