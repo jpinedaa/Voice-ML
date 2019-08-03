@@ -17,12 +17,15 @@ import android.util.TypedValue
 
 class Account_setting : AppCompatActivity() {
 
-    private var link: String = ""
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.account_setting)
 
+        val id = findViewById<EditText>(R.id.account_id)
+
+        if (intent.getStringExtra("id")!="") {
+            id.setText(intent.getStringExtra("id"))
+        }
         val getlink = findViewById<EditText>(R.id.link)
 
         getlink.setText(intent.getStringExtra("link"))
@@ -37,6 +40,7 @@ class Account_setting : AppCompatActivity() {
         val save = findViewById<Button>(R.id.save_button)
         save.setOnClickListener{
             intentR.putExtra("link",getlink.text.toString())
+            intentR.putExtra("id",id.text.toString())
             setResult(Activity.RESULT_OK,intentR)
             finish()
         }
@@ -69,12 +73,4 @@ class Account_setting : AppCompatActivity() {
             }
         }
     }
-
-
-    fun openYoutubeLink(youtubeID: String) {
-        val testIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link1))
-        startActivity(testIntent)
-    }
-
-
 }
