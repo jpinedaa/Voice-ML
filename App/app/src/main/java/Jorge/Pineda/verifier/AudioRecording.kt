@@ -69,6 +69,26 @@ class AudioRecording(private val mic : ImageButton, private val model: InputStre
                     7 -> loading.setText("Saving")
                     8 -> {
                         loading.setText("Finished")
+                        when(done){
+                            0->{
+                                loading.setText("Your voice is not registered!")
+                            }
+                            1->{
+                                val testIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link1))
+                                startActivity(cont, testIntent, null)
+                            }
+                            2->{
+                                val testIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link2))
+                                startActivity(cont, testIntent, null)
+                            }
+                            3->{
+                                val testIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link3))
+                                startActivity(cont, testIntent, null)
+                            }
+                        }
+                        done=0
+                        //Toast.makeText(cont, link1,Toast.LENGTH_LONG).show()
+
                     }
                     9 -> loading.setText("Opening registered voice data")
                     10 -> loading.setText("Calculating Difference")
@@ -323,9 +343,6 @@ class AudioRecording(private val mic : ImageButton, private val model: InputStre
             }
             filebuffer.flip()
             os.write(filebuffer)
-            handler.obtainMessage(8).apply {
-                sendToTarget()
-            }
 
             handler.obtainMessage(11).apply {
                 sendToTarget()
@@ -360,6 +377,7 @@ class AudioRecording(private val mic : ImageButton, private val model: InputStre
             if (min > T){
                 //The voice wasnt detected as a registered user
                 Log.d("No registered user",min.toString())
+                done = 0
 
             }else {
                 //the variable "user" contains the number of the account detected to be the user speaking

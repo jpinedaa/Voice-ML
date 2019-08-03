@@ -33,13 +33,14 @@ class Verify_activity : AppCompatActivity() {
     fun micOnClickListener(view: View) {
         Log.d("DEBUG", "before color change")
 
-        view.setBackgroundColor(Color.RED)
+        //view.setBackgroundColor(Color.RED)
 
         //val debug_text = findViewById<TextView>(R.id.debug_text)
         //debug_text.setText("mstartrecording = " + mStartRecording)
         Log.d("DEBUG","b4 start recordding done")
 
         val mic = findViewById<ImageButton>(R.id.mic2)
+        mic.setBackgroundColor(Color.RED)
 
         //converted tensorflow lite model
         val model = resources.openRawResource(R.raw.voicenet)
@@ -56,24 +57,6 @@ class Verify_activity : AppCompatActivity() {
         val record = AudioRecording(mic, model, storeFile, this,false,/*audi,*/ loading, nstate, jstate,filesDir)
         val t = Thread(record)
         t.start()
-        t.join()
-        while (done==0){}
-        when(done){
-            1->{
-                val testIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link1))
-                startActivity(testIntent)
-            }
-            2->{
-                val testIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link2))
-                startActivity(testIntent)
-            }
-            3->{
-                val testIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link3))
-                startActivity(testIntent)
-            }
-        }
-        done=0
-        Toast.makeText(this, link1,Toast.LENGTH_LONG).show()
         Log.d("DEBUG","fininshed llistener")
 
     }
