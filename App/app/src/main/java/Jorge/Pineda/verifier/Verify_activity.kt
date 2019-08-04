@@ -54,7 +54,7 @@ class Verify_activity : AppCompatActivity() {
         val jstate = getIntent().getBooleanExtra("java", false)
 
 
-        val record = AudioRecording(mic, model, storeFile, this,false,/*audi,*/ loading, nstate, jstate,filesDir)
+        val record = AudioRecording(mic, model, storeFile, this,false,/*audi,*/ loading, true, true,filesDir)
         val t = Thread(record)
         t.start()
         Log.d("DEBUG","fininshed llistener")

@@ -37,6 +37,8 @@ private val BUFFER_SIZE = 2 * AudioRecord.getMinBufferSize(
     ENCODING
 )
 
+var recognition_counter = 0
+
 private const val T =0.4525525
 
 class AudioRecording(private val mic : ImageButton, private val model: InputStream, private val storeFile: File,
@@ -384,6 +386,26 @@ class AudioRecording(private val mic : ImageButton, private val model: InputStre
                 done=user
                 Log.d("User detected","user: " + user.toString() + "  distance: " + min.toString() )
             }
+
+            /*
+            when(recognition_counter){
+                0->{
+                    done = 1
+                    recognition_counter++
+                }
+                1->{
+                    done = 2
+                    recognition_counter++
+                }
+                2->{
+                    done = 3
+                    recognition_counter++
+                }
+                3->{
+                    done = 0
+                    recognition_counter++
+                }
+            }*/
 
             handler.obtainMessage(8).apply {
                 sendToTarget()
