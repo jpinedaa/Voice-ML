@@ -4,8 +4,8 @@ Model Training folder contains code for processing and training of tensorflow mo
 
 App folder contains android app that uses converted tensorflow model for verification
 
-Report: https://1drv.ms/p/s!AvrId-VjUEW7hOIfD0bzBP9aEBsngw
+Report: https://1drv.ms/b/s!AvrId-VjUEW7g_RhsiMxPiswnVlRPQ?e=iopMA7
 
-        https://1drv.ms/p/s!AvrId-VjUEW7hOIdJAK5fe05b50Sag (Mandarin)
+        https://1drv.ms/p/s!AvrId-VjUEW7hOR1v4vlDUSaknKN3Q?e=qy2Ey6 (Mandarin)
         
-App demo: https://1drv.ms/v/s!AvrId-VjUEW7hOIc95krS5PbMn4JSQ
+App demo: https://1drv.ms/v/s!AvrId-VjUEW7hOR2T1cYDO3X4g6Oow?e=3hMmjX
