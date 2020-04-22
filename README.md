@@ -6,14 +6,6 @@ App folder contains android app that uses converted tensorflow model for verific
 
 ## Results
 
-Model                                 EER
-GMM -UBM                              17.1
-I-Vectors                             12.8
-I-Vectors + PLDA                      11.5
-CNN-20148                             11.3
-CNN-256 + Pair Selections             10.5
-Mobilenet+ Siamese (this repository)  11.4
-
 | Model       | EER          | 
 | ------------- |:-------------:| 
 | GMM -UBM      | 17.1 | 
@@ -27,10 +19,10 @@ The Method used is Mobilenet+ Siamese, the other metrics are existing methods us
 
 ## Performance
 
-| Enrollment      | Verification          | 
-| ------------- |:-------------:| 
-| No      | 642634| 
-|Yes      | 171191   | 
+| Hardware Acceleration      | Enrollment(ms)        | Verification(ms) |
+| ------------- |:-------------:| :------------:|
+| No      | 642| 634| 
+|Yes      | 171   | 191|
 
 Tested on : Pixel 3 with Android 9
 
