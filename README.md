@@ -30,8 +30,9 @@ Using NNAPI for hardware acceleration reduces inference time by around 70%
 
 ## More Info
 
-Report: https://1drv.ms/b/s!AvrId-VjUEW7g_RhsiMxPiswnVlRPQ?e=iopMA7
+Report: 
+https://1drv.ms/b/s!AvrId-VjUEW7g_RhsiMxPiswnVlRPQ?e=iopMA7
 
-        https://1drv.ms/p/s!AvrId-VjUEW7hOR1v4vlDUSaknKN3Q?e=qy2Ey6 (Mandarin)
+https://1drv.ms/p/s!AvrId-VjUEW7hOR1v4vlDUSaknKN3Q?e=qy2Ey6 (Chinese)
         
-App demo: https://1drv.ms/v/s!AvrId-VjUEW7hOR2T1cYDO3X4g6Oow?e=3hMmjX
+App demo: https://1drv.ms/v/s!AvrId-VjUEW7hOR2T1cYDO3X4g6Oow?e=3hMmjX (Chinese)
