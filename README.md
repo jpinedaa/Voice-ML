@@ -1,5 +1,13 @@
 # Voice-ML
 
+
+IoT devices are becoming every day a more intrinsic part of our daily lives, one of the most natural and common ways to interface with these devices is through voice commands. With Voice ID we can take advantage of voice interfacing and add a variety of features for both security and convenience.
+
+Voice ID uses an AI model to recognize a user by using his voice independently of what he is saying. This way a user can save his voice ID which can then be used by devices for multiple applications such as parental control, device locking or delivering specific content to a user.
+
+Voice ID runs on the mobile device itself so it doesn’t require internet access, it can connect directly with other devices using a wifi or Bluetooth connection.  Since Voice ID will be optimized for hardware acceleration it could run on more specific devices other than a smartphone, allowing users to have more flexibility with their Voice ID’s
+
+
 Model Training folder contains code for processing and training of tensorflow model
 
 App folder contains android app that uses converted tensorflow model for verification
